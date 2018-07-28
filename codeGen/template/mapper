@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="model.{{moduleName}}.{{className}}">
+    <insert id="insert" parameterType="{{className}}">
+        INSERT INTO {{tableName}} ({% spaceless %}
+          {% for meta in metaInfo -%}
+            {% if !loop.last %}
+              {%if meta.Key != 'PRI' %}{{meta.Field}},{% endif%}
+            {% else %}
+              {%if meta.Key != 'PRI' %}{{meta.Field}}{% endif%}
+            {% endif %}
+          {%- endfor %}
+        {% endspaceless %})
+        VALUES ({% spaceless %}
+          {% for meta in metaInfo -%}
+            {% if !loop.last %}
+              {%if meta.Key != 'PRI' %}{{"#{" + convertToCamel(meta.Field) + "}"}},{% endif%}
+            {% else %}
+              {%if meta.Key != 'PRI' %}{{"#{" + convertToCamel(meta.Field) + "}"}}{% endif%}
+            {% endif %}
+          {%- endfor %}
+        {% endspaceless %})
+    </insert>
+    <select id="selectList" parameterType="{{className}}" resultType="{{className}}">
+        SELECT *
+        FROM {{tableName}}
+        <include refid="condition"/>
+    </select>
+    <select id="selectOne" parameterType="{{className}}" resultType="{{className}}">
+        SELECT *
+        FROM {{tableName}}
+        <include refid="condition"/>
+    </select>
+    <delete id="delete" parameterType="{{className}}">
+        DELETE FROM {{tableName}}
+        <choose>
+            <when test="false {% for meta in metaInfo %} or ({{convertToCamel(meta.Field)}} != null and {{convertToCamel(meta.Field)}} != ''){% endfor %}">
+                <include refid="condition"/>
+            </when>
+            <otherwise>
+              where 1 = 2
+            </otherwise>
+        </choose>
+    </delete>
+    <update id="update" parameterType="{{className}}">
+        UPDATE {{tableName}}
+        <set>
+        {%- for meta in metaInfo %}
+          <if test="{{convertToCamel(meta.Field)}} != null and {{convertToCamel(meta.Field)}} != ''">
+              {{meta.Field}} = {{"#{" + convertToCamel(meta.Field) + "}"}},
+          </if>
+        {%- endfor %}
+        </set>
+        where {% for meta in metaInfo %}{%if meta.Key == 'PRI' %}{{meta.Field}} = {{"#{" + convertToCamel(meta.Field) + "}"}}{% endif%}{% endfor %}
+    </update>
+    <sql id="condition">
+        <where>
+        {%- for meta in metaInfo %}
+          <if test="{{convertToCamel(meta.Field)}} != null and {{convertToCamel(meta.Field)}} != ''">
+              and {{meta.Field}} = {{"#{" + convertToCamel(meta.Field) + "}"}}
+          </if>
+        {%- endfor %}
+        </where>
+    </sql>
+</mapper>

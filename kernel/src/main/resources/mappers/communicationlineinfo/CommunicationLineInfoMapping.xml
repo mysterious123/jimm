@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="model.communicationlineinfo.CommunicationLineInfo">
+    <insert id="insert" parameterType="CommunicationLineInfo">
+        INSERT INTO COMMUNICATION_LINE_INFO (LINE_NAME,LINE_OTHER_NAME,LINE_TYPE,BANDWIDTH,NETWORK_ZONE,DEPARTMENT,STAT,ATTRIBUTE_ORGANIZATION,FACILITATOR,LINE_ID,OPEN_TIME,DUEDATE,MONITOR_TACTICS,TIME_TACTICS,LOCAL_DEVICE_MANAGE_IP,LOCAL_PORT_IP,LOCAL_DEVICE_PORT_IP,LOCAL_DEVICE_NAME,END_DEVICE_MANAGE_IP,END_PORT_NAME,END_DEVICE_PORT_IP,END_DEVICE_NAME,GROUP_ID)
+        VALUES (#{lineName},#{lineOtherName},#{lineType},#{bandwidth},#{networkZone},#{department},#{stat},#{attributeOrganization},#{facilitator},#{lineId},#{openTime},#{duedate},#{monitorTactics},#{timeTactics},#{localDeviceManageIp},#{localPortIp},#{localDevicePortIp},#{localDeviceName},#{endDeviceManageIp},#{endPortName},#{endDevicePortIp},#{endDeviceName},#{groupId})
+    </insert>
+    <select id="selectList" parameterType="CommunicationLineInfo" resultType="CommunicationLineInfo">
+        SELECT *
+        FROM COMMUNICATION_LINE_INFO
+        <include refid="condition"/>
+    </select>
+    <select id="selectOne" parameterType="CommunicationLineInfo" resultType="CommunicationLineInfo">
+        SELECT *
+        FROM COMMUNICATION_LINE_INFO
+        <include refid="condition"/>
+    </select>
+    <delete id="delete" parameterType="CommunicationLineInfo">
+        DELETE FROM COMMUNICATION_LINE_INFO
+        <choose>
+            <when test="false  or (id != null and id != '') or (lineName != null and lineName != '') or (lineOtherName != null and lineOtherName != '') or (lineType != null and lineType != '') or (bandwidth != null and bandwidth != '') or (networkZone != null and networkZone != '') or (department != null and department != '') or (stat != null and stat != '') or (attributeOrganization != null and attributeOrganization != '') or (facilitator != null and facilitator != '') or (lineId != null and lineId != '') or (openTime != null and openTime != '') or (duedate != null and duedate != '') or (monitorTactics != null and monitorTactics != '') or (timeTactics != null and timeTactics != '') or (localDeviceManageIp != null and localDeviceManageIp != '') or (localPortIp != null and localPortIp != '') or (localDevicePortIp != null and localDevicePortIp != '') or (localDeviceName != null and localDeviceName != '') or (endDeviceManageIp != null and endDeviceManageIp != '') or (endPortName != null and endPortName != '') or (endDevicePortIp != null and endDevicePortIp != '') or (endDeviceName != null and endDeviceName != '') or (groupId != null and groupId != '')">
+                <include refid="condition"/>
+            </when>
+            <otherwise>
+              where 1 = 2
+            </otherwise>
+        </choose>
+    </delete>
+    <update id="update" parameterType="CommunicationLineInfo">
+        UPDATE COMMUNICATION_LINE_INFO
+        <set>
+          <if test="id != null and id != ''">
+              ID = #{id},
+          </if>
+          <if test="lineName != null and lineName != ''">
+              LINE_NAME = #{lineName},
+          </if>
+          <if test="lineOtherName != null and lineOtherName != ''">
+              LINE_OTHER_NAME = #{lineOtherName},
+          </if>
+          <if test="lineType != null and lineType != ''">
+              LINE_TYPE = #{lineType},
+          </if>
+          <if test="bandwidth != null and bandwidth != ''">
+              BANDWIDTH = #{bandwidth},
+          </if>
+          <if test="networkZone != null and networkZone != ''">
+              NETWORK_ZONE = #{networkZone},
+          </if>
+          <if test="department != null and department != ''">
+              DEPARTMENT = #{department},
+          </if>
+          <if test="stat != null and stat != ''">
+              STAT = #{stat},
+          </if>
+          <if test="attributeOrganization != null and attributeOrganization != ''">
+              ATTRIBUTE_ORGANIZATION = #{attributeOrganization},
+          </if>
+          <if test="facilitator != null and facilitator != ''">
+              FACILITATOR = #{facilitator},
+          </if>
+          <if test="lineId != null and lineId != ''">
+              LINE_ID = #{lineId},
+          </if>
+          <if test="openTime != null and openTime != ''">
+              OPEN_TIME = #{openTime},
+          </if>
+          <if test="duedate != null and duedate != ''">
+              DUEDATE = #{duedate},
+          </if>
+          <if test="monitorTactics != null and monitorTactics != ''">
+              MONITOR_TACTICS = #{monitorTactics},
+          </if>
+          <if test="timeTactics != null and timeTactics != ''">
+              TIME_TACTICS = #{timeTactics},
+          </if>
+          <if test="localDeviceManageIp != null and localDeviceManageIp != ''">
+              LOCAL_DEVICE_MANAGE_IP = #{localDeviceManageIp},
+          </if>
+          <if test="localPortIp != null and localPortIp != ''">
+              LOCAL_PORT_IP = #{localPortIp},
+          </if>
+          <if test="localDevicePortIp != null and localDevicePortIp != ''">
+              LOCAL_DEVICE_PORT_IP = #{localDevicePortIp},
+          </if>
+          <if test="localDeviceName != null and localDeviceName != ''">
+              LOCAL_DEVICE_NAME = #{localDeviceName},
+          </if>
+          <if test="endDeviceManageIp != null and endDeviceManageIp != ''">
+              END_DEVICE_MANAGE_IP = #{endDeviceManageIp},
+          </if>
+          <if test="endPortName != null and endPortName != ''">
+              END_PORT_NAME = #{endPortName},
+          </if>
+          <if test="endDevicePortIp != null and endDevicePortIp != ''">
+              END_DEVICE_PORT_IP = #{endDevicePortIp},
+          </if>
+          <if test="endDeviceName != null and endDeviceName != ''">
+              END_DEVICE_NAME = #{endDeviceName},
+          </if>
+          <if test="groupId != null and groupId != ''">
+              GROUP_ID = #{groupId},
+          </if>
+        </set>
+        where ID = #{id}
+    </update>
+    <sql id="condition">
+        <where>
+          <if test="id != null and id != ''">
+              and ID = #{id}
+          </if>
+          <if test="lineName != null and lineName != ''">
+              and LINE_NAME = #{lineName}
+          </if>
+          <if test="lineOtherName != null and lineOtherName != ''">
+              and LINE_OTHER_NAME = #{lineOtherName}
+          </if>
+          <if test="lineType != null and lineType != ''">
+              and LINE_TYPE = #{lineType}
+          </if>
+          <if test="bandwidth != null and bandwidth != ''">
+              and BANDWIDTH = #{bandwidth}
+          </if>
+          <if test="networkZone != null and networkZone != ''">
+              and NETWORK_ZONE = #{networkZone}
+          </if>
+          <if test="department != null and department != ''">
+              and DEPARTMENT = #{department}
+          </if>
+          <if test="stat != null and stat != ''">
+              and STAT = #{stat}
+          </if>
+          <if test="attributeOrganization != null and attributeOrganization != ''">
+              and ATTRIBUTE_ORGANIZATION = #{attributeOrganization}
+          </if>
+          <if test="facilitator != null and facilitator != ''">
+              and FACILITATOR = #{facilitator}
+          </if>
+          <if test="lineId != null and lineId != ''">
+              and LINE_ID = #{lineId}
+          </if>
+          <if test="openTime != null and openTime != ''">
+              and OPEN_TIME = #{openTime}
+          </if>
+          <if test="duedate != null and duedate != ''">
+              and DUEDATE = #{duedate}
+          </if>
+          <if test="monitorTactics != null and monitorTactics != ''">
+              and MONITOR_TACTICS = #{monitorTactics}
+          </if>
+          <if test="timeTactics != null and timeTactics != ''">
+              and TIME_TACTICS = #{timeTactics}
+          </if>
+          <if test="localDeviceManageIp != null and localDeviceManageIp != ''">
+              and LOCAL_DEVICE_MANAGE_IP = #{localDeviceManageIp}
+          </if>
+          <if test="localPortIp != null and localPortIp != ''">
+              and LOCAL_PORT_IP = #{localPortIp}
+          </if>
+          <if test="localDevicePortIp != null and localDevicePortIp != ''">
+              and LOCAL_DEVICE_PORT_IP = #{localDevicePortIp}
+          </if>
+          <if test="localDeviceName != null and localDeviceName != ''">
+              and LOCAL_DEVICE_NAME = #{localDeviceName}
+          </if>
+          <if test="endDeviceManageIp != null and endDeviceManageIp != ''">
+              and END_DEVICE_MANAGE_IP = #{endDeviceManageIp}
+          </if>
+          <if test="endPortName != null and endPortName != ''">
+              and END_PORT_NAME = #{endPortName}
+          </if>
+          <if test="endDevicePortIp != null and endDevicePortIp != ''">
+              and END_DEVICE_PORT_IP = #{endDevicePortIp}
+          </if>
+          <if test="endDeviceName != null and endDeviceName != ''">
+              and END_DEVICE_NAME = #{endDeviceName}
+          </if>
+          <if test="groupId != null and groupId != ''">
+              and GROUP_ID = #{groupId}
+          </if>
+        </where>
+    </sql>
+    <select id="getLineByGroupId" parameterType="CommunicationLineInfo" resultType="CommunicationLineInfo">
+        SELECT *
+        FROM COMMUNICATION_LINE_INFO
+        WHERE GROUP_ID IN
+        <foreach item="item" index="index" collection="groupIds" open="("
+                 separator="," close=")">
+            ${item}
+        </foreach>
+    </select>
+</mapper>

@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="model.zmiboid.ZMibOid">
+    <insert id="insert" parameterType="ZMibOid">
+        INSERT INTO z_mib_oid (MIB_ID,OID_NAME,OID_UNIT,OID_VALUE,SMALL_TYPE,BPS,LOCAL,END_ON)
+        VALUES (#{mibId},#{oidName},#{oidUnit},#{oidValue},#{smallType},#{bps},#{local},#{endOn})
+    </insert>
+    <select id="selectList" parameterType="ZMibOid" resultType="ZMibOid">
+        SELECT *
+        FROM z_mib_oid
+        <include refid="condition"/>
+    </select>
+    <select id="selectOne" parameterType="ZMibOid" resultType="ZMibOid">
+        SELECT *
+        FROM z_mib_oid
+        <include refid="condition"/>
+    </select>
+    <delete id="delete" parameterType="ZMibOid">
+        DELETE FROM z_mib_oid
+        <choose>
+            <when test="false  or (id != null and id != '') or (mibId != null and mibId != '') or (oidName != null and oidName != '') or (oidUnit != null and oidUnit != '') or (oidValue != null and oidValue != '') or (smallType != null and smallType != '') or (bps != null and bps != '') or (local != null and local != '') or (endOn != null and endOn != '')">
+                <include refid="condition"/>
+            </when>
+            <otherwise>
+              where 1 = 2
+            </otherwise>
+        </choose>
+    </delete>
+    <update id="update" parameterType="ZMibOid">
+        UPDATE z_mib_oid
+        <set>
+          <if test="id != null and id != ''">
+              ID = #{id},
+          </if>
+          <if test="mibId != null and mibId != ''">
+              MIB_ID = #{mibId},
+          </if>
+          <if test="oidName != null and oidName != ''">
+              OID_NAME = #{oidName},
+          </if>
+          <if test="oidUnit != null and oidUnit != ''">
+              OID_UNIT = #{oidUnit},
+          </if>
+          <if test="oidValue != null and oidValue != ''">
+              OID_VALUE = #{oidValue},
+          </if>
+          <if test="smallType != null and smallType != ''">
+              SMALL_TYPE = #{smallType},
+          </if>
+          <if test="bps != null and bps != ''">
+              BPS = #{bps},
+          </if>
+          <if test="local != null and local != ''">
+              LOCAL = #{local},
+          </if>
+          <if test="endOn != null and endOn != ''">
+              END_ON = #{endOn},
+          </if>
+        </set>
+        where ID = #{id}
+    </update>
+    <sql id="condition">
+        <where>
+          <if test="id != null and id != ''">
+              and ID = #{id}
+          </if>
+          <if test="mibId != null and mibId != ''">
+              and MIB_ID = #{mibId}
+          </if>
+          <if test="oidName != null and oidName != ''">
+              and OID_NAME = #{oidName}
+          </if>
+          <if test="oidUnit != null and oidUnit != ''">
+              and OID_UNIT = #{oidUnit}
+          </if>
+          <if test="oidValue != null and oidValue != ''">
+              and OID_VALUE = #{oidValue}
+          </if>
+          <if test="smallType != null and smallType != ''">
+              and SMALL_TYPE = #{smallType}
+          </if>
+          <if test="bps != null and bps != ''">
+              and BPS = #{bps}
+          </if>
+          <if test="local != null and local != ''">
+              and LOCAL = #{local}
+          </if>
+          <if test="endOn != null and endOn != ''">
+              and END_ON = #{endOn}
+          </if>
+        </where>
+    </sql>
+</mapper>

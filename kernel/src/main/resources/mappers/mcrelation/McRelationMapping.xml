@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="model.mcrelation.McRelation">
+    <insert id="insert" parameterType="McRelation">
+        INSERT INTO ad_mc_relation (CONTACTS_ID, MANAGE_GROUP_INFO_ID)
+        VALUES (#{contactsId},#{manageGroupInfoId})
+    </insert>
+    <select id="selectList" parameterType="McRelation" resultType="McRelation">
+        SELECT *
+        FROM ad_mc_relation
+        <include refid="condition"/>
+    </select>
+    <select id="selectOne" parameterType="McRelation" resultType="McRelation">
+        SELECT *
+        FROM ad_mc_relation
+        <include refid="condition"/>
+    </select>
+    <delete id="delete" parameterType="McRelation">
+        DELETE FROM ad_mc_relation
+        <choose>
+            <when test="false  or (contactsId != null and contactsId != '') or (manageGroupInfoId != null and manageGroupInfoId != '')">
+                <include refid="condition"/>
+            </when>
+            <otherwise>
+              where 1 = 2
+            </otherwise>
+        </choose>
+    </delete>
+    <update id="update" parameterType="McRelation">
+        UPDATE ad_mc_relation
+        <set>
+          <if test="contactsId != null and contactsId != ''">
+              CONTACTS_ID = #{contactsId},
+          </if>
+          <if test="manageGroupInfoId != null and manageGroupInfoId != ''">
+              MANAGE_GROUP_INFO_ID = #{manageGroupInfoId},
+          </if>
+        </set>
+        where CONTACTS_ID = #{contactsId}
+    </update>
+    <sql id="condition">
+        <where>
+          <if test="contactsId != null and contactsId != ''">
+              and CONTACTS_ID = #{contactsId}
+          </if>
+          <if test="manageGroupInfoId != null and manageGroupInfoId != ''">
+              and MANAGE_GROUP_INFO_ID = #{manageGroupInfoId}
+          </if>
+        </where>
+    </sql>
+</mapper>

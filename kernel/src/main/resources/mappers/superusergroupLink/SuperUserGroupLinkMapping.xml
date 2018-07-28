@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="model.superusergroupLink.SuperUserGroupLink">
+    <insert id="insert" parameterType="SuperUserGroupLink">
+        INSERT INTO SUPER_USER_GROUP_LINK (USER_ID,GROUP_ID)
+        VALUES (#{userId},#{groupId})
+    </insert>
+    <select id="selectList" parameterType="SuperUserGroupLink" resultType="SuperUserGroupLink">
+        SELECT *
+        FROM SUPER_USER_GROUP_LINK
+        <include refid="condition"/>
+    </select>
+    <select id="selectOne" parameterType="SuperUserGroupLink" resultType="SuperUserGroupLink">
+        SELECT *
+        FROM SUPER_USER_GROUP_LINK
+        <include refid="condition"/>
+    </select>
+    <delete id="delete" parameterType="SuperUserGroupLink">
+        DELETE FROM SUPER_USER_GROUP_LINK
+        <choose>
+            <when test="false  or (userId != null and userId != '') or (groupId != null and groupId != '')">
+                <include refid="condition"/>
+            </when>
+            <otherwise>
+              where 1 = 2
+            </otherwise>
+        </choose>
+    </delete>
+    <update id="update" parameterType="SuperUserGroupLink">
+        UPDATE SUPER_USER_GROUP_LINK
+        <set>
+          <if test="userId != null and userId != ''">
+              USER_ID = #{userId},
+          </if>
+          <if test="groupId != null and groupId != ''">
+              GROUP_ID = #{groupId},
+          </if>
+        </set>
+        where 
+    </update>
+    <sql id="condition">
+        <where>
+          <if test="userId != null and userId != ''">
+              and USER_ID = #{userId}
+          </if>
+          <if test="groupId != null and groupId != ''">
+              and GROUP_ID = #{groupId}
+          </if>
+        </where>
+    </sql>
+</mapper>

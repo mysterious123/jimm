@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ Copyright (C) Unpublished JiuDaoTech Software, Inc. All rights reserved.
+  ~ JiuDaoTech Software, Inc., Confidential and Proprietary.
+  ~
+  ~ This software is subject to copyright protection
+  ~   under the laws of the Public of China and other countries.
+  ~
+  ~ Unless otherwise explicitly stated, this software is provided
+  ~   by JiuDaoTech "AS IS".
+  -->
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd
+       http://www.springframework.org/schema/context  http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
+
+
+    <mvc:interceptors>
+        <mvc:interceptor><!-- 全局请求拦截 -->
+            <mvc:mapping path="/**"/>
+            <bean class="interceptor.ApiMetadataInterceptor" >
+                <property name="anonUrl">
+                    <list>
+                        <value>/login</value>
+                        <value>/logout</value>
+                    </list>
+                </property>
+            </bean>
+        </mvc:interceptor>
+    </mvc:interceptors>
+
+    <!--配置MessageConverter-->
+    <mvc:annotation-driven enable-matrix-variables="true" validator="validator">
+        <mvc:message-converters>
+            <bean class="org.springframework.http.converter.StringHttpMessageConverter">
+                <constructor-arg value="UTF-8"/>
+                <property name="writeAcceptCharset" value="false"/><!-- 用于避免响应头过大 -->
+                <property name="supportedMediaTypes">
+                    <list>
+                        <value>text/plain; charset=UTF-8</value>
+                        <value>text/html; charset=UTF-8</value>
+                        <value>application/json; charset=UTF-8</value>
+                    </list>
+                </property>
+            </bean>
+            <bean class="org.springframework.http.converter.ByteArrayHttpMessageConverter"/>
+            <bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
+                <property name="supportedMediaTypes">
+                    <list>
+                        <value>application/json;charset=utf-8</value>
+                        <value>text/json;charset=utf-8</value>
+                    </list>
+                </property>
+            </bean>
+        </mvc:message-converters>
+    </mvc:annotation-driven>
+
+    <context:component-scan base-package="web"/>
+    <context:component-scan base-package="core.plugin.spring"/>
+
+    <!-- MVC 设置 -->
+    <mvc:default-servlet-handler/>
+    <mvc:resources location="classpath:webui/" mapping="/webui/**"/>
+    <mvc:resources location="/resources/images/" mapping="/images/**"/>
+    <mvc:resources location="/resources/files/" mapping="/files/**"/>
+    <mvc:view-controller path="/" view-name="redirect:/webui/index.html"/>
+    <!-- 视图设置 -->
+    <bean id="viewResolverCommon" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="viewClass" value="org.springframework.web.servlet.view.InternalResourceView"/>
+        <property name="prefix" value="/WEB-INF/views/jsp/"/>
+        <property name="suffix" value=".jsp"/>
+        <property name="order" value="1"/>
+    </bean>
+    <!-- 设置上传文件 -->
+    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver"
+          p:defaultEncoding="utf-8">
+        <!-- 设置上传文件大小最大为 10M -->
+        <property name="maxUploadSize" value="0xA00000"/>
+    </bean>
+    <!--jsr303校验-->
+    <!--使用classpath下的 ValidationMessages.properties-->
+    <bean id="validator" class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean">
+        <property name="providerClass" value="org.hibernate.validator.HibernateValidator"/>
+    </bean>
+    <bean class="processor.ApiMetadataProcessor"/>
+
+    <!--日志管理-->
+    <aop:aspectj-autoproxy proxy-target-class="true"/>
+    <bean id="systemLogAspect" class="aop.SystemLogAspect" />
+
+</beans>

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="model.superroleuser.SuperRoleUser">
+    <insert id="insert" parameterType="SuperRoleUser">
+        INSERT INTO super_config_role_user (ROLE_ID,USER_ID)
+        VALUES (#{roleId},#{userId})
+    </insert>
+    <select id="selectList" parameterType="SuperRoleUser" resultType="SuperRoleUser">
+        SELECT *
+        FROM super_config_role_user
+        <include refid="condition"/>
+    </select>
+    <select id="selectOne" parameterType="SuperRoleUser" resultType="SuperRoleUser">
+        SELECT *
+        FROM super_config_role_user
+        <include refid="condition"/>
+    </select>
+    <delete id="delete" parameterType="SuperRoleUser">
+        DELETE FROM super_config_role_user
+        <choose>
+            <when test="false  or (roleId != null and roleId != '') or (userId != null and userId != '')">
+                <include refid="condition"/>
+            </when>
+            <otherwise>
+              where 1 = 2
+            </otherwise>
+        </choose>
+    </delete>
+    <update id="update" parameterType="SuperRoleUser">
+        UPDATE super_config_role_user
+        <set>
+          <if test="roleId != null and roleId != ''">
+              ROLE_ID = #{roleId},
+          </if>
+          <if test="userId != null and userId != ''">
+              USER_ID = #{userId},
+          </if>
+        </set>
+        where 
+    </update>
+    <sql id="condition">
+        <where>
+          <if test="roleId != null and roleId != ''">
+              and ROLE_ID = #{roleId}
+          </if>
+          <if test="userId != null and userId != ''">
+              and USER_ID = #{userId}
+          </if>
+        </where>
+    </sql>
+</mapper>

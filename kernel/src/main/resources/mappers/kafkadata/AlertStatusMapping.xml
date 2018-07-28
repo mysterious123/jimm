@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="model.kafkadata.AlertStatus">
+    <insert id="insert" parameterType="AlertStatus">
+        INSERT INTO alerts.status (Identifier,FirstOccurrence,Node,NodeAlias,ServerName,Severity,Summary)
+        VALUES (#{Identifier},#{FirstOccurrence},#{Node},#{NodeAlias},#{ServerName},#{Severity},#{Summary})
+    </insert>
+    <select id="selectList" parameterType="DeviceInfo" resultType="DeviceInfo">
+        SELECT *
+        FROM alerts.status
+    </select>
+</mapper>
+

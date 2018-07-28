@@ -1,0 +1,14 @@
+plugins {
+    id "com.moowork.node" version "1.1.1"
+}
+
+task cnpmInstall(type: NpmTask) {
+    group = 'node'
+    args = ['install', '--registry=http://registry.cnpmjs.org']
+}
+
+//调用npm run dev
+task codeGen(type: NpmTask, dependsOn: cnpmInstall) {
+    group = 'node'
+    args = ['run', 'gen']
+}

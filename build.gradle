@@ -1,0 +1,95 @@
+description = "玖道JIM平台"
+
+buildscript {
+    repositories {
+        jcenter()
+        maven {
+            url "https://plugins.gradle.org/m2/"
+        }
+    }
+
+    dependencies {
+        // Advanced gradle plugin for running web-apps on jetty and tomcat.
+        classpath "org.akhikhl.gretty:gretty:+"
+    }
+}
+
+apply from: "dependency.gradle"
+apply plugin: "org.akhikhl.gretty"
+
+allprojects {
+    version = APP_VERSION
+
+    repositories {
+        jcenter()
+        mavenCentral()
+    }
+
+}
+
+subprojects {
+    apply plugin: "java"
+    apply plugin: "idea"
+    apply plugin: "eclipse"
+
+    sourceCompatibility = JAVA_VERSION
+    targetCompatibility = JAVA_VERSION
+    [compileJava, compileTestJava, javadoc]*.options*.encoding = "UTF-8"
+
+    // 我们使用slf4j&logback，移除commons-logging
+    // javaee-api已经包含servlet, websocket
+    configurations {
+        all*.exclude group: "org.slf4j", module: "slf4j-log4j12"
+        all*.exclude group: "commons-logging", module: "commons-logging"
+        all*.exclude group: "javax.websocket"
+    }
+
+    dependencies {
+        compile fileTree(dir: "../repository", include: "*.jar")
+        compile libraries."commons-exec",
+                libraries."commons-lang3",
+                libraries."slf4j-api",
+                libraries."logback-core",
+                libraries."logback-classic",
+                libraries."gson",
+                libraries."jul-to-slf4j",
+                libraries."jcl-over-slf4j",
+                libraries."logback-ext-spring",
+                libraries."commons-lang3",
+                libraries."commons-collections4",
+                libraries."commons-exec",
+                libraries."commons-io",
+                libraries."commons-fileupload"
+        testCompile libraries.junit
+    }
+
+    sourceSets {
+        test {
+            output.resourcesDir = "build/classes/test"
+            copy {
+                from("src/main/resources")
+                into output.resourcesDir
+                includeEmptyDirs = false
+            }
+        }
+    }
+}
+
+farms {
+    farm "Core", {
+        fileLogEnabled = false
+        webapp ":kernel"
+    }
+}
+
+//
+// Custom tasks
+//
+task cleanAllOutput(type: Delete, description: "删除构建输出目录") {
+    doLast {
+        allprojects.each {
+            delete it.name + "/build", it.name + "/out"
+            followSymlinks = true
+        }
+    }
+}

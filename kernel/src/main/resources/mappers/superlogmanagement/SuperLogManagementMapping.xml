@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="model.superlogmanagement.SuperLogManagement">
+    <insert id="insert" parameterType="SuperLogManagement">
+        INSERT INTO SUPER_CONFIG_LOGMANAGEMENT (USER_NAME,CREATE_TIME,OPERATE_CONTENT,OPERATE_RESULT)
+        VALUES (#{userName},#{createTime},#{operateContent},#{operateResult})
+    </insert>
+    <select id="selectList" parameterType="SuperLogManagement" resultType="SuperLogManagement">
+        SELECT *
+        FROM SUPER_CONFIG_LOGMANAGEMENT
+        <include refid="condition"/> ORDER BY CREATE_TIME DESC
+    </select>
+    <select id="selectOne" parameterType="SuperLogManagement" resultType="SuperLogManagement">
+        SELECT *
+        FROM SUPER_CONFIG_LOGMANAGEMENT
+        <include refid="condition"/>
+    </select>
+    <delete id="delete" parameterType="SuperLogManagement">
+        DELETE FROM SUPER_CONFIG_LOGMANAGEMENT
+        <choose>
+            <when test="false  or (id != null and id != '') or (userName != null and userName != '') or (createTime != null and createTime != '') or (operateContent != null and operateContent != '') or (operateResult != null and operateResult != '')">
+                <include refid="condition"/>
+            </when>
+            <otherwise>
+              where 1 = 2
+            </otherwise>
+        </choose>
+    </delete>
+    <update id="update" parameterType="SuperLogManagement">
+        UPDATE SUPER_CONFIG_LOGMANAGEMENT
+        <set>
+          <if test="id != null and id != ''">
+              ID = #{id},
+          </if>
+          <if test="userName != null and userName != ''">
+              USER_NAME = #{userName},
+          </if>
+          <if test="createTime != null and createTime != ''">
+              CREATE_TIME = #{createTime},
+          </if>
+          <if test="operateContent != null and operateContent != ''">
+              OPERATE_CONTENT = #{operateContent},
+          </if>
+          <if test="operateResult != null and operateResult != ''">
+              OPERATE_RESULT = #{operateResult},
+          </if>
+        </set>
+        where ID = #{id}
+    </update>
+    <sql id="condition">
+        <where>
+          <if test="id != null and id != ''">
+              and ID = #{id}
+          </if>
+          <if test="userName != null and userName != ''">
+              and USER_NAME = #{userName}
+          </if>
+          <if test="createTime != null and createTime != ''">
+              and CREATE_TIME = #{createTime}
+          </if>
+          <if test="operateContent != null and operateContent != ''">
+              and OPERATE_CONTENT = #{operateContent}
+          </if>
+          <if test="operateResult != null and operateResult != ''">
+              and OPERATE_RESULT = #{operateResult}
+          </if>
+        </where>
+    </sql>
+    <select id="queryLogManagement" parameterType="SuperLogManagement" resultType="SuperLogManagement">
+        SELECT *
+        FROM SUPER_CONFIG_LOGMANAGEMENT
+        <where>
+          <if test="startTime != null and startTime != ''">
+            CREATE_TIME &gt;= #{startTime}
+          </if>
+          <if test="endTime != null and endTime != ''">
+            and CREATE_TIME &lt;= #{endTime}
+          </if>
+          <if test="content != null and content != ''">
+            and OPERATE_CONTENT=#{content}
+          </if>
+        </where>
+    </select>
+</mapper>

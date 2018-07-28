@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="model.supermenu.SuperMenu">
+    <insert id="insert" parameterType="SuperMenu">
+        INSERT INTO super_config_menu (TEXT,ICON,NAME,PARENT)
+        VALUES (#{text},#{icon},#{name},#{parent})
+    </insert>
+    <select id="selectList" parameterType="SuperMenu" resultType="SuperMenu">
+        SELECT *
+        FROM super_config_menu
+        <include refid="condition"/>
+    </select>
+    <select id="selectOne" parameterType="SuperMenu" resultType="SuperMenu">
+        SELECT *
+        FROM super_config_menu
+        <include refid="condition"/>
+    </select>
+    <delete id="delete" parameterType="SuperMenu">
+        DELETE FROM super_config_menu
+        <choose>
+            <when test="false  or (id != null and id != '') or (text != null and text != '') or (icon != null and icon != '') or (name != null and name != '') or (parent != null and parent != '')">
+                <include refid="condition"/>
+            </when>
+            <otherwise>
+              where 1 = 2
+            </otherwise>
+        </choose>
+    </delete>
+    <update id="update" parameterType="SuperMenu">
+        UPDATE super_config_menu
+        <set>
+          <if test="id != null and id != ''">
+              ID = #{id},
+          </if>
+          <if test="text != null and text != ''">
+              TEXT = #{text},
+          </if>
+          <if test="icon != null and icon != ''">
+              ICON = #{icon},
+          </if>
+          <if test="name != null and name != ''">
+              NAME = #{name},
+          </if>
+          <if test="parent != null and parent != ''">
+              PARENT = #{parent},
+          </if>
+        </set>
+        where ID = #{id}
+    </update>
+    <sql id="condition">
+        <where>
+          <if test="id != null and id != ''">
+              and ID = #{id}
+          </if>
+          <if test="text != null and text != ''">
+              and TEXT = #{text}
+          </if>
+          <if test="icon != null and icon != ''">
+              and ICON = #{icon}
+          </if>
+          <if test="name != null and name != ''">
+              and NAME = #{name}
+          </if>
+          <if test="parent != null and parent != ''">
+              and PARENT = #{parent}
+          </if>
+        </where>
+    </sql>
+</mapper>

@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="model.zloginfo.ZLogInfo">
+    <insert id="insert" parameterType="ZLogInfo">
+        INSERT INTO z_log_info (EVENT_TYPE,EVENT_SMALL_TYPE,VENDER_BRAND,EVENT_GROUP_NAME,EVENT_GROUP_NUM,KEY_WORD,regular_expression,CONTENT_DESCRIBE,HANDLE_PROPOSE)
+        VALUES (#{eventType},#{eventSmallType},#{venderBrand},#{eventGroupName},#{eventGroupNum},#{keyWord},#{regularExpression},#{contentDescribe},#{handlePropose})
+    </insert>
+    <select id="queryCount" parameterType="ZLogInfo" resultType="int">
+        SELECT count(*)
+        FROM z_log_info
+        <include refid="condition"/>
+    </select>
+    <select id="selectList" parameterType="ZLogInfo" resultType="ZLogInfo">
+        SELECT *
+        FROM z_log_info
+        <include refid="condition"/>
+    </select>
+    <select id="selectOne" parameterType="ZLogInfo" resultType="ZLogInfo">
+        SELECT *
+        FROM z_log_info
+        <include refid="condition"/>
+    </select>
+    <delete id="delete" parameterType="ZLogInfo">
+        DELETE FROM z_log_info
+        <choose>
+            <when test="false  or (id != null and id != '') or (eventType != null and eventType != '') or (eventSmallType != null and eventSmallType != '') or (venderBrand != null and venderBrand != '') or (eventGroupName != null and eventGroupName != '') or (eventGroupNum != null and eventGroupNum != '') or (keyWord != null and keyWord != '') or (regularExpression != null and regularExpression != '') or (contentDescribe != null and contentDescribe != '') or (handlePropose != null and handlePropose != '')">
+                <include refid="condition"/>
+            </when>
+            <otherwise>
+              where 1 = 2
+            </otherwise>
+        </choose>
+    </delete>
+    <update id="update" parameterType="ZLogInfo">
+        UPDATE z_log_info
+        <set>
+          <if test="id != null and id != ''">
+              ID = #{id},
+          </if>
+          <if test="eventType != null and eventType != ''">
+              EVENT_TYPE = #{eventType},
+          </if>
+          <if test="eventSmallType != null and eventSmallType != ''">
+              EVENT_SMALL_TYPE = #{eventSmallType},
+          </if>
+          <if test="venderBrand != null and venderBrand != ''">
+              VENDER_BRAND = #{venderBrand},
+          </if>
+          <if test="eventGroupName != null and eventGroupName != ''">
+              EVENT_GROUP_NAME = #{eventGroupName},
+          </if>
+          <if test="eventGroupNum != null and eventGroupNum != ''">
+              EVENT_GROUP_NUM = #{eventGroupNum},
+          </if>
+          <if test="keyWord != null and keyWord != ''">
+              KEY_WORD = #{keyWord},
+          </if>
+          <if test="regularExpression != null and regularExpression != ''">
+              regular_expression = #{regularExpression},
+          </if>
+          <if test="contentDescribe != null and contentDescribe != ''">
+              CONTENT_DESCRIBE = #{contentDescribe},
+          </if>
+          <if test="handlePropose != null and handlePropose != ''">
+              HANDLE_PROPOSE = #{handlePropose},
+          </if>
+        </set>
+        where ID = #{id}
+    </update>
+    <sql id="condition">
+        <where>
+          <if test="id != null and id != ''">
+              and ID = #{id}
+          </if>
+          <if test="eventType != null and eventType != ''">
+              and EVENT_TYPE = #{eventType}
+          </if>
+          <if test="eventSmallType != null and eventSmallType != ''">
+              and EVENT_SMALL_TYPE = #{eventSmallType}
+          </if>
+          <if test="venderBrand != null and venderBrand != ''">
+              and VENDER_BRAND = #{venderBrand}
+          </if>
+          <if test="eventGroupName != null and eventGroupName != ''">
+              and EVENT_GROUP_NAME = #{eventGroupName}
+          </if>
+          <if test="eventGroupNum != null and eventGroupNum != ''">
+              and EVENT_GROUP_NUM = #{eventGroupNum}
+          </if>
+          <if test="keyWord != null and keyWord != ''">
+              and KEY_WORD = #{keyWord}
+          </if>
+          <if test="regularExpression != null and regularExpression != ''">
+              and regular_expression = #{regularExpression}
+          </if>
+          <if test="contentDescribe != null and contentDescribe != ''">
+              and CONTENT_DESCRIBE = #{contentDescribe}
+          </if>
+          <if test="handlePropose != null and handlePropose != ''">
+              and HANDLE_PROPOSE = #{handlePropose}
+          </if>
+        </where>
+    </sql>
+</mapper>

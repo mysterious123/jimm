@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="model.superseverity.SuperSeverity">
+    <insert id="insert" parameterType="SuperSeverity">
+        INSERT INTO super_config_severity (LEVEL,ENGLISH_NAME,CHINESE_NAME,LEVEL_COLOUR)
+        VALUES (#{level},#{englishName},#{chineseName},#{levelColour})
+    </insert>
+    <select id="selectList" parameterType="SuperSeverity" resultType="SuperSeverity">
+        SELECT *
+        FROM super_config_severity
+        <include refid="condition"/>
+    </select>
+    <select id="selectOne" parameterType="SuperSeverity" resultType="SuperSeverity">
+        SELECT *
+        FROM super_config_severity
+        <include refid="condition"/>
+    </select>
+    <delete id="delete" parameterType="SuperSeverity">
+        DELETE FROM super_config_severity
+        <choose>
+            <when test="false  or (id != null and id != '') or (level != null and level != '') or (englishName != null and englishName != '') or (chineseName != null and chineseName != '') or (levelColour != null and levelColour != '')">
+                <include refid="condition"/>
+            </when>
+            <otherwise>
+              where 1 = 2
+            </otherwise>
+        </choose>
+    </delete>
+    <update id="update" parameterType="SuperSeverity">
+        UPDATE super_config_severity
+        <set>
+          <if test="id != null and id != ''">
+              ID = #{id},
+          </if>
+          <if test="level != null and level != ''">
+              LEVEL = #{level},
+          </if>
+          <if test="englishName != null and englishName != ''">
+              ENGLISH_NAME = #{englishName},
+          </if>
+          <if test="chineseName != null and chineseName != ''">
+              CHINESE_NAME = #{chineseName},
+          </if>
+          <if test="levelColour != null and levelColour != ''">
+              LEVEL_COLOUR = #{levelColour},
+          </if>
+        </set>
+        where ID = #{id}
+    </update>
+    <sql id="condition">
+        <where>
+          <if test="id != null and id != ''">
+              and ID = #{id}
+          </if>
+          <if test="level != null and level != ''">
+              and LEVEL = #{level}
+          </if>
+          <if test="englishName != null and englishName != ''">
+              and ENGLISH_NAME = #{englishName}
+          </if>
+          <if test="chineseName != null and chineseName != ''">
+              and CHINESE_NAME = #{chineseName}
+          </if>
+          <if test="levelColour != null and levelColour != ''">
+              and LEVEL_COLOUR = #{levelColour}
+          </if>
+        </where>
+    </sql>
+</mapper>

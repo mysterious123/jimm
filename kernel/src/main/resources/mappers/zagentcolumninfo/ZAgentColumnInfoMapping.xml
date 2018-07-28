@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="model.zagentcolumninfo.ZAgentColumnInfo">
+    <insert id="insert" parameterType="ZAgentColumnInfo">
+        INSERT INTO z_agent_column_info (AGENT_ID,COLUMN_NAME,COLUMN_TYPE,regular_expression,COLUMN_EXPLAIN)
+        VALUES (#{agentId},#{columnName},#{columnType},#{regularExpression},#{columnExplain})
+    </insert>
+    <select id="selectList" parameterType="ZAgentColumnInfo" resultType="ZAgentColumnInfo">
+        SELECT *
+        FROM z_agent_column_info
+        <include refid="condition"/>
+    </select>
+    <select id="selectOne" parameterType="ZAgentColumnInfo" resultType="ZAgentColumnInfo">
+        SELECT *
+        FROM z_agent_column_info
+        <include refid="condition"/>
+    </select>
+    <delete id="delete" parameterType="ZAgentColumnInfo">
+        DELETE FROM z_agent_column_info
+        <choose>
+            <when test="false  or (id != null and id != '') or (agentId != null and agentId != '') or (columnName != null and columnName != '') or (columnType != null and columnType != '') or (regularExpression != null and regularExpression != '') or (columnExplain != null and columnExplain != '')">
+                <include refid="condition"/>
+            </when>
+            <otherwise>
+              where 1 = 2
+            </otherwise>
+        </choose>
+    </delete>
+    <update id="update" parameterType="ZAgentColumnInfo">
+        UPDATE z_agent_column_info
+        <set>
+          <if test="id != null and id != ''">
+              ID = #{id},
+          </if>
+          <if test="agentId != null and agentId != ''">
+              AGENT_ID = #{agentId},
+          </if>
+          <if test="columnName != null and columnName != ''">
+              COLUMN_NAME = #{columnName},
+          </if>
+          <if test="columnType != null and columnType != ''">
+              COLUMN_TYPE = #{columnType},
+          </if>
+          <if test="regularExpression != null and regularExpression != ''">
+              regular_expression = #{regularExpression},
+          </if>
+          <if test="columnExplain != null and columnExplain != ''">
+              COLUMN_EXPLAIN = #{columnExplain},
+          </if>
+        </set>
+        where ID = #{id}
+    </update>
+    <sql id="condition">
+        <where>
+          <if test="id != null and id != ''">
+              and ID = #{id}
+          </if>
+          <if test="agentId != null and agentId != ''">
+              and AGENT_ID = #{agentId}
+          </if>
+          <if test="columnName != null and columnName != ''">
+              and COLUMN_NAME = #{columnName}
+          </if>
+          <if test="columnType != null and columnType != ''">
+              and COLUMN_TYPE = #{columnType}
+          </if>
+          <if test="regularExpression != null and regularExpression != ''">
+              and regular_expression = #{regularExpression}
+          </if>
+          <if test="columnExplain != null and columnExplain != ''">
+              and COLUMN_EXPLAIN = #{columnExplain}
+          </if>
+        </where>
+    </sql>
+</mapper>

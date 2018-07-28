@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="model.superpermission.SuperPermission">
+    <insert id="insert" parameterType="SuperPermission" keyProperty="id">
+        INSERT INTO super_config_permission (description,permission,type,parent)
+        VALUES (#{description},#{permission},#{type},#{parent})
+    </insert>
+    <select id="selectList" parameterType="SuperPermission" resultType="SuperPermission">
+        SELECT *
+        FROM super_config_permission
+        <include refid="condition"/>
+    </select>
+    <select id="selectOne" parameterType="SuperPermission" resultType="SuperPermission">
+        SELECT *
+        FROM super_config_permission
+        <include refid="condition"/>
+    </select>
+    <delete id="delete" parameterType="SuperPermission">
+        DELETE FROM super_config_permission
+        <choose>
+            <when test="false  or (id != null and id != '') or (description != null and description != '') or (permission != null and permission != '') or (type != null and type != '') or (parent != null and parent != '')">
+                <include refid="condition"/>
+            </when>
+            <otherwise>
+                where 1 = 2
+            </otherwise>
+        </choose>
+    </delete>
+    <update id="update" parameterType="SuperPermission">
+        UPDATE super_config_permission
+        <set>
+            <if test="id != null and id != ''">
+                id = #{id},
+            </if>
+            <if test="description != null and description != ''">
+                description = #{description},
+            </if>
+            <if test="permission != null and permission != ''">
+                permission = #{permission},
+            </if>
+            <if test="type != null and type != ''">
+                type = #{type},
+            </if>
+            <if test="parent != null and parent != ''">
+                parent = #{parent},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+    <sql id="condition">
+        <where>
+            <if test="id != null and id != ''">
+                and id = #{id}
+            </if>
+            <if test="description != null and description != ''">
+                and description = #{description}
+            </if>
+            <if test="permission != null and permission != ''">
+                and permission = #{permission}
+            </if>
+            <if test="type != null and type != ''">
+                and type = #{type}
+            </if>
+            <if test="parent != null and parent != ''">
+                and parent = #{parent}
+            </if>
+        </where>
+    </sql>
+</mapper>

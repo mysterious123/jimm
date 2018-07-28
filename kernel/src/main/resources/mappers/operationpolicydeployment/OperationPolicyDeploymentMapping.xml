@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="model.operationpolicydeployment.OperationPolicyDeployment">
+    <select id="querySelectServerInfo" parameterType="OperationPolicyDeployment" resultType="ServerInfo">
+        SELECT
+            *
+        FROM
+            system_server_info
+        WHERE
+            SERVER_ID IN (
+                SELECT
+                    SERVER_ID
+                FROM
+                    operation_policy_deployment
+                WHERE
+                    POLICY_ID = #{policyId}
+            )
+    </select>
+    <select id="queryUnSelectServerInfo" parameterType="OperationPolicyDeployment" resultType="ServerInfo">
+        SELECT
+            *
+        FROM
+            system_server_info
+        WHERE
+            SERVER_ID NOT IN (
+                SELECT
+                    SERVER_ID
+                FROM
+                    operation_policy_deployment
+                WHERE
+                    POLICY_ID = #{policyId}
+            )
+    </select>
+    <insert id="insert" parameterType="OperationPolicyDeployment">
+        INSERT INTO operation_policy_deployment (SERVER_ID,POLICY_ID)
+        VALUES (#{serverId},#{policyId})
+    </insert>
+    <select id="selectList" parameterType="OperationPolicyDeployment" resultType="OperationPolicyDeployment">
+        SELECT *
+        FROM operation_policy_deployment
+        <include refid="condition"/>
+    </select>
+    <select id="selectOne" parameterType="OperationPolicyDeployment" resultType="OperationPolicyDeployment">
+        SELECT *
+        FROM operation_policy_deployment
+        <include refid="condition"/>
+    </select>
+    <delete id="delete" parameterType="OperationPolicyDeployment">
+        DELETE FROM operation_policy_deployment
+        <choose>
+            <when test="false  or (serverId != null and serverId != '') or (policyId != null and policyId != '')">
+                <include refid="condition"/>
+            </when>
+            <otherwise>
+              where 1 = 2
+            </otherwise>
+        </choose>
+    </delete>
+    <update id="update" parameterType="OperationPolicyDeployment">
+        UPDATE operation_policy_deployment
+        <set>
+          <if test="serverId != null and serverId != ''">
+              SERVER_ID = #{serverId},
+          </if>
+          <if test="policyId != null and policyId != ''">
+              POLICY_ID = #{policyId},
+          </if>
+        </set>
+        where 
+    </update>
+    <sql id="condition">
+        <where>
+          <if test="serverId != null and serverId != ''">
+              and SERVER_ID = #{serverId}
+          </if>
+          <if test="policyId != null and policyId != ''">
+              and POLICY_ID = #{policyId}
+          </if>
+        </where>
+    </sql>
+</mapper>

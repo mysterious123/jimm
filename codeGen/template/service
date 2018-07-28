@@ -1,0 +1,41 @@
+package service.{{moduleName}};
+
+import model.{{moduleName}}.{{className}};
+import java.util.List;
+
+public interface {{className}}Service {
+    /**
+     * 新增
+     * @param {{lowcase(className)}}
+     * @return
+     */
+    int insert({{className}} {{lowcase(className)}});
+
+    /**
+     * 删除
+     * @param {{lowcase(className)}}
+     * @return
+     */
+    int delete({{className}} {{lowcase(className)}});
+
+    /**
+     * 更新
+     * @param {{lowcase(className)}}
+     * @return
+     */
+    int update({{className}} {{lowcase(className)}});
+
+    /**
+     * 获取所有
+     * @param {{lowcase(className)}}
+     * @return
+     */
+    List<{{className}}> selectList({{className}} {{lowcase(className)}});
+
+    /**
+     * 获取单个
+     * @param {{lowcase(className)}}
+     * @return
+     */
+    {{className}} selectOne({{className}} {{lowcase(className)}});
+}

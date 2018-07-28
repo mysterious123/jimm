@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="model.managegroup.ManageGroup">
+    <insert id="insert" parameterType="ManageGroup">
+        INSERT INTO ad_manage_group (MANAGE_GROUP_NAME,PARENT_ID)
+        VALUES (#{manageGroupName},#{parentId})
+    </insert>
+    <select id="selectList" parameterType="ManageGroup" resultType="ManageGroup">
+        SELECT *
+        FROM ad_manage_group
+        <include refid="condition"/>
+    </select>
+    <select id="selectOne" parameterType="ManageGroup" resultType="ManageGroup">
+        SELECT *
+        FROM ad_manage_group
+        <include refid="condition"/>
+    </select>
+    <delete id="delete" parameterType="ManageGroup">
+        DELETE FROM ad_manage_group
+        <choose>
+            <when test="false  or (id != null and id != '') or (manageGroupName != null and manageGroupName != '') or (parentId != null and parentId != '')">
+                <include refid="condition"/>
+            </when>
+            <otherwise>
+              where 1 = 2
+            </otherwise>
+        </choose>
+    </delete>
+    <update id="update" parameterType="ManageGroup">
+        UPDATE ad_manage_group
+        <set>
+          <if test="id != null and id != ''">
+              ID = #{id},
+          </if>
+          <if test="manageGroupName != null and manageGroupName != ''">
+              MANAGE_GROUP_NAME = #{manageGroupName},
+          </if>
+          <if test="parentId != null and parentId != ''">
+              PARENT_ID = #{parentId},
+          </if>
+        </set>
+        where ID = #{id}
+    </update>
+    <sql id="condition">
+        <where>
+          <if test="id != null and id != ''">
+              and ID = #{id}
+          </if>
+          <if test="manageGroupName != null and manageGroupName != ''">
+              and MANAGE_GROUP_NAME = #{manageGroupName}
+          </if>
+          <if test="parentId != null and parentId != ''">
+              and PARENT_ID = #{parentId}
+          </if>
+        </where>
+    </sql>
+</mapper>

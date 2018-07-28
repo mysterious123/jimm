@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="model.zmibinfo.ZMibInfo">
+    <insert id="insert" parameterType="ZMibInfo">
+        INSERT INTO z_mib_info (INDEX_TYPE,INDEX_NAME,VENDER_BRAND,INDEX_GROUP,Calculation_formula,CONTENT_DESCRIBE,INDEX_UNIT)
+        VALUES (#{indexType},#{indexName},#{venderBrand},#{indexGroup},#{calculationFormula},#{contentDescribe},#{indexUnit})
+    </insert>
+    <select id="queryCount" parameterType="ZMibInfo" resultType="int">
+        SELECT count(*)
+        FROM z_mib_info
+        <include refid="condition"/>
+    </select>
+    <select id="selectList" parameterType="ZMibInfo" resultType="ZMibInfo">
+        SELECT *
+        FROM z_mib_info
+        <include refid="condition"/>
+    </select>
+    <select id="selectOne" parameterType="ZMibInfo" resultType="ZMibInfo">
+        SELECT *
+        FROM z_mib_info
+        <include refid="condition"/>
+    </select>
+    <delete id="delete" parameterType="ZMibInfo">
+        DELETE FROM z_mib_info
+        <choose>
+            <when test="false  or (id != null and id != '') or (indexType != null and indexType != '') or (indexName != null and indexName != '') or (venderBrand != null and venderBrand != '') or (indexGroup != null and indexGroup != '') or (calculationFormula != null and calculationFormula != '') or (contentDescribe != null and contentDescribe != '') or (indexUnit != null and indexUnit != '')">
+                <include refid="condition"/>
+            </when>
+            <otherwise>
+                where 1 = 2
+            </otherwise>
+        </choose>
+    </delete>
+    <update id="update" parameterType="ZMibInfo">
+        UPDATE z_mib_info
+        <set>
+            <if test="id != null and id != ''">
+                ID = #{id},
+            </if>
+            <if test="indexType != null and indexType != ''">
+                INDEX_TYPE = #{indexType},
+            </if>
+            <if test="indexName != null and indexName != ''">
+                INDEX_NAME = #{indexName},
+            </if>
+            <if test="venderBrand != null and venderBrand != ''">
+                VENDER_BRAND = #{venderBrand},
+            </if>
+            <if test="indexGroup != null and indexGroup != ''">
+                INDEX_GROUP = #{indexGroup},
+            </if>
+            <if test="calculationFormula != null and calculationFormula != ''">
+                Calculation_formula = #{calculationFormula},
+            </if>
+            <if test="contentDescribe != null and contentDescribe != ''">
+                CONTENT_DESCRIBE = #{contentDescribe},
+            </if>
+            <if test="indexUnit != null and indexUnit != ''">
+                INDEX_UNIT = #{indexUnit}
+            </if>
+        </set>
+        where ID = #{id}
+    </update>
+    <sql id="condition">
+        <where>
+            <if test="id != null and id != ''">
+                and ID = #{id}
+            </if>
+            <if test="indexType != null and indexType != ''">
+                and INDEX_TYPE = #{indexType}
+            </if>
+            <if test="indexName != null and indexName != ''">
+                and INDEX_NAME = #{indexName}
+            </if>
+            <if test="venderBrand != null and venderBrand != ''">
+                and VENDER_BRAND = #{venderBrand}
+            </if>
+            <if test="indexGroup != null and indexGroup != ''">
+                and INDEX_GROUP = #{indexGroup}
+            </if>
+            <if test="calculationFormula != null and calculationFormula != ''">
+                and Calculation_formula = #{calculationFormula}
+            </if>
+            <if test="contentDescribe != null and contentDescribe != ''">
+                and CONTENT_DESCRIBE = #{contentDescribe}
+            </if>
+            <if test="indexUnit != null and indexUnit != ''">
+                INDEX_UNIT = #{indexUnit}
+            </if>
+        </where>
+    </sql>
+</mapper>

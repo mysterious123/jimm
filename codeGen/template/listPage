@@ -1,0 +1,172 @@
+<template>
+  <v-layout row wrap>
+    <v-flex xs12>
+      <v-card>
+        <v-toolbar class="cyan" dark dense>
+          <v-toolbar-title class="white--text">{{moduleName}}</v-toolbar-title>
+        </v-toolbar>
+        <v-card-title>
+          <v-text-field
+            append-icon="search"
+            label="查询"
+            single-line
+            hide-details
+            v-model="search"
+          ></v-text-field>
+          <v-spacer></v-spacer>
+          <v-btn icon @click="pagerouter({name:'{{lowcase(className)}}Add'})">
+            <v-icon>add</v-icon>
+          </v-btn>
+          <v-btn icon @click="update{{className}}()">
+            <v-icon>edit</v-icon>
+          </v-btn>
+          <v-btn icon @click="del{{className}}()">
+            <v-icon>delete</v-icon>
+          </v-btn>
+        </v-card-title>
+        <v-data-table
+          :headers="headers"
+          :items="items"
+          :search="search"
+          :loading="items_loading"
+          :pagination.sync="dataTableConfig.dataTable_pagination"
+          :no-data-text="dataTableConfig.dataTable_noDataText"
+          :no-result-tex="dataTableConfig.dataTable_noResultsText"
+          :rows-per-page-text="dataTableConfig.dataTable_rowsPerPageText"
+          class="elevation-1"
+          select-all
+          {% for meta in metaInfo -%}
+          {%- if meta.Key == 'PRI' -%}
+          selected-key="{{convertToCamel(meta.Field)}}"
+          item-key="{{convertToCamel(meta.Field)}}"
+          {%- endif -%}
+          {%- endfor -%}
+          v-model="selected"
+        >
+          <template slot="headers" slot-scope="props">
+            <tr>
+              <th>
+                <v-checkbox
+                  primary
+                  hide-details
+                  @click.native="toggleAll"
+                  :input-value="props.all"
+                  :indeterminate="props.indeterminate"
+                ></v-checkbox>
+              </th>
+              <th v-for="header in props.headers" :key="header.text"
+                  :class="['column sortable', dataTableConfig.dataTable_pagination.descending ? 'desc' : 'asc', header.value === dataTableConfig.dataTable_pagination.sortBy ? 'active' : '']"
+                  @click="changeSort(header.value)"
+              >
+                <v-icon>arrow_upward</v-icon>
+                {% raw %}{{ header.text }}{% endraw %}
+              </th>
+            </tr>
+          </template>
+          <template slot="items" slot-scope="props">
+            <tr :active="props.selected" @click="props.selected = !props.selected">
+              <td>
+                <v-checkbox
+                  primary
+                  hide-details
+                  :input-value="props.selected"
+                ></v-checkbox>
+              </td>
+            {% for meta in metaInfo -%}
+            {%- if meta.Key != 'PRI' -%}
+              <td>{{"{{props.item." + convertToCamel(meta.Field) + "}" + "}" }}</td>
+            {%- endif -%}
+            {% endfor %}
+            </tr>
+          </template>
+        </v-data-table>
+      </v-card>
+    </v-flex>
+  </v-layout>
+</template>
+<script>
+  import {axios} from '@/assets/js/Utils';
+  import {mapGetters, mapState, mapMutations} from 'vuex';
+
+  export default {
+    mounted() {
+      this.queryItems();
+      this.clearUpdate{{className}}();
+    },
+    data() {
+      return {
+        search:"", //页面查询模型
+        headers:[
+        {%- for meta in metaInfo %}
+          {%- if meta.Key != 'PRI' -%}
+          {
+            text: "{{meta.Comment}}",
+            align: 'left',
+            value: "{{convertToCamel(meta.Field)}}"
+          },
+          {%- endif -%}
+        {%- endfor -%}
+        ], //列表表头
+        items:[],  //列表数据
+        items_loading: false, //列表加载
+        selected: [],
+        dataTableConfig: this.getCommonComponentConfig().dataTableConfig,
+      }
+    },
+    methods : {
+     ...mapMutations('{{moduleName}}', [
+       'setUpdate{{className}}',
+       'clearUpdate{{className}}'
+     ]),
+     //加载表格数据
+     queryItems() {
+       var vm = this;
+       vm.items_loading = true;
+       axios().get("/{{lowcase(className)}}").then(function (response) {
+         vm.items = response.data;
+         vm.items_loading = false;
+       })
+     },
+     update{{className}}(){
+        if(this.selected.length === 1){
+          this.setUpdate{{className}}(this.selected[0]);
+          this.pagerouter({name:'{{lowcase(className)}}Edit'});
+        }else{
+          this.simpleInfo("请选择一条记录");
+        }
+      },
+      del{{className}}(){
+        if(this.selected.length === 1){
+          axios().delete("/{{lowcase(className)}}",{
+            params : {
+              {% for meta in metaInfo -%}
+              {%- if meta.Key == 'PRI' -%}
+               {{convertToCamel(meta.Field)}} : this.selected[0].{{convertToCamel(meta.Field)}},
+              {%- endif -%}
+              {%- endfor -%}
+            }
+          }).then(()=> {
+            this.simpleSuccess("删除成功");
+            //清空select
+            this.selected = [];
+            this.queryItems();
+          })
+        }else{
+          this.simpleInfo("请选择一条记录");
+        }
+      },
+     toggleAll () {
+        if (this.selected.length) this.selected = []
+        else this.selected = this.items.slice()
+     },
+     changeSort (column) {
+       if (this.dataTableConfig.dataTable_pagination.sortBy === column) {
+         this.dataTableConfig.dataTable_pagination.descending = !this.dataTableConfig.dataTable_pagination.descending
+       } else {
+         this.dataTableConfig.dataTable_pagination.sortBy = column
+         this.dataTableConfig.dataTable_pagination.descending = false
+       }
+     }
+   }
+  }
+</script>

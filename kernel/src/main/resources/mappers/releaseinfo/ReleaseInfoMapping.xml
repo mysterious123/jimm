@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="model.releaseinfo.ReleaseInfo">
+    <insert id="insert" parameterType="ReleaseInfo" keyProperty="id">
+        INSERT INTO F_RELEASE_INFO (SERVER_EXPLAIN,SERVER_IP,SERVER_NAME,USER_NAME,PASSWORD,EFFECT_SCRIPT)
+        VALUES (#{serverExplain},#{serverIp},#{serverName},#{userName},#{password},#{effectScript})
+    </insert>
+    <select id="selectList" parameterType="ReleaseInfo" resultType="ReleaseInfo">
+        SELECT *
+        FROM F_RELEASE_INFO
+        <include refid="condition"/>
+    </select>
+    <select id="querySelectGroup" parameterType="ReleaseInfo" resultType="ServerGroup">
+        select t2.* from f_release_link t1 inner join system_server_group t2 on t2.id=t1.server_group_id and t1.release_id=#{id}
+    </select>
+    <select id="selectOne" parameterType="ReleaseInfo" resultType="ReleaseInfo">
+        SELECT *
+        FROM F_RELEASE_INFO
+        <include refid="condition"/>
+    </select>
+    <delete id="delete" parameterType="ReleaseInfo">
+        DELETE FROM F_RELEASE_INFO
+        <choose>
+            <when test="false  or (id != null and id != '') or (serverExplain != null and serverExplain != '') or (serverIp != null and serverIp != '') or (serverName != null and serverName != '') or (userName != null and userName != '') or (password != null and password != '') or (effectScript != null and effectScript != '')">
+                <include refid="condition"/>
+            </when>
+            <otherwise>
+              where 1 = 2
+            </otherwise>
+        </choose>
+    </delete>
+    <update id="update" parameterType="ReleaseInfo">
+        UPDATE F_RELEASE_INFO
+        <set>
+          <if test="id != null and id != ''">
+              ID = #{id},
+          </if>
+          <if test="serverExplain != null and serverExplain != ''">
+              SERVER_EXPLAIN = #{serverExplain},
+          </if>
+          <if test="serverIp != null and serverIp != ''">
+              SERVER_IP = #{serverIp},
+          </if>
+          <if test="serverName != null and serverName != ''">
+              SERVER_NAME = #{serverName},
+          </if>
+          <if test="userName != null and userName != ''">
+              USER_NAME = #{userName},
+          </if>
+          <if test="password != null and password != ''">
+              PASSWORD = #{password},
+          </if>
+          <if test="effectScript != null and effectScript != ''">
+              EFFECT_SCRIPT = #{effectScript},
+          </if>
+        </set>
+        where ID = #{id}
+    </update>
+    <sql id="condition">
+        <where>
+          <if test="id != null and id != ''">
+              and ID = #{id}
+          </if>
+          <if test="serverExplain != null and serverExplain != ''">
+              and SERVER_EXPLAIN = #{serverExplain}
+          </if>
+          <if test="serverIp != null and serverIp != ''">
+              and SERVER_IP = #{serverIp}
+          </if>
+          <if test="serverName != null and serverName != ''">
+              and SERVER_NAME = #{serverName}
+          </if>
+          <if test="userName != null and userName != ''">
+              and USER_NAME = #{userName}
+          </if>
+          <if test="password != null and password != ''">
+              and PASSWORD = #{password}
+          </if>
+          <if test="effectScript != null and effectScript != ''">
+              and EFFECT_SCRIPT = #{effectScript}
+          </if>
+        </where>
+    </sql>
+</mapper>

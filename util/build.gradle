@@ -1,0 +1,20 @@
+description = '公共工具类'
+dependencies {
+    compile libraries."servlet-api",
+            libraries."mysql",
+            libraries."h2",
+            libraries."spring-web",
+            libraries."pinyin4j",
+            libraries."commons-codec",
+            libraries."commons-lang3",
+            libraries."javassist",
+            libraries."phantomjs-wrapper",
+            libraries."phantomjs-wrapper-windows-binary",
+            libraries."phantomjs-wrapper-linux-binary",
+            libraries."phantomjs-wrapper-macosx-binary",
+            libraries."jackson-core",
+            libraries."jackson-databind",
+            libraries."joda-time",
+            libraries."shiro-core",
+            libraries."kafka_2.12"
+}

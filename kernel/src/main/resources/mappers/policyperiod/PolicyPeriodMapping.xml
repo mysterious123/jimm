@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="model.policyperiod.PolicyPeriod">
+    <insert id="insert" parameterType="PolicyPeriod">
+        INSERT INTO operation_policy_period (PERIOD_NAME,STARTPERIOD1,STARTPERIOD2,STARTPERIOD3,STARTPERIOD4,STARTPERIOD5,STARTPERIOD6,STARTPERIOD7,ENDPERIOD1,ENDPERIOD2,ENDPERIOD3,ENDPERIOD4,ENDPERIOD5,ENDPERIOD6,ENDPERIOD7,PERIOD1STATUS,PERIOD2STATUS,PERIOD3STATUS,PERIOD4STATUS,PERIOD5STATUS,PERIOD6STATUS,PERIOD7STATUS,NATURE,CREATE_USER)
+        VALUES (#{periodName},#{startperiod1},#{startperiod2},#{startperiod3},#{startperiod4},#{startperiod5},#{startperiod6},#{startperiod7},#{endperiod1},#{endperiod2},#{endperiod3},#{endperiod4},#{endperiod5},#{endperiod6},#{endperiod7},#{period1status},#{period2status},#{period3status},#{period4status},#{period5status},#{period6status},#{period7status},#{nature},#{createUser})
+    </insert>
+    <select id="selectList" parameterType="PolicyPeriod" resultType="PolicyPeriod">
+        SELECT *
+        FROM operation_policy_period
+        <include refid="condition"/>
+    </select>
+    <select id="selectOne" parameterType="PolicyPeriod" resultType="PolicyPeriod">
+        SELECT *
+        FROM operation_policy_period
+        <include refid="condition"/>
+    </select>
+    <delete id="delete" parameterType="PolicyPeriod">
+        DELETE FROM operation_policy_period
+        <choose>
+            <when test="false  or (id != null and id != '') or (periodName != null and periodName != '') or (startperiod1 != null and startperiod1 != '') or (startperiod2 != null and startperiod2 != '') or (startperiod3 != null and startperiod3 != '') or (startperiod4 != null and startperiod4 != '') or (startperiod5 != null and startperiod5 != '') or (startperiod6 != null and startperiod6 != '') or (startperiod7 != null and startperiod7 != '') or (endperiod1 != null and endperiod1 != '') or (endperiod2 != null and endperiod2 != '') or (endperiod3 != null and endperiod3 != '') or (endperiod4 != null and endperiod4 != '') or (endperiod5 != null and endperiod5 != '') or (endperiod6 != null and endperiod6 != '') or (endperiod7 != null and endperiod7 != '') or (period1status != null and period1status != '') or (period2status != null and period2status != '') or (period3status != null and period3status != '') or (period4status != null and period4status != '') or (period5status != null and period5status != '') or (period6status != null and period6status != '') or (period7status != null and period7status != '') or (nature != null and nature != '') or (createUser != null and createUser != '')">
+                <include refid="condition"/>
+            </when>
+            <otherwise>
+                where 1 = 2
+            </otherwise>
+        </choose>
+    </delete>
+    <update id="update" parameterType="PolicyPeriod">
+        UPDATE operation_policy_period
+        <set>
+            <if test="id != null and id != ''">
+                ID = #{id},
+            </if>
+            <if test="periodName != null and periodName != ''">
+                PERIOD_NAME = #{periodName},
+            </if>
+            <if test="startperiod1 != null and startperiod1 != ''">
+                STARTPERIOD1 = #{startperiod1},
+            </if>
+            <if test="startperiod2 != null and startperiod2 != ''">
+                STARTPERIOD2 = #{startperiod2},
+            </if>
+            <if test="startperiod3 != null and startperiod3 != ''">
+                STARTPERIOD3 = #{startperiod3},
+            </if>
+            <if test="startperiod4 != null and startperiod4 != ''">
+                STARTPERIOD4 = #{startperiod4},
+            </if>
+            <if test="startperiod5 != null and startperiod5 != ''">
+                STARTPERIOD5 = #{startperiod5},
+            </if>
+            <if test="startperiod6 != null and startperiod6 != ''">
+                STARTPERIOD6 = #{startperiod6},
+            </if>
+            <if test="startperiod7 != null and startperiod7 != ''">
+                STARTPERIOD7 = #{startperiod7},
+            </if>
+            <if test="endperiod1 != null and endperiod1 != ''">
+                ENDPERIOD1 = #{endperiod1},
+            </if>
+            <if test="endperiod2 != null and endperiod2 != ''">
+                ENDPERIOD2 = #{endperiod2},
+            </if>
+            <if test="endperiod3 != null and endperiod3 != ''">
+                ENDPERIOD3 = #{endperiod3},
+            </if>
+            <if test="endperiod4 != null and endperiod4 != ''">
+                ENDPERIOD4 = #{endperiod4},
+            </if>
+            <if test="endperiod5 != null and endperiod5 != ''">
+                ENDPERIOD5 = #{endperiod5},
+            </if>
+            <if test="endperiod6 != null and endperiod6 != ''">
+                ENDPERIOD6 = #{endperiod6},
+            </if>
+            <if test="endperiod7 != null and endperiod7 != ''">
+                ENDPERIOD7 = #{endperiod7},
+            </if>
+            <if test="period1status != null and period1status != ''">
+                PERIOD1STATUS = #{period1status},
+            </if>
+            <if test="period2status != null and period2status != ''">
+                PERIOD2STATUS = #{period2status},
+            </if>
+            <if test="period3status != null and period3status != ''">
+                PERIOD3STATUS = #{period3status},
+            </if>
+            <if test="period4status != null and period4status != ''">
+                PERIOD4STATUS = #{period4status},
+            </if>
+            <if test="period5status != null and period5status != ''">
+                PERIOD5STATUS = #{period5status},
+            </if>
+            <if test="period6status != null and period6status != ''">
+                PERIOD6STATUS = #{period6status},
+            </if>
+            <if test="period7status != null and period7status != ''">
+                PERIOD7STATUS = #{period7status},
+            </if>
+            <if test="nature != null and nature != ''">
+                NATURE = #{nature},
+            </if>
+            <if test="createUser != null and createUser != ''">
+                CREATE_USER = #{createUser},
+            </if>
+        </set>
+        where ID = #{id}
+    </update>
+    <sql id="condition">
+        <where>
+            <if test="id != null and id != ''">
+                and ID = #{id}
+            </if>
+            <if test="periodName != null and periodName != ''">
+                and PERIOD_NAME = #{periodName}
+            </if>
+            <if test="startperiod1 != null and startperiod1 != ''">
+                and STARTPERIOD1 = #{startperiod1}
+            </if>
+            <if test="startperiod2 != null and startperiod2 != ''">
+                and STARTPERIOD2 = #{startperiod2}
+            </if>
+            <if test="startperiod3 != null and startperiod3 != ''">
+                and STARTPERIOD3 = #{startperiod3}
+            </if>
+            <if test="startperiod4 != null and startperiod4 != ''">
+                and STARTPERIOD4 = #{startperiod4}
+            </if>
+            <if test="startperiod5 != null and startperiod5 != ''">
+                and STARTPERIOD5 = #{startperiod5}
+            </if>
+            <if test="startperiod6 != null and startperiod6 != ''">
+                and STARTPERIOD6 = #{startperiod6}
+            </if>
+            <if test="startperiod7 != null and startperiod7 != ''">
+                and STARTPERIOD7 = #{startperiod7}
+            </if>
+            <if test="endperiod1 != null and endperiod1 != ''">
+                and ENDPERIOD1 = #{endperiod1}
+            </if>
+            <if test="endperiod2 != null and endperiod2 != ''">
+                and ENDPERIOD2 = #{endperiod2}
+            </if>
+            <if test="endperiod3 != null and endperiod3 != ''">
+                and ENDPERIOD3 = #{endperiod3}
+            </if>
+            <if test="endperiod4 != null and endperiod4 != ''">
+                and ENDPERIOD4 = #{endperiod4}
+            </if>
+            <if test="endperiod5 != null and endperiod5 != ''">
+                and ENDPERIOD5 = #{endperiod5}
+            </if>
+            <if test="endperiod6 != null and endperiod6 != ''">
+                and ENDPERIOD6 = #{endperiod6}
+            </if>
+            <if test="endperiod7 != null and endperiod7 != ''">
+                and ENDPERIOD7 = #{endperiod7}
+            </if>
+            <if test="period1status != null and period1status != ''">
+                and PERIOD1STATUS = #{period1status}
+            </if>
+            <if test="period2status != null and period2status != ''">
+                and PERIOD2STATUS = #{period2status}
+            </if>
+            <if test="period3status != null and period3status != ''">
+                and PERIOD3STATUS = #{period3status}
+            </if>
+            <if test="period4status != null and period4status != ''">
+                and PERIOD4STATUS = #{period4status}
+            </if>
+            <if test="period5status != null and period5status != ''">
+                and PERIOD5STATUS = #{period5status}
+            </if>
+            <if test="period6status != null and period6status != ''">
+                and PERIOD6STATUS = #{period6status}
+            </if>
+            <if test="period7status != null and period7status != ''">
+                and PERIOD7STATUS = #{period7status}
+            </if>
+            <if test="nature != null and nature != ''">
+                and NATURE = #{nature}
+            </if>
+            <if test="createUser != null and createUser != ''">
+                and CREATE_USER = #{createUser}
+            </if>
+        </where>
+    </sql>
+</mapper>

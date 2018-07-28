@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="model.venderinfo.VenderInfo">
+    <insert id="insert" parameterType="VenderInfo">
+        INSERT INTO S_VENDER_INFO (VENDER_NAME,LOGO_ROUTE)
+        VALUES (#{venderName},#{logoRoute})
+    </insert>
+    <select id="selectList" parameterType="VenderInfo" resultType="VenderInfo">
+        SELECT *
+        FROM S_VENDER_INFO
+        <include refid="condition"/>
+    </select>
+    <select id="selectOne" parameterType="VenderInfo" resultType="VenderInfo">
+        SELECT *
+        FROM S_VENDER_INFO
+        <include refid="condition"/>
+    </select>
+    <delete id="delete" parameterType="VenderInfo">
+        DELETE FROM S_VENDER_INFO
+        <choose>
+            <when test="false  or (id != null and id != '') or (venderName != null and venderName != '') or (logoRoute != null and logoRoute != '')">
+                <include refid="condition"/>
+            </when>
+            <otherwise>
+              where 1 = 2
+            </otherwise>
+        </choose>
+    </delete>
+    <update id="update" parameterType="VenderInfo">
+        UPDATE S_VENDER_INFO
+        <set>
+          <if test="id != null and id != ''">
+              ID = #{id},
+          </if>
+          <if test="venderName != null and venderName != ''">
+              VENDER_NAME = #{venderName},
+          </if>
+          <if test="logoRoute != null and logoRoute != ''">
+              LOGO_ROUTE = #{logoRoute},
+          </if>
+        </set>
+        where ID = #{id}
+    </update>
+    <sql id="condition">
+        <where>
+          <if test="id != null and id != ''">
+              and ID = #{id}
+          </if>
+          <if test="venderName != null and venderName != ''">
+              and VENDER_NAME = #{venderName}
+          </if>
+          <if test="logoRoute != null and logoRoute != ''">
+              and LOGO_ROUTE = #{logoRoute}
+          </if>
+        </where>
+    </sql>
+</mapper>

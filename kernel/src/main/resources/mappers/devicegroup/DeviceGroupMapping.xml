@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="model.devicegroup.DeviceGroup">
+    <insert id="insert" parameterType="DeviceGroup">
+        INSERT INTO NETWORK_DEVICE_GROUP (NETWORK_DEVICE_GROUP_NAME,PARENT_ID,ICONCLS)
+        VALUES (#{networkDeviceGroupName},#{parentId},#{iconcls})
+    </insert>
+    <select id="selectList" parameterType="DeviceGroup" resultType="DeviceGroup">
+        SELECT *
+        FROM NETWORK_DEVICE_GROUP
+        <include refid="condition"/>
+    </select>
+    <select id="selectOne" parameterType="DeviceGroup" resultType="DeviceGroup">
+        SELECT *
+        FROM NETWORK_DEVICE_GROUP
+        <include refid="condition"/>
+    </select>
+    <delete id="delete" parameterType="DeviceGroup">
+        DELETE FROM NETWORK_DEVICE_GROUP
+        <choose>
+            <when test="false  or (id != null and id != '') or (networkDeviceGroupName != null and networkDeviceGroupName != '') or (parentId != null and parentId != '') or (iconcls != null and iconcls != '')">
+                <include refid="condition"/>
+            </when>
+            <otherwise>
+              where 1 = 2
+            </otherwise>
+        </choose>
+    </delete>
+    <update id="update" parameterType="DeviceGroup">
+        UPDATE NETWORK_DEVICE_GROUP
+        <set>
+          <if test="id != null and id != ''">
+              ID = #{id},
+          </if>
+          <if test="networkDeviceGroupName != null and networkDeviceGroupName != ''">
+              NETWORK_DEVICE_GROUP_NAME = #{networkDeviceGroupName},
+          </if>
+          <if test="parentId != null and parentId != ''">
+              PARENT_ID = #{parentId},
+          </if>
+          <if test="iconcls != null and iconcls != ''">
+              ICONCLS = #{iconcls},
+          </if>
+        </set>
+        where ID = #{id}
+    </update>
+    <sql id="condition">
+        <where>
+          <if test="id != null and id != ''">
+              and ID = #{id}
+          </if>
+          <if test="networkDeviceGroupName != null and networkDeviceGroupName != ''">
+              and NETWORK_DEVICE_GROUP_NAME = #{networkDeviceGroupName}
+          </if>
+          <if test="parentId != null and parentId != ''">
+              and PARENT_ID = #{parentId}
+          </if>
+          <if test="iconcls != null and iconcls != ''">
+              and ICONCLS = #{iconcls}
+          </if>
+        </where>
+    </sql>
+</mapper>

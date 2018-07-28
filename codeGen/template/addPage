@@ -1,0 +1,65 @@
+{%- set lowcase = lowcase(className) -%}
+{%- set newModel = "new"+ className -%}
+<template>
+  <v-card>
+    <v-toolbar class="cyan" dark dense>
+      <v-btn icon @click="pagerouter({name:'{{lowcase}}'})" dark>
+        <v-icon>arrow_back</v-icon>
+      </v-btn>
+      <v-toolbar-title class="white--text">{{moduleName}}Add</v-toolbar-title>
+    </v-toolbar>
+    <v-card-text>
+    {% for meta in metaInfo -%}
+    {%- if meta.Key != 'PRI' -%}
+      <v-text-field
+       label="{{meta.Comment}}"
+       v-model="{{newModel}}.{{convertToCamel(meta.Field)}}"
+       v-validate="'required'"
+       :error-messages="vee_errors.collect('{{meta.Comment}}','{{moduleName}}_insert')[0]||[]"
+       data-vv-name="{{meta.Comment}}"
+       data-vv-scope="{{moduleName}}_insert"
+     ></v-text-field>
+    {%- endif -%}
+    {% endfor %}
+    </v-card-text>
+    <v-card-actions>
+      <v-spacer></v-spacer>
+      <v-btn color="success" dark @click.stop="{{moduleName}}_insert()">
+        <v-icon>check</v-icon>
+        保存
+      </v-btn>
+    </v-card-actions>
+  </v-card>
+</template>
+<script>
+import {axios} from '@/assets/js/Utils';
+
+  var {{newModel}} = {
+  {% for meta in metaInfo -%}
+  {%- if meta.Key != 'PRI' -%}
+    {{convertToCamel(meta.Field)}} : "",
+  {% endif -%}
+  {% endfor -%}
+  }
+  export default {
+    data(){
+      return {
+        {{newModel}} : _.cloneDeep({{newModel}})
+      }
+    },
+    methods:{
+      {{moduleName}}_insert(){
+        this.$validator.validateAll("{{moduleName}}_insert").then((result) => {
+          if (result) {
+            axios().post("/{{lowcase}}",this.{{newModel}}).then(()=>{
+              this.simpleInfo("操作成功")
+              this.pagerouter({name:'{{lowcase}}'})
+            }).catch((error)=>{
+              this.simpleError("后台异常,操作失败")
+            })
+          }
+        });
+      }
+    }
+  }
+</script>

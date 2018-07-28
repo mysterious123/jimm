@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="model.superrole.SuperRole">
+    <insert id="insert" parameterType="SuperRole" keyProperty="id">
+        INSERT INTO super_config_role (ROLE_NAME,CREATE_TIME)
+        VALUES (#{roleName},#{createTime})
+    </insert>
+
+    <select id="selectMenuByRoleId" parameterType="SuperRole" resultType="SuperMenu">
+        SELECT
+            *
+        FROM
+            super_config_menu t1
+        LEFT JOIN (
+            SELECT
+                *,true as 'checked'
+            FROM
+                super_config_role_menu
+            WHERE
+                ROLE_ID = #{id}
+        ) t2 ON t1.ID = t2.MENU_ID
+    </select>
+
+    <select id="selectPermissionByRoleId" parameterType="SuperRole" resultType="SuperPermission">
+        SELECT
+            *
+        FROM
+            super_config_permission t1
+        LEFT JOIN (
+            SELECT
+                *, true AS 'checked'
+            FROM
+                super_config_role_permission
+            WHERE
+                ROLE_ID = #{id}
+        ) t2 ON t1.PERMISSION = t2.PERMISSION
+    </select>
+
+
+    <select id="selectList" parameterType="SuperRole" resultType="SuperRole">
+        SELECT *
+        FROM super_config_role
+        <include refid="condition"/>
+    </select>
+    <select id="selectOne" parameterType="SuperRole" resultType="SuperRole">
+        SELECT *
+        FROM super_config_role
+        <include refid="condition"/>
+    </select>
+    <delete id="delete" parameterType="SuperRole">
+        DELETE FROM super_config_role
+        <choose>
+            <when test="false  or (id != null and id != '') or (roleName != null and roleName != '') or (createTime != null and createTime != '')">
+                <include refid="condition"/>
+            </when>
+            <otherwise>
+              where 1 = 2
+            </otherwise>
+        </choose>
+    </delete>
+    <update id="update" parameterType="SuperRole">
+        UPDATE super_config_role
+        <set>
+          <if test="id != null and id != ''">
+              ID = #{id},
+          </if>
+          <if test="roleName != null and roleName != ''">
+              ROLE_NAME = #{roleName},
+          </if>
+          <if test="createTime != null and createTime != ''">
+              CREATE_TIME = #{createTime},
+          </if>
+        </set>
+        where ID = #{id}
+    </update>
+    <sql id="condition">
+        <where>
+          <if test="id != null and id != ''">
+              and ID = #{id}
+          </if>
+          <if test="roleName != null and roleName != ''">
+              and ROLE_NAME = #{roleName}
+          </if>
+          <if test="createTime != null and createTime != ''">
+              and CREATE_TIME = #{createTime}
+          </if>
+        </where>
+    </sql>
+</mapper>

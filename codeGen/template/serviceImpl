@@ -1,0 +1,50 @@
+package service.{{moduleName}}.impl;
+
+import dao.BaseMapper;
+import model.{{moduleName}}.{{className}};
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Service;
+import service.{{moduleName}}.{{className}}Service;
+
+import javax.annotation.Resource;
+import java.util.List;
+
+@Service("{{className}}Service")
+public class {{className}}ServiceImpl implements {{className}}Service{
+    private final Logger L = LoggerFactory.getLogger({{className}}ServiceImpl.class);
+    private static final String NAMESPACE = {{className}}.class.getName();
+
+    @Resource
+    private BaseMapper<{{className}}> baseMapper;
+
+    @Override
+    public int insert({{className}} {{lowcase(className)}}) {
+        {{lowcase(className)}}.setStatmentId(NAMESPACE + ".insert");
+        return baseMapper.insert({{lowcase(className)}});
+    }
+    
+    @Override
+    public int delete({{className}} {{lowcase(className)}}) {
+        {{lowcase(className)}}.setStatmentId(NAMESPACE + ".delete");
+        return baseMapper.delete({{lowcase(className)}});
+    }
+
+    @Override
+    public int update({{className}} {{lowcase(className)}}) {
+        {{lowcase(className)}}.setStatmentId(NAMESPACE + ".update");
+        return baseMapper.update({{lowcase(className)}});
+    }
+
+    @Override
+    public List<{{className}}> selectList({{className}} {{lowcase(className)}}) {
+        {{lowcase(className)}}.setStatmentId(NAMESPACE + ".selectList");
+        return baseMapper.selectList({{lowcase(className)}});
+    }
+
+    @Override
+    public {{className}} selectOne({{className}} {{lowcase(className)}}) {
+        {{lowcase(className)}}.setStatmentId(NAMESPACE + ".selectOne");
+        return baseMapper.selectOne({{lowcase(className)}});
+    }
+}

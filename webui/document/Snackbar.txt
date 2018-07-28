@@ -1,0 +1,3 @@
+公用弹框（Vuex Snackbar）使用概述
+1.使用时，直接调用方法并传入参数，如下：
+this.simpleSuccess('保存成功！')

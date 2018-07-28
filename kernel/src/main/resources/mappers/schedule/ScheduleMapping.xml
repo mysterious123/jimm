@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="model.schedule.Schedule">
+	<sql id="columnList">
+		id,
+		job_class,
+		argument,
+		recurrence,
+		FROM_UNIXTIME(start_time/1000,'%Y-%m-%d %H:%i:%s')as start_time,
+		FROM_UNIXTIME(end_time/1000,'%Y-%m-%d %H:%i:%s')as end_time,
+		second,
+		minute,
+		hour,
+		dom,
+		month,
+		dow,
+		year,
+		name,
+		descr,
+		create_time,
+		update_time,
+		create_user,
+		update_user
+	</sql>
+
+	<resultMap id="scheduleResultMap" type="Schedule">
+		<id property="id" column="id"/>
+		<result property="jobClass" column="job_class"/>
+		<result property="argument" column="argument"/>
+		<result property="recurrence" column="recurrence" typeHandler="schedule.EnumRecurrenceHandler"/>
+		<result property="startTime" column="start_time"/>
+		<result property="endTime" column="end_time"/>
+		<result property="second" column="second"/>
+		<result property="minute" column="minute"/>
+		<result property="hour" column="hour"/>
+		<result property="dom" column="dom"/>
+		<result property="month" column="month"/>
+		<result property="dow" column="dow"/>
+		<result property="year" column="year"/>
+		<result property="name" column="name"/>
+		<result property="descr" column="descr"/>
+		<result property="createTime" column="create_time"/>
+		<result property="updateTime" column="update_time"/>
+		<result property="createUser" column="create_user"/>
+		<result property="updateUser" column="update_user"/>
+	</resultMap>
+
+	<insert id="insert" parameterType="Schedule">
+		insert into schedule(
+			job_class,
+			argument,
+			recurrence,
+			start_time,
+			end_time,
+			second,
+			minute,
+			hour,
+			dom,
+			month,
+			dow,
+			year,
+			name,
+			descr,
+			create_time,
+			update_time,
+			create_user,
+			update_user
+		) values (
+			#{jobClass,jdbcType=VARCHAR},
+			#{argument,jdbcType=VARCHAR},
+			#{recurrence,typeHandler=schedule.EnumRecurrenceHandler},
+			case when #{startTime,jdbcType=BIGINT} is not null and #{startTime,jdbcType=BIGINT} != "" then UNIX_TIMESTAMP(#{startTime,jdbcType=BIGINT}) * 1000 else null end,
+			case when #{endTime,jdbcType=BIGINT} is not null and #{endTime,jdbcType=BIGINT} != "" then UNIX_TIMESTAMP(#{endTime,jdbcType=BIGINT}) * 1000 else null end,
+			#{second,jdbcType=VARCHAR},
+			#{minute,jdbcType=VARCHAR},
+			#{hour,jdbcType=VARCHAR},
+			#{dom,jdbcType=VARCHAR},
+			#{month,jdbcType=VARCHAR},
+			#{dow,jdbcType=VARCHAR},
+			#{year,jdbcType=VARCHAR},
+			#{name,jdbcType=VARCHAR},
+			#{descr,jdbcType=VARCHAR},
+			#{createTime,jdbcType=BIGINT},
+			#{updateTime,jdbcType=BIGINT},
+			#{createUser,jdbcType=VARCHAR},
+			#{updateUser,jdbcType=VARCHAR}
+		)
+		<selectKey keyProperty="id" resultType="int" order="AFTER">
+			select LAST_INSERT_ID() as id
+		</selectKey>
+	</insert>
+
+	<select id="select" parameterType="Schedule" resultMap="scheduleResultMap">
+		select
+			<include refid="columnList"/>
+		from schedule
+		<where>
+			id = #{id,jdbcType=INTEGER}
+		</where>
+	</select>
+
+	<select id="selectForUpdate" parameterType="int" resultMap="scheduleResultMap" useCache="false">
+		select
+			<include refid="columnList"/>
+		from schedule
+		<where>
+			id = #{id,jdbcType=INTEGER}
+		</where>
+		for update
+	</select>
+
+	<select id="selectByName" parameterType="Schedule" resultMap="scheduleResultMap">
+		select
+			<include refid="columnList"/>
+		from schedule
+		<where>
+			name = #{name,jdbcType=VARCHAR}
+		</where>
+	</select>
+
+	<select id="selectAll" resultMap="scheduleResultMap">
+		select
+			<include refid="columnList"/>
+		from schedule
+	</select>
+
+	<update id="update" parameterType="Schedule">
+		update schedule set
+			job_class = #{jobClass,jdbcType=VARCHAR},
+			argument = #{argument,jdbcType=VARCHAR},
+			recurrence = #{recurrence,typeHandler=schedule.EnumRecurrenceHandler},
+			start_time = case when #{startTime,jdbcType=BIGINT} is not null and #{startTime,jdbcType=BIGINT} != "" then UNIX_TIMESTAMP(#{startTime,jdbcType=BIGINT}) * 1000 else null end,
+			end_time = case when #{endTime,jdbcType=BIGINT} is not null and #{endTime,jdbcType=BIGINT} != "" then UNIX_TIMESTAMP(#{endTime,jdbcType=BIGINT}) * 1000 else null end,
+			second = #{second,jdbcType=VARCHAR},
+			minute = #{minute,jdbcType=VARCHAR},
+			hour = #{hour,jdbcType=VARCHAR},
+			dom = #{dom,jdbcType=VARCHAR},
+			month = #{month,jdbcType=VARCHAR},
+			dow = #{dow,jdbcType=VARCHAR},
+			year = #{year,jdbcType=VARCHAR},
+			name = #{name,jdbcType=VARCHAR},
+			descr = #{descr,jdbcType=VARCHAR},
+			create_time = #{createTime,jdbcType=BIGINT},
+			update_time = #{updateTime,jdbcType=BIGINT},
+			create_user = #{createUser,jdbcType=VARCHAR},
+			update_user = #{updateUser,jdbcType=VARCHAR}
+		<where>
+			id = #{id,jdbcType=INTEGER}
+		</where>
+	</update>
+
+	<delete id="delete" parameterType="Schedule">
+		delete from schedule
+		<where>
+			id = #{id,jdbcType=INTEGER}
+		</where>
+	</delete>
+
+</mapper>
+
+<!-- vim:ts=4:sw=4:ai:cindent
+ -->

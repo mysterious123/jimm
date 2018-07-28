@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="model.superautomation.SuperAutomation">
+    <insert id="insert" parameterType="SuperAutomation">
+        INSERT INTO super_config_automation (APP_NAME,PROGRAMME_NAME,DATASOURCE,STATUS)
+        VALUES (#{appName},#{programmeName},#{datasource},#{status})
+    </insert>
+    <select id="selectList" parameterType="SuperAutomation" resultType="SuperAutomation">
+        SELECT *
+        FROM super_config_automation
+        <include refid="condition"/>
+    </select>
+    <select id="selectOne" parameterType="SuperAutomation" resultType="SuperAutomation">
+        SELECT *
+        FROM super_config_automation
+        <include refid="condition"/>
+    </select>
+    <delete id="delete" parameterType="SuperAutomation">
+        DELETE FROM super_config_automation
+        <choose>
+            <when test="false  or (id != null and id != '') or (appName != null and appName != '') or (programmeName != null and programmeName != '') or (datasource != null and datasource != '') or (status != null and status != '')">
+                <include refid="condition"/>
+            </when>
+            <otherwise>
+              where 1 = 2
+            </otherwise>
+        </choose>
+    </delete>
+    <update id="update" parameterType="SuperAutomation">
+        UPDATE super_config_automation
+        <set>
+          <if test="id != null and id != ''">
+              ID = #{id},
+          </if>
+          <if test="appName != null and appName != ''">
+              APP_NAME = #{appName},
+          </if>
+          <if test="programmeName != null and programmeName != ''">
+              PROGRAMME_NAME = #{programmeName},
+          </if>
+          <if test="datasource != null and datasource != ''">
+              DATASOURCE = #{datasource},
+          </if>
+          <if test="status != null and status != ''">
+              STATUS = #{status},
+          </if>
+        </set>
+        where ID = #{id}
+    </update>
+    <sql id="condition">
+        <where>
+          <if test="id != null and id != ''">
+              and ID = #{id}
+          </if>
+          <if test="appName != null and appName != ''">
+              and APP_NAME = #{appName}
+          </if>
+          <if test="programmeName != null and programmeName != ''">
+              and PROGRAMME_NAME = #{programmeName}
+          </if>
+          <if test="datasource != null and datasource != ''">
+              and DATASOURCE = #{datasource}
+          </if>
+          <if test="status != null and status != ''">
+              and STATUS = #{status}
+          </if>
+        </where>
+    </sql>
+</mapper>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="model.kafkadata.KafkaData">
+    <insert id="insert" parameterType="KafkaData">
+        INSERT INTO ${tableName}
+          <foreach collection="colList" open="(" close=")" index="index" item="item"  separator="," >
+               #(item)
+          </foreach>
+        VALUES
+           <foreach collection="valList" open="(" close=")" index="index" item="item"  separator="," >
+               #(item)
+           </foreach>
+    </insert>
+
+    <select id="selectCol" parameterType="String">
+        select * form ${tableName};
+
+    </select>
+</mapper>

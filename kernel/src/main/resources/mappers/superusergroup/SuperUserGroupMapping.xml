@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="model.superusergroup.SuperUserGroup">
+    <insert id="insert" parameterType="SuperUserGroup" keyProperty="id">
+        INSERT INTO SUPER_USER_GROUP (GROUP_NAME,CREATE_TIME,ROLE_ID)
+        VALUES (#{groupName},#{createTime},#{roleId})
+    </insert>
+    <select id="selectList" parameterType="SuperUserGroup" resultType="SuperUserGroup">
+        SELECT *
+        FROM SUPER_USER_GROUP
+        <include refid="condition"/>
+    </select>
+    <select id="selectOne" parameterType="SuperUserGroup" resultType="SuperUserGroup">
+        SELECT *
+        FROM SUPER_USER_GROUP
+        <include refid="condition"/>
+    </select>
+    <delete id="delete" parameterType="SuperUserGroup">
+        DELETE FROM SUPER_USER_GROUP
+        <choose>
+            <when test="false  or (id != null and id != '') or (groupName != null and groupName != '') or (createTime != null and createTime != '') or (roleId != null and roleId != '')">
+                <include refid="condition"/>
+            </when>
+            <otherwise>
+                where 1 = 2
+            </otherwise>
+        </choose>
+    </delete>
+    <update id="update" parameterType="SuperUserGroup">
+        UPDATE SUPER_USER_GROUP
+        <set>
+            <if test="id != null and id != ''">
+                ID = #{id},
+            </if>
+            <if test="groupName != null and groupName != ''">
+                GROUP_NAME = #{groupName},
+            </if>
+            <if test="createTime != null and createTime != ''">
+                CREATE_TIME = #{createTime},
+            </if>
+            <if test="roleId != null and roleId != ''">
+                ROLE_ID = #{roleId},
+            </if>
+        </set>
+        where ID = #{id}
+    </update>
+    <sql id="condition">
+        <where>
+            <if test="id != null and id != ''">
+                and ID = #{id}
+            </if>
+            <if test="groupName != null and groupName != ''">
+                and GROUP_NAME = #{groupName}
+            </if>
+            <if test="createTime != null and createTime != ''">
+                and CREATE_TIME = #{createTime}
+            </if>
+            <if test="roleId != null and roleId != ''">
+                and ROLE_ID = #{roleId}
+            </if>
+        </where>
+    </sql>
+
+    <select id="querySelectUser" parameterType="SuperUserGroup" resultType="SuperUser">
+            SELECT * from super_config_user where ID in(select USER_ID from super_user_group_link where GROUP_ID=#{id})
+    </select>
+
+    <select id="queryNoSelectUser" parameterType="SuperUserGroup" resultType="SuperUser">
+              SELECT * from super_config_user where ID not in(select USER_ID from super_user_group_link where GROUP_ID=#{id})
+    </select>
+
+
+</mapper>

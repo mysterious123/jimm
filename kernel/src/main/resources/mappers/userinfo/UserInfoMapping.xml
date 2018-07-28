@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="model.userinfo.UserInfo">
+    <resultMap id="UserInfoResultMap" type="UserInfo">
+        <id property="id" column="ID"/>
+        <result property="userName" column="USER_NAME"></result>
+        <result property="password" column="PASSWORD"></result>
+        <result property="phone" column="PHONE"></result>
+        <result property="email" column="EMAIL"></result>
+        <result property="createDate" column="CREATE_DATE"></result>
+        <collection property="manageGroups" ofType="ManageGroupInfo">
+            <id property="id" column="MANAGE_GROUP_INFO_ID"></id>
+            <result property="manageGroupName" column="MANAGE_GROUP_NAME" ></result>
+        </collection>
+    </resultMap>
+    <insert id="insert" parameterType="UserInfo" keyProperty="id">
+        INSERT INTO SYSTEM_USER_INFO (USER_NAME,PASSWORD,SHOW_NAME,ACTIVE,STAT,PHONE,EMAIL,CREATE_DATE)
+        VALUES (#{userName},#{password},#{showName},#{active},#{stat},#{phone},#{email},#{createDate})
+    </insert>
+    <select id="selectList" parameterType="UserInfo" resultType="UserInfo">
+        SELECT *
+        FROM SYSTEM_USER_INFO
+        <include refid="condition"/>
+    </select>
+    <select id="selectOne" parameterType="UserInfo" resultType="UserInfo">
+        SELECT *
+        FROM SYSTEM_USER_INFO
+        <include refid="condition"/>
+    </select>
+    <delete id="delete" parameterType="UserInfo">
+        DELETE FROM SYSTEM_USER_INFO
+        <choose>
+            <when test="false  or (id != null and id != '') or (userName != null and userName != '') or (password != null and password != '') or (showName != null and showName != '') or (active != null and active != '') or (stat != null and stat != '') or (phone != null and phone != '') or (email != null and email != '') or (createDate != null and createDate != '')">
+                <include refid="condition"/>
+            </when>
+            <otherwise>
+              where 1 = 2
+            </otherwise>
+        </choose>
+    </delete>
+    <update id="update" parameterType="UserInfo">
+        UPDATE SYSTEM_USER_INFO
+        <set>
+          <if test="id != null and id != ''">
+              ID = #{id},
+          </if>
+          <if test="userName != null and userName != ''">
+              USER_NAME = #{userName},
+          </if>
+          <if test="password != null and password != ''">
+              PASSWORD = #{password},
+          </if>
+          <if test="showName != null and showName != ''">
+              SHOW_NAME = #{showName},
+          </if>
+          <if test="active != null and active != ''">
+              ACTIVE = #{active},
+          </if>
+          <if test="stat != null and stat != ''">
+              STAT = #{stat},
+          </if>
+          <if test="phone != null and phone != ''">
+              PHONE = #{phone},
+          </if>
+          <if test="email != null and email != ''">
+              EMAIL = #{email},
+          </if>
+          <if test="createDate != null and createDate != ''">
+              CREATE_DATE = #{createDate},
+          </if>
+        </set>
+        where ID = #{id}
+    </update>
+    <sql id="condition">
+        <where>
+          <if test="id != null and id != ''">
+              and ID = #{id}
+          </if>
+          <if test="userName != null and userName != ''">
+              and USER_NAME = #{userName}
+          </if>
+          <if test="password != null and password != ''">
+              and PASSWORD = #{password}
+          </if>
+          <if test="showName != null and showName != ''">
+              and SHOW_NAME = #{showName}
+          </if>
+          <if test="active != null and active != ''">
+              and ACTIVE = #{active}
+          </if>
+          <if test="stat != null and stat != ''">
+              and STAT = #{stat}
+          </if>
+          <if test="phone != null and phone != ''">
+              and PHONE = #{phone}
+          </if>
+          <if test="email != null and email != ''">
+              and EMAIL = #{email}
+          </if>
+          <if test="createDate != null and createDate != ''">
+              and CREATE_DATE = #{createDate}
+          </if>
+        </where>
+    </sql>
+    <select id="queryUserInfo" parameterType="UserInfo" resultType="UserInfo">
+        select t1.ID, t1.USER_NAME,t1.CREATE_TIME, t1.GROUP_ID, t3.GROUP_NAME,t4.ROLE_ID
+         from super_config_user t1
+         left join super_user_group_link t2 on t1.ID=t2.USER_ID
+         left join super_user_group t3 on t3.ID=t2.GROUP_ID
+         left join super_config_role_user t4 on t1.ID = t4.USER_ID
+    </select>
+    <select id="queryGroupName" parameterType="UserInfo" resultMap="UserInfoResultMap">
+        select T1.ID,T1.USER_NAME,T1.PHONE,T1.EMAIL,T1.CREATE_DATE,T2.MANAGE_GROUP_INFO_ID,T3.MANAGE_GROUP_NAME from system_user_info T1
+        left join ad_mc_relation T2 on T1.ID = T2.CONTACTS_ID
+        left join AD_MANAGE_GROUP_INFO T3 on T3.ID = T2.MANAGE_GROUP_INFO_ID
+    </select>
+</mapper>

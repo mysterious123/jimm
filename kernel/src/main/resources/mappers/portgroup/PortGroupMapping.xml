@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="model.portgroup.PortGroup">
+    <insert id="insert" parameterType="PortGroup">
+        INSERT INTO PORT_GROUP (PORT_GROUP_NAME,PARENT_ID,ICONCLS)
+        VALUES (#{portGroupName},#{parentId},#{iconcls})
+    </insert>
+    <select id="selectList" parameterType="PortGroup" resultType="PortGroup">
+        SELECT *
+        FROM PORT_GROUP
+        <include refid="condition"/>
+    </select>
+    <select id="selectOne" parameterType="PortGroup" resultType="PortGroup">
+        SELECT *
+        FROM PORT_GROUP
+        <include refid="condition"/>
+    </select>
+    <delete id="delete" parameterType="PortGroup">
+        DELETE FROM PORT_GROUP
+        <choose>
+            <when test="false  or (id != null and id != '') or (portGroupName != null and portGroupName != '') or (parentId != null and parentId != '') or (iconcls != null and iconcls != '')">
+                <include refid="condition"/>
+            </when>
+            <otherwise>
+              where 1 = 2
+            </otherwise>
+        </choose>
+    </delete>
+    <update id="update" parameterType="PortGroup">
+        UPDATE PORT_GROUP
+        <set>
+          <if test="id != null and id != ''">
+              ID = #{id},
+          </if>
+          <if test="portGroupName != null and portGroupName != ''">
+              PORT_GROUP_NAME = #{portGroupName},
+          </if>
+          <if test="parentId != null and parentId != ''">
+              PARENT_ID = #{parentId},
+          </if>
+          <if test="iconcls != null and iconcls != ''">
+              ICONCLS = #{iconcls},
+          </if>
+        </set>
+        where ID = #{id}
+    </update>
+    <sql id="condition">
+        <where>
+          <if test="id != null and id != ''">
+              and ID = #{id}
+          </if>
+          <if test="portGroupName != null and portGroupName != ''">
+              and PORT_GROUP_NAME = #{portGroupName}
+          </if>
+          <if test="parentId != null and parentId != ''">
+              and PARENT_ID = #{parentId}
+          </if>
+          <if test="iconcls != null and iconcls != ''">
+              and ICONCLS = #{iconcls}
+          </if>
+        </where>
+    </sql>
+</mapper>

@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="model.operationpolicyinfo.OperationPolicyInfo">
+    <insert id="insert" parameterType="OperationPolicyInfo" keyProperty="id">
+        INSERT INTO operation_policy_info (POLICY_NAME,POLICY_TYPE,NATURE,CREATE_PERSON,CREATE_TIME)
+        VALUES (#{policyName},#{policyType},#{nature},#{createPerson},#{createTime})
+    </insert>
+    <select id="selectList" parameterType="OperationPolicyInfo" resultType="OperationPolicyInfo">
+        SELECT *
+        FROM operation_policy_info
+        <include refid="condition"/>
+    </select>
+    <select id="selectOne" parameterType="OperationPolicyInfo" resultType="OperationPolicyInfo">
+        SELECT *
+        FROM operation_policy_info
+        <include refid="condition"/>
+    </select>
+    <delete id="delete" parameterType="OperationPolicyInfo">
+        DELETE FROM operation_policy_info
+        <choose>
+            <when test="false  or (id != null and id != '') or (policyName != null and policyName != '') or (policyType != null and policyType != '') or (nature != null and nature != '') or (createPerson != null and createPerson != '') or (createTime != null and createTime != '')">
+                <include refid="condition"/>
+            </when>
+            <otherwise>
+              where 1 = 2
+            </otherwise>
+        </choose>
+    </delete>
+    <update id="update" parameterType="OperationPolicyInfo">
+        UPDATE operation_policy_info
+        <set>
+          <if test="id != null and id != ''">
+              ID = #{id},
+          </if>
+          <if test="policyName != null and policyName != ''">
+              POLICY_NAME = #{policyName},
+          </if>
+          <if test="policyType != null and policyType != ''">
+              POLICY_TYPE = #{policyType},
+          </if>
+          <if test="nature != null and nature != ''">
+              NATURE = #{nature},
+          </if>
+          <if test="createPerson != null and createPerson != ''">
+              CREATE_PERSON = #{createPerson},
+          </if>
+          <if test="createTime != null and createTime != ''">
+              CREATE_TIME = #{createTime},
+          </if>
+        </set>
+        where ID = #{id}
+    </update>
+    <sql id="condition">
+        <where>
+          <if test="id != null and id != ''">
+              and ID = #{id}
+          </if>
+          <if test="policyName != null and policyName != ''">
+              and POLICY_NAME = #{policyName}
+          </if>
+          <if test="policyType != null and policyType != ''">
+              and POLICY_TYPE = #{policyType}
+          </if>
+          <if test="nature != null and nature != ''">
+              and NATURE = #{nature}
+          </if>
+          <if test="createPerson != null and createPerson != ''">
+              and CREATE_PERSON = #{createPerson}
+          </if>
+          <if test="createTime != null and createTime != ''">
+              and CREATE_TIME = #{createTime}
+          </if>
+        </where>
+    </sql>
+</mapper>

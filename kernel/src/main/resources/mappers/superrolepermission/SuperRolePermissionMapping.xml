@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="model.superrolepermission.SuperRolePermission">
+    <insert id="insert" parameterType="SuperRolePermission">
+        INSERT INTO super_config_role_permission (ROLE_ID,PERMISSION)
+        VALUES (#{roleId},#{permission})
+    </insert>
+    <select id="selectList" parameterType="SuperRolePermission" resultType="SuperRolePermission">
+        SELECT *
+        FROM super_config_role_permission
+        <include refid="condition"/>
+    </select>
+    <select id="selectOne" parameterType="SuperRolePermission" resultType="SuperRolePermission">
+        SELECT *
+        FROM super_config_role_permission
+        <include refid="condition"/>
+    </select>
+    <delete id="delete" parameterType="SuperRolePermission">
+        DELETE FROM super_config_role_permission
+        <choose>
+            <when test="false  or (roleId != null and roleId != '') or (permission != null and permission != '')">
+                <include refid="condition"/>
+            </when>
+            <otherwise>
+              where 1 = 2
+            </otherwise>
+        </choose>
+    </delete>
+    <update id="update" parameterType="SuperRolePermission">
+        UPDATE super_config_role_permission
+        <set>
+          <if test="roleId != null and roleId != ''">
+              ROLE_ID = #{roleId},
+          </if>
+          <if test="permission != null and permission != ''">
+              PERMISSION = #{permission},
+          </if>
+        </set>
+        where 
+    </update>
+    <sql id="condition">
+        <where>
+          <if test="roleId != null and roleId != ''">
+              and ROLE_ID = #{roleId}
+          </if>
+          <if test="permission != null and permission != ''">
+              and PERMISSION = #{permission}
+          </if>
+        </where>
+    </sql>
+    <select id="getPermissions" parameterType="SuperRolePermission" resultType="SuperRolePermission">
+         select t1.* from super_config_role_permission t1
+         left join super_config_role t2 on t1.ROLE_ID=t2.ID
+         left join super_config_role_user t3 on t3.ROLE_ID=t2.ID
+         left join super_config_user t4 on t4.ID=T3.USER_ID
+         where t4.USER_NAME= #{userName} and t1.PERMISSION  like concat(#{permission},'%')
+    </select>
+</mapper>

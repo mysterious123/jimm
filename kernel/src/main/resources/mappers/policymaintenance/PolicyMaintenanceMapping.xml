@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="model.policymaintenance.PolicyMaintenance">
+    <insert id="insert" parameterType="PolicyMaintenance">
+        INSERT INTO operation_policy_maintenance (MAINTENANCE_NAME,START_DATE,START_TIME,END_DATE,END_TIME,REMARK,STATUS)
+        VALUES (#{maintenanceName},#{startDate},#{startTime},#{endDate},#{endTime},#{remark},#{status})
+    </insert>
+    <select id="selectList" parameterType="PolicyMaintenance" resultType="PolicyMaintenance">
+        SELECT *
+        FROM operation_policy_maintenance
+        <include refid="condition"/>
+    </select>
+    <select id="selectOne" parameterType="PolicyMaintenance" resultType="PolicyMaintenance">
+        SELECT *
+        FROM operation_policy_maintenance
+        <include refid="condition"/>
+    </select>
+    <delete id="delete" parameterType="PolicyMaintenance">
+        DELETE FROM operation_policy_maintenance
+        <choose>
+            <when test="false  or (id != null and id != '') or (maintenanceName != null and maintenanceName != '') or (startDate != null and startDate != '') or (startTime != null and startTime != '') or (endDate != null and endDate != '') or (endTime != null and endTime != '') or (remark != null and remark != '') or (status != null and status != '')">
+                <include refid="condition"/>
+            </when>
+            <otherwise>
+                where 1 = 2
+            </otherwise>
+        </choose>
+    </delete>
+    <update id="update" parameterType="PolicyMaintenance">
+        UPDATE operation_policy_maintenance
+        <set>
+            <if test="id != null and id != ''">
+                ID = #{id},
+            </if>
+            <if test="maintenanceName != null and maintenanceName != ''">
+                MAINTENANCE_NAME = #{maintenanceName},
+            </if>
+            <if test="startDate != null and startDate != ''">
+                START_DATE = #{startDate},
+            </if>
+            <if test="startTime != null and startTime != ''">
+                START_TIME = #{startTime},
+            </if>
+            <if test="endDate != null and endDate != ''">
+                END_DATE = #{endDate},
+            </if>
+            <if test="endTime != null and endTime != ''">
+                END_TIME = #{endTime},
+            </if>
+            <if test="remark != null and remark != ''">
+                REMARK = #{remark},
+            </if>
+            <if test="status != null and status != ''">
+                STATUS = #{status},
+            </if>
+        </set>
+        where ID = #{id}
+    </update>
+    <sql id="condition">
+        <where>
+            <if test="id != null and id != ''">
+                and ID = #{id}
+            </if>
+            <if test="maintenanceName != null and maintenanceName != ''">
+                and MAINTENANCE_NAME = #{maintenanceName}
+            </if>
+            <if test="startDate != null and startDate != ''">
+                and START_DATE = #{startDate}
+            </if>
+            <if test="startTime != null and startTime != ''">
+                and START_TIME = #{startTime}
+            </if>
+            <if test="endDate != null and endDate != ''">
+                and END_DATE = #{endDate}
+            </if>
+            <if test="endTime != null and endTime != ''">
+                and END_TIME = #{endTime}
+            </if>
+            <if test="remark != null and remark != ''">
+                and REMARK = #{remark}
+            </if>
+            <if test="status != null and status != ''">
+                and STATUS = #{status}
+            </if>
+        </where>
+    </sql>
+</mapper>

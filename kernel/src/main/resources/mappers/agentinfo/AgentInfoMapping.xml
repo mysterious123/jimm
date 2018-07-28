@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="model.agentinfo.AgentInfo">
+    <insert id="insert" parameterType="AgentInfo">
+        INSERT INTO D_AGENT_INFO (AGENT_NAME,AGENT_TYPE,AGENT_AB,AGENT_VERSION,FOUNDER,AGENT_ROUTE,CREATE_TIME)
+        VALUES (#{agentName},#{agentType},#{agentAb},#{agentVersion},#{founder},#{agentRoute},#{createTime})
+    </insert>
+    <select id="selectList" parameterType="AgentInfo" resultType="AgentInfo">
+        SELECT *
+        FROM D_AGENT_INFO ORDER BY ID DESC
+        <include refid="condition"/>
+    </select>
+    <select id="selectOne" parameterType="AgentInfo" resultType="AgentInfo">
+        SELECT *
+        FROM D_AGENT_INFO
+        <include refid="condition"/>
+    </select>
+    <delete id="delete" parameterType="AgentInfo">
+        DELETE FROM D_AGENT_INFO
+        <choose>
+            <when test="false  or (id != null and id != '') or (agentName != null and agentName != '') or (agentType != null and agentType != '') or (agentAb != null and agentAb != '') or (agentVersion != null and agentVersion != '') or (founder != null and founder != '') or (agentRoute != null and agentRoute != '') or (createTime != null and createTime != '')">
+                <include refid="condition"/>
+            </when>
+            <otherwise>
+              where 1 = 2
+            </otherwise>
+        </choose>
+    </delete>
+    <update id="update" parameterType="AgentInfo">
+        UPDATE D_AGENT_INFO
+        <set>
+          <if test="id != null and id != ''">
+              ID = #{id},
+          </if>
+          <if test="agentName != null and agentName != ''">
+              AGENT_NAME = #{agentName},
+          </if>
+          <if test="agentType != null and agentType != ''">
+              AGENT_TYPE = #{agentType},
+          </if>
+          <if test="agentAb != null and agentAb != ''">
+              AGENT_AB = #{agentAb},
+          </if>
+          <if test="agentVersion != null and agentVersion != ''">
+              AGENT_VERSION = #{agentVersion},
+          </if>
+          <if test="founder != null and founder != ''">
+              FOUNDER = #{founder},
+          </if>
+          <if test="agentRoute != null and agentRoute != ''">
+              AGENT_ROUTE = #{agentRoute},
+          </if>
+          <if test="createTime != null and createTime != ''">
+              CREATE_TIME = #{createTime},
+          </if>
+        </set>
+        where ID = #{id}
+    </update>
+    <sql id="condition">
+        <where>
+          <if test="id != null and id != ''">
+              and ID = #{id}
+          </if>
+          <if test="agentName != null and agentName != ''">
+              and AGENT_NAME = #{agentName}
+          </if>
+          <if test="agentType != null and agentType != ''">
+              and AGENT_TYPE = #{agentType}
+          </if>
+          <if test="agentAb != null and agentAb != ''">
+              and AGENT_AB = #{agentAb}
+          </if>
+          <if test="agentVersion != null and agentVersion != ''">
+              and AGENT_VERSION = #{agentVersion}
+          </if>
+          <if test="founder != null and founder != ''">
+              and FOUNDER = #{founder}
+          </if>
+          <if test="agentRoute != null and agentRoute != ''">
+              and AGENT_ROUTE = #{agentRoute}
+          </if>
+          <if test="createTime != null and createTime != ''">
+              and CREATE_TIME = #{createTime}
+          </if>
+        </where>
+    </sql>
+    <select id="queryTypeCounts" parameterType="AgentInfo" resultType="AgentInfo">
+        select AGENT_TYPE name ,count(AGENT_TYPE) value from d_agent_info group by AGENT_TYPE
+
+    </select>
+</mapper>

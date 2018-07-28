@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="model.jimdata.data.JimData">
+    <insert id="insert" parameterType="JimData">
+        INSERT INTO #{dbName} (time,index_name,index_value)
+        VALUES (#{time},#{indexName},#{indexValue})
+    </insert>
+    <select id="selectList" parameterType="JimData" resultType="JimData">
+        SELECT *
+        FROM data20180419
+        <include refid="condition"/>
+    </select>
+    <select id="selectOne" parameterType="JimData" resultType="JimData">
+        SELECT *
+        FROM data20180419
+        <include refid="condition"/>
+    </select>
+    <delete id="delete" parameterType="JimData">
+        DELETE FROM data20180419
+        <choose>
+            <when test="false  or (time != null and time != '') or (indexName != null and indexName != '') or (indexValue != null and indexValue != '')">
+                <include refid="condition"/>
+            </when>
+            <otherwise>
+              where 1 = 2
+            </otherwise>
+        </choose>
+    </delete>
+    <update id="update" parameterType="JimData">
+        UPDATE data20180419
+        <set>
+          <if test="time != null and time != ''">
+              time = #{time},
+          </if>
+          <if test="indexName != null and indexName != ''">
+              index_name = #{indexName},
+          </if>
+          <if test="indexValue != null and indexValue != ''">
+              index_value = #{indexValue},
+          </if>
+        </set>
+        where 
+    </update>
+    <sql id="condition">
+        <where>
+          <if test="time != null and time != ''">
+              and time = #{time}
+          </if>
+          <if test="indexName != null and indexName != ''">
+              and index_name = #{indexName}
+          </if>
+          <if test="indexValue != null and indexValue != ''">
+              and index_value = #{indexValue}
+          </if>
+        </where>
+    </sql>
+
+
+    <select id="createTable" parameterType="JimData">
+       create table ${dbName}(
+          time VARCHAR (20),
+          index_name VARCHAR (255),
+          index_value VARCHAR (255)
+       )
+    </select>
+</mapper>

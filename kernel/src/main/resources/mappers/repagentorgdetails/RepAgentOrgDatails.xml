@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="model.repagentorgdetails.RepAgentOrgDetails">
+
+    <insert id="insert" parameterType="model.repagentorgdetails.RepAgentOrgDetails" >
+    insert into rep_agent_org_details (node, agent, alertgroup,
+      alertkey, kpi, result
+      )
+    values (#{node,jdbcType=VARCHAR}, #{agent,jdbcType=VARCHAR}, #{alertgroup,jdbcType=VARCHAR},
+      #{alertkey,jdbcType=VARCHAR}, #{kpi,jdbcType=VARCHAR}, #{result,jdbcType=VARCHAR}
+      )
+  </insert>
+
+</mapper>

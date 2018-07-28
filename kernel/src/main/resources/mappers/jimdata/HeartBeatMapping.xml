@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="model.kafkadata.HeartBeat">
+    <insert id="insert" parameterType="HeartBeat">
+        INSERT INTO agent_heartbeat (hb_clock,hb_host,hb_version,hb_timestamp,hb_time,hb_type,hb_agentuuid,hb_misfire,hb_created,hb_updated)
+        VALUES (#{hbClock},#{hbHost},#{hbVersion},#{hbTimestamp},#{hbTime},#{hbType},#{hbAgentuuid},#{hbMisfire},#{hbCreated},#{hbUpdated})
+    </insert>
+    <select id="selectList" parameterType="HeartBeat" resultType="HeartBeat">
+        SELECT *
+        FROM agent_heartbeat
+        <include refid="condition"/>
+    </select>
+    <select id="selectOne" parameterType="HeartBeat" resultType="HeartBeat">
+        SELECT *
+        FROM agent_heartbeat
+        <include refid="condition"/>
+    </select>
+    <delete id="delete" parameterType="HeartBeat">
+        DELETE FROM agent_heartbeat
+        <choose>
+            <when test="false  or (hbId != null and hbId != '') or (hbClock != null and hbClock != '') or (hbHost != null and hbHost != '') or (hbVersion != null and hbVersion != '') or (hbTimestamp != null and hbTimestamp != '') or (hbTime != null and hbTime != '') or (hbType != null and hbType != '') or (hbAgentuuid != null and hbAgentuuid != '') or (hbMisfire != null and hbMisfire != '') or (hbCreated != null and hbCreated != '') or (hbUpdated != null and hbUpdated != '')">
+                <include refid="condition"/>
+            </when>
+            <otherwise>
+              where 1 = 2
+            </otherwise>
+        </choose>
+    </delete>
+    <update id="update" parameterType="HeartBeat">
+        UPDATE agent_heartbeat
+        <set>
+          <if test="hbId != null and hbId != ''">
+              hb_id = #{hbId},
+          </if>
+          <if test="hbClock != null and hbClock != ''">
+              hb_clock = #{hbClock},
+          </if>
+          <if test="hbHost != null and hbHost != ''">
+              hb_host = #{hbHost},
+          </if>
+          <if test="hbVersion != null and hbVersion != ''">
+              hb_version = #{hbVersion},
+          </if>
+          <if test="hbTimestamp != null and hbTimestamp != ''">
+              hb_timestamp = #{hbTimestamp},
+          </if>
+          <if test="hbTime != null and hbTime != ''">
+              hb_time = #{hbTime},
+          </if>
+          <if test="hbType != null and hbType != ''">
+              hb_type = #{hbType},
+          </if>
+          <if test="hbAgentuuid != null and hbAgentuuid != ''">
+              hb_agentuuid = #{hbAgentuuid},
+          </if>
+          <if test="hbMisfire != null and hbMisfire != ''">
+              hb_misfire = #{hbMisfire},
+          </if>
+          <if test="hbCreated != null and hbCreated != ''">
+              hb_created = #{hbCreated},
+          </if>
+          <if test="hbUpdated != null and hbUpdated != ''">
+              hb_updated = #{hbUpdated},
+          </if>
+        </set>
+        where hb_id = #{hbId}
+    </update>
+    <sql id="condition">
+        <where>
+          <if test="hbId != null and hbId != ''">
+              and hb_id = #{hbId}
+          </if>
+          <if test="hbClock != null and hbClock != ''">
+              and hb_clock = #{hbClock}
+          </if>
+          <if test="hbHost != null and hbHost != ''">
+              and hb_host = #{hbHost}
+          </if>
+          <if test="hbVersion != null and hbVersion != ''">
+              and hb_version = #{hbVersion}
+          </if>
+          <if test="hbTimestamp != null and hbTimestamp != ''">
+              and hb_timestamp = #{hbTimestamp}
+          </if>
+          <if test="hbTime != null and hbTime != ''">
+              and hb_time = #{hbTime}
+          </if>
+          <if test="hbType != null and hbType != ''">
+              and hb_type = #{hbType}
+          </if>
+          <if test="hbAgentuuid != null and hbAgentuuid != ''">
+              and hb_agentuuid = #{hbAgentuuid}
+          </if>
+          <if test="hbMisfire != null and hbMisfire != ''">
+              and hb_misfire = #{hbMisfire}
+          </if>
+          <if test="hbCreated != null and hbCreated != ''">
+              and hb_created = #{hbCreated}
+          </if>
+          <if test="hbUpdated != null and hbUpdated != ''">
+              and hb_updated = #{hbUpdated}
+          </if>
+        </where>
+    </sql>
+</mapper>

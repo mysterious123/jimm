@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="model.communicationlinegroup.CommunicationLineGroup">
+    <insert id="insert" parameterType="CommunicationLineGroup">
+        INSERT INTO communication_line_group (COMMUNICATION_LINE_GROUP_NAME,PARENT_ID,ICONCLS)
+        VALUES (#{communicationLineGroupName},#{parentId},#{iconcls})
+    </insert>
+    <select id="selectList" parameterType="CommunicationLineGroup" resultType="CommunicationLineGroup">
+        SELECT *
+        FROM communication_line_group
+        <include refid="condition"/>
+    </select>
+    <select id="selectOne" parameterType="CommunicationLineGroup" resultType="CommunicationLineGroup">
+        SELECT *
+        FROM communication_line_group
+        <include refid="condition"/>
+    </select>
+    <delete id="delete" parameterType="CommunicationLineGroup">
+        DELETE FROM communication_line_group
+        <choose>
+            <when test="false  or (id != null and id != '') or (communicationLineGroupName != null and communicationLineGroupName != '') or (parentId != null and parentId != '') or (iconcls != null and iconcls != '')">
+                <include refid="condition"/>
+            </when>
+            <otherwise>
+              where 1 = 2
+            </otherwise>
+        </choose>
+    </delete>
+    <update id="update" parameterType="CommunicationLineGroup">
+        UPDATE communication_line_group
+        <set>
+          <if test="id != null and id != ''">
+              ID = #{id},
+          </if>
+          <if test="communicationLineGroupName != null and communicationLineGroupName != ''">
+              COMMUNICATION_LINE_GROUP_NAME = #{communicationLineGroupName},
+          </if>
+          <if test="parentId != null and parentId != ''">
+              PARENT_ID = #{parentId},
+          </if>
+          <if test="iconcls != null and iconcls != ''">
+              ICONCLS = #{iconcls},
+          </if>
+        </set>
+        where ID = #{id}
+    </update>
+    <sql id="condition">
+        <where>
+          <if test="id != null and id != ''">
+              and ID = #{id}
+          </if>
+          <if test="communicationLineGroupName != null and communicationLineGroupName != ''">
+              and COMMUNICATION_LINE_GROUP_NAME = #{communicationLineGroupName}
+          </if>
+          <if test="parentId != null and parentId != ''">
+              and PARENT_ID = #{parentId}
+          </if>
+          <if test="iconcls != null and iconcls != ''">
+              and ICONCLS = #{iconcls}
+          </if>
+        </where>
+    </sql>
+</mapper>

@@ -1,0 +1,28 @@
+const state = {
+  update{{className}} : null,
+}
+
+const getters = {
+
+}
+
+const actions = {
+
+}
+
+const mutations = {
+  setUpdate{{className}}(state,{{lowcase(className)}}){
+    state.update{{className}} = {{lowcase(className)}};
+  },
+  clearUpdate{{className}}(state){
+    state.update{{className}} = null;
+  },
+}
+
+export default {
+  namespaced: true,
+  state,
+  getters,
+  actions,
+  mutations
+}

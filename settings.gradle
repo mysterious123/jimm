@@ -1,0 +1,2 @@
+include 'kernel', 'plugin', 'util', 'webui','codeGen'
+rootProject.name = 'jim'

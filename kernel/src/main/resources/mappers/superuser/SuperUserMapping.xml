@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="model.superuser.SuperUser">
+    <resultMap id="SuperUserInfo" type="SuperUser">
+        <id property="id" column="ID"/>
+        <result property="userName" column="USER_NAME"></result>
+        <result property="password" column="PASSWORD"></result>
+        <result property="groupId" column="GROUP_ID"></result>
+        <result property="createTime" column="CREATE_TIME"></result>
+        <result property="groupName" column="GROUP_NAME"></result>
+        <collection property="superPermissions" ofType="SuperPermission">
+            <id property="permission" column="permission" ></id>
+            <result property="id" column="PERMISSION_ID"></result>
+            <result property="description" column="description" ></result>
+            <result property="type" column="type" ></result>
+            <result property="parent" column="PERMISSION_PARENT" ></result>
+        </collection>
+        <collection property="superRoles" ofType="SuperRole">
+            <id property="id" column="ROLE_ID"></id>
+            <result property="roleName" column="ROLE_NAME" ></result>
+            <result property="createTime" column="SUPER_ROLE_CREATE_TIME" ></result>
+        </collection>
+        <collection property="superMenus" ofType="SuperMenu">
+            <id property="id" column="MENU_ID"></id>
+            <result property="icon" column="ICON" ></result>
+            <result property="name" column="NAME" ></result>
+            <result property="parent" column="MENU_PARENT" ></result>
+            <result property="text" column="TEXT" ></result>
+        </collection>
+    </resultMap>
+    <insert id="insert" parameterType="SuperUser" keyProperty="id">
+        INSERT INTO super_config_user (USER_NAME,PASSWORD,GROUP_ID,CREATE_TIME)
+        VALUES (#{userName},#{password},#{groupId},#{createTime})
+    </insert>
+    <select id="selectList" parameterType="SuperUser" resultType="SuperUser">
+        SELECT *
+        FROM super_config_user
+        <include refid="condition"/>
+    </select>
+    <select id="selectOne" parameterType="SuperUser" resultType="SuperUser">
+        SELECT *
+        FROM super_config_user
+        <include refid="condition"/>
+    </select>
+    <delete id="delete" parameterType="SuperUser">
+        DELETE FROM super_config_user
+        <choose>
+            <when test="false  or (id != null and id != '') or (userName != null and userName != '') or (password != null and password != '') or (groupId != null and groupId != '') or (createTime != null and createTime != '')">
+                <include refid="condition"/>
+            </when>
+            <otherwise>
+              where 1 = 2
+            </otherwise>
+        </choose>
+    </delete>
+    <update id="update" parameterType="SuperUser">
+        UPDATE super_config_user
+        <set>
+          <if test="id != null and id != ''">
+              ID = #{id},
+          </if>
+          <if test="userName != null and userName != ''">
+              USER_NAME = #{userName},
+          </if>
+          <if test="password != null and password != ''">
+              PASSWORD = #{password},
+          </if>
+          <if test="groupId != null and groupId != ''">
+              GROUP_ID = #{groupId},
+          </if>
+          <if test="createTime != null and createTime != ''">
+              CREATE_TIME = #{createTime},
+          </if>
+        </set>
+        where ID = #{id}
+    </update>
+
+    <select id="selectOneInfo" parameterType="SuperUser" resultMap="SuperUserInfo">
+        SELECT
+            t1.*,
+            t3.ID as 'ROLE_ID',
+            t3.ROLE_NAME,
+            t3.CREATE_TIME as 'SUPER_ROLE_CREATE_TIME',
+            t5.id as 'PERMISSION_ID',
+            t5.description,
+            t5.permission,
+            t5.type,
+            t5.parent as 'PERMISSION_PARENT',
+            t7.ID as 'MENU_ID',
+            t7.ICON,
+            t7.NAME,
+            t7.PARENT as 'MENU_PARENT',
+            t7.TEXT
+        FROM
+            super_config_user t1
+        LEFT JOIN super_config_role_user t2 ON t1.ID = t2.USER_ID
+        LEFT JOIN super_config_role t3 ON t2.ROLE_ID = t3.ID
+        LEFT JOIN super_config_role_permission t4 ON t3.ID = t4.ROLE_ID
+        LEFT JOIN super_config_permission t5 ON t4.PERMISSION = t5.permission
+        LEFT JOIN super_config_role_menu t6 ON t3.ID = T6.ROLE_ID
+        LEFT JOIN super_config_menu t7 ON t7.ID = t6.MENU_ID
+        <where>
+            <if test="id != null and id != ''">
+                and t1.ID = #{id}
+            </if>
+            <if test="userName != null and userName != ''">
+                and t1.USER_NAME = #{userName}
+            </if>
+            <if test="password != null and password != ''">
+                and t1.PASSWORD = #{password}
+            </if>
+            <if test="groupId != null and groupId != ''">
+                and t1.GROUP_ID = #{groupId}
+            </if>
+            <if test="createTime != null and createTime != ''">
+                and t1.CREATE_TIME = #{createTime}
+            </if>
+        </where>
+    </select>
+    <sql id="condition">
+        <where>
+          <if test="id != null and id != ''">
+              and ID = #{id}
+          </if>
+          <if test="userName != null and userName != ''">
+              and USER_NAME = #{userName}
+          </if>
+          <if test="password != null and password != ''">
+              and PASSWORD = #{password}
+          </if>
+          <if test="groupId != null and groupId != ''">
+              and GROUP_ID = #{groupId}
+          </if>
+          <if test="createTime != null and createTime != ''">
+              and CREATE_TIME = #{createTime}
+          </if>
+        </where>
+    </sql>
+    <select id="queryUserInfo" parameterType="SuperUser" resultMap="SuperUserInfo">
+         select t1.ID, t1.USER_NAME,t1.CREATE_TIME, t1.GROUP_ID, t3.GROUP_NAME,t4.ROLE_ID
+         from super_config_user t1
+         left join super_user_group_link t2 on t1.ID=t2.USER_ID
+         left join super_user_group t3 on t3.ID=t2.GROUP_ID
+         left join super_config_role_user t4 on t1.ID = t4.USER_ID
+
+    </select>
+</mapper>

@@ -1,0 +1,62 @@
+description = "jim核心功能组件"
+
+apply plugin: "org.akhikhl.gretty"
+apply plugin: "war"
+
+
+gretty{
+    fileLogEnabled = false
+    host = "0.0.0.0"
+    contextPath = "/core"
+}
+
+configurations {
+    //all*.exclude group: "log4j", module: "log4j"
+}
+
+dependencies {
+    //compile project(":webui")
+    compile project(":plugin")
+    compile project(":util")
+
+    compile libraries."javaee-api",
+            libraries."spring-webmvc",
+            libraries."spring-tx",
+            libraries."spring-jdbc",
+            libraries."spring-aspects",
+            libraries."spring-context-support",
+            libraries."spring-websocket",
+            libraries."spring-test",
+            libraries."mysql",
+            libraries."mybatis",
+            libraries."druid",
+            libraries."log4j-to-slf4j",
+            libraries."commons-fileupload",
+            libraries."hibernate-validator",
+            libraries."mybatis-spring",
+            libraries."jackson-core",
+            libraries."jackson-annotations",
+            libraries."jackson-databind",
+            libraries."quartz",
+            libraries."quartz-jobs",
+            libraries."commons-beanutils",
+            libraries."commons-lang3",
+            libraries."json-path",
+            libraries."snmp4j",
+            libraries."shiro-core",
+            libraries."shiro-web",
+            libraries."shiro-spring",
+            libraries."shiro-ehcache",
+            libraries."oracle",
+            libraries."sqlserver",
+            libraries."junit"
+
+    testCompile libraries."jetty-server",
+                libraries."jetty-servlet",
+                libraries."jetty-websocket-server",
+                libraries."jetty-runner"
+
+    providedCompile libraries."servlet-api",
+                    libraries."jsp-api",
+                    libraries."jstl"
+}

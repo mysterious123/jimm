@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="model.releaselink.ReleaseLink">
+    <insert id="insert" parameterType="releaseLink">
+        INSERT INTO F_RELEASE_LINK (RELEASE_ID,SERVER_GROUP_ID)
+        VALUES (#{releaseId},#{serverGroupId})
+    </insert>
+    <select id="selectList" parameterType="releaseLink" resultType="releaseLink">
+        SELECT *
+        FROM F_RELEASE_LINK
+        <include refid="condition"/>
+    </select>
+    <select id="selectOne" parameterType="releaseLink" resultType="releaseLink">
+        SELECT *
+        FROM F_RELEASE_LINK
+        <include refid="condition"/>
+    </select>
+    <delete id="delete" parameterType="releaseLink">
+        DELETE FROM F_RELEASE_LINK
+        <choose>
+            <when test="false  or (releaseId != null and releaseId != '') or (serverGroupId != null and serverGroupId != '')">
+                <include refid="condition"/>
+            </when>
+            <otherwise>
+              where 1 = 2
+            </otherwise>
+        </choose>
+    </delete>
+    <update id="update" parameterType="releaseLink">
+        UPDATE F_RELEASE_LINK
+        <set>
+          <if test="releaseId != null and releaseId != ''">
+              RELEASE_ID = #{releaseId},
+          </if>
+          <if test="serverGroupId != null and serverGroupId != ''">
+              SERVER_GROUP_ID = #{serverGroupId},
+          </if>
+        </set>
+        where 
+    </update>
+    <sql id="condition">
+        <where>
+          <if test="releaseId != null and releaseId != ''">
+              and RELEASE_ID = #{releaseId}
+          </if>
+          <if test="serverGroupId != null and serverGroupId != ''">
+              and SERVER_GROUP_ID = #{serverGroupId}
+          </if>
+        </where>
+    </sql>
+</mapper>

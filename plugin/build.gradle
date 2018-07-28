@@ -1,0 +1,12 @@
+description = "jim内置组件插件"
+
+dependencies {
+    compile project(":util")
+    compile libraries."mybatis",
+            libraries."spring-web",
+            libraries."spring-webmvc",
+            libraries."spring-jdbc",
+            libraries."joda-time",
+            libraries."druid",
+            libraries."redisson"
+}

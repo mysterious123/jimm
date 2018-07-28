@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="model.managegroupinfo.ManageGroupInfo">
+    <insert id="insert" parameterType="ManageGroupInfo" keyProperty="id">
+        INSERT INTO ad_manage_group_info (MANAGE_GROUP_NAME,MEMBER_NUM,CREATE_TIME,MANAGE_ID,USER_ID)
+        VALUES (#{manageGroupName},#{memberNum},#{createTime},#{manageId},#{userId})
+    </insert>
+    <select id="selectList" parameterType="ManageGroupInfo" resultType="ManageGroupInfo">
+        SELECT *
+        FROM ad_manage_group_info
+        <include refid="condition"/>
+    </select>
+    <select id="selectOne" parameterType="ManageGroupInfo" resultType="ManageGroupInfo">
+        SELECT *
+        FROM ad_manage_group_info
+        <include refid="condition"/>
+    </select>
+    <delete id="delete" parameterType="ManageGroupInfo">
+        DELETE FROM ad_manage_group_info
+        <choose>
+            <when test="false  or (id != null and id != '') or (manageGroupName != null and manageGroupName != '') or (memberNum != null and memberNum != '') or (createTime != null and createTime != '') or (manageId != null and manageId != '') or (userId != null and userId != '')">
+                <include refid="condition"/>
+            </when>
+            <otherwise>
+              where 1 = 2
+            </otherwise>
+        </choose>
+    </delete>
+    <update id="update" parameterType="ManageGroupInfo">
+        UPDATE ad_manage_group_info
+        <set>
+          <if test="id != null and id != ''">
+              ID = #{id},
+          </if>
+          <if test="manageGroupName != null and manageGroupName != ''">
+              MANAGE_GROUP_NAME = #{manageGroupName},
+          </if>
+          <if test="memberNum != null and memberNum != ''">
+              MEMBER_NUM = #{memberNum},
+          </if>
+          <if test="createTime != null and createTime != ''">
+              CREATE_TIME = #{createTime},
+          </if>
+          <if test="manageId != null and manageId != ''">
+              MANAGE_ID = #{manageId},
+          </if>
+          <if test="userId != null and userId != ''">
+              USER_ID = #{userId},
+          </if>
+        </set>
+        where ID = #{id}
+    </update>
+    <sql id="condition">
+        <where>
+          <if test="id != null and id != ''">
+              and ID = #{id}
+          </if>
+          <if test="manageGroupName != null and manageGroupName != ''">
+              and MANAGE_GROUP_NAME = #{manageGroupName}
+          </if>
+          <if test="memberNum != null and memberNum != ''">
+              and MEMBER_NUM = #{memberNum}
+          </if>
+          <if test="createTime != null and createTime != ''">
+              and CREATE_TIME = #{createTime}
+          </if>
+          <if test="manageId != null and manageId != ''">
+              and MANAGE_ID = #{manageId}
+          </if>
+          <if test="userId != null and userId != ''">
+              and USER_ID = #{userId}
+          </if>
+        </where>
+    </sql>
+
+    <select id="querySelectUser" parameterType="ManageGroupInfo" resultType="UserInfo">
+      SELECT * from system_user_info
+      WHERE ID in (select CONTACTS_ID from ad_mc_relation where MANAGE_GROUP_INFO_ID = #{id})
+    </select>
+
+    <select id="queryNoSelectUser" parameterType="ManageGroupInfo" resultType="UserInfo">
+      SELECT * from system_user_info
+      WHERE ID not in (select CONTACTS_ID from ad_mc_relation where MANAGE_GROUP_INFO_ID = #{id})
+    </select>
+</mapper>

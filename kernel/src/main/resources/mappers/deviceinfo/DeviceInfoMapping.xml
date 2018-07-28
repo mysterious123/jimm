@@ -1,0 +1,277 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="model.deviceinfo.DeviceInfo">
+    <insert id="insert" parameterType="DeviceInfo">
+        INSERT INTO NETWORK_DEVICE_INFO (GROUP_ID,MANAGE_IP,DEVICE_NAME,DEVICE_OTHER_NAME,DEVICE_TYPE,DEVICE_VERSION,DEVICE_LEVEL,SNMP_VERSION,SNMP_PORT,Community_String_RO,Community_String_RW,DEPARTMENT,ATTRIBUTE_ORGANIZATION,NETWORK_ZONE,STAT,MONITOR_TACTICS,TIME_TACTICS,REMARKS,FIRM,Object_ID,SOFTWARE_VERSION,SUPPLIER,SERVICE_PROVIDER,WHETHER_DOT,ASSET_ID,GROUNDING_TIME,COMPUTER_ROOM,COMPUTER_COUNTER,MAINTENANCE_START_TIME,MAINTENANCE_END_TIME)
+        VALUES (#{groupId},#{manageIp},#{deviceName},#{deviceOtherName},#{deviceType},#{deviceVersion},#{deviceLevel},#{snmpVersion},#{snmpPort},#{communityStringRo},#{communityStringRw},#{department},#{attributeOrganization},#{networkZone},#{stat},#{monitorTactics},#{timeTactics},#{remarks},#{firm},#{objectId},#{softwareVersion},#{supplier},#{serviceProvider},#{whetherDot},#{assetId},#{groundingTime},#{computerRoom},#{computerCounter},#{maintenanceStartTime},#{maintenanceEndTime})
+    </insert>
+    <select id="selectList" parameterType="DeviceInfo" resultType="DeviceInfo">
+        SELECT *
+        FROM NETWORK_DEVICE_INFO
+        <include refid="condition"/>
+    </select>
+    <select id="selectOne" parameterType="DeviceInfo" resultType="DeviceInfo">
+        SELECT *
+        FROM NETWORK_DEVICE_INFO
+        <include refid="condition"/>
+    </select>
+    <delete id="delete" parameterType="DeviceInfo">
+        DELETE FROM NETWORK_DEVICE_INFO
+        <choose>
+            <when test="false  or (id != null and id != '') or (manageIp != null and manageIp != '') or (deviceName != null and deviceName != '') or (deviceOtherName != null and deviceOtherName != '') or (deviceType != null and deviceType != '') or (deviceVersion != null and deviceVersion != '') or (deviceLevel != null and deviceLevel != '') or (snmpVersion != null and snmpVersion != '') or (snmpPort != null and snmpPort != '') or (communityStringRo != null and communityStringRo != '') or (communityStringRw != null and communityStringRw != '') or (department != null and department != '') or (attributeOrganization != null and attributeOrganization != '') or (networkZone != null and networkZone != '') or (stat != null and stat != '') or (monitorTactics != null and monitorTactics != '') or (timeTactics != null and timeTactics != '') or (remarks != null and remarks != '') or (firm != null and firm != '') or (objectId != null and objectId != '') or (softwareVersion != null and softwareVersion != '') or (supplier != null and supplier != '') or (serviceProvider != null and serviceProvider != '') or (whetherDot != null and whetherDot != '') or (assetId != null and assetId != '') or (groundingTime != null and groundingTime != '') or (computerRoom != null and computerRoom != '') or (computerCounter != null and computerCounter != '') or (maintenanceStartTime != null and maintenanceStartTime != '') or (maintenanceEndTime != null and maintenanceEndTime != '') or (importantPort != null and importantPort != '') or (portStat != null and portStat != '') or (portName != null and portName != '') or (portOtherName != null and portOtherName != '') or (portIp != null and portIp != '') or (bandwidth != null and bandwidth != '') or (userId != null and userId != '') or (groupId != null and groupId != '')">
+                <include refid="condition"/>
+            </when>
+            <otherwise>
+              where 1 = 2
+            </otherwise>
+        </choose>
+    </delete>
+    <update id="update" parameterType="DeviceInfo">
+        UPDATE NETWORK_DEVICE_INFO
+        <set>
+          <if test="id != null and id != ''">
+              ID = #{id},
+          </if>
+          <if test="manageIp != null and manageIp != ''">
+              MANAGE_IP = #{manageIp},
+          </if>
+          <if test="deviceName != null and deviceName != ''">
+              DEVICE_NAME = #{deviceName},
+          </if>
+          <if test="deviceOtherName != null and deviceOtherName != ''">
+              DEVICE_OTHER_NAME = #{deviceOtherName},
+          </if>
+          <if test="deviceType != null and deviceType != ''">
+              DEVICE_TYPE = #{deviceType},
+          </if>
+          <if test="deviceVersion != null and deviceVersion != ''">
+              DEVICE_VERSION = #{deviceVersion},
+          </if>
+          <if test="deviceLevel != null and deviceLevel != ''">
+              DEVICE_LEVEL = #{deviceLevel},
+          </if>
+          <if test="snmpVersion != null and snmpVersion != ''">
+              SNMP_VERSION = #{snmpVersion},
+          </if>
+          <if test="snmpPort != null and snmpPort != ''">
+              SNMP_PORT = #{snmpPort},
+          </if>
+          <if test="communityStringRo != null and communityStringRo != ''">
+              Community_String_RO = #{communityStringRo},
+          </if>
+          <if test="communityStringRw != null and communityStringRw != ''">
+              Community_String_RW = #{communityStringRw},
+          </if>
+          <if test="department != null and department != ''">
+              DEPARTMENT = #{department},
+          </if>
+          <if test="attributeOrganization != null and attributeOrganization != ''">
+              ATTRIBUTE_ORGANIZATION = #{attributeOrganization},
+          </if>
+          <if test="networkZone != null and networkZone != ''">
+              NETWORK_ZONE = #{networkZone},
+          </if>
+          <if test="stat != null and stat != ''">
+              STAT = #{stat},
+          </if>
+          <if test="monitorTactics != null and monitorTactics != ''">
+              MONITOR_TACTICS = #{monitorTactics},
+          </if>
+          <if test="timeTactics != null and timeTactics != ''">
+              TIME_TACTICS = #{timeTactics},
+          </if>
+          <if test="remarks != null and remarks != ''">
+              REMARKS = #{remarks},
+          </if>
+          <if test="firm != null and firm != ''">
+              FIRM = #{firm},
+          </if>
+          <if test="objectId != null and objectId != ''">
+              Object_ID = #{objectId},
+          </if>
+          <if test="softwareVersion != null and softwareVersion != ''">
+              SOFTWARE_VERSION = #{softwareVersion},
+          </if>
+          <if test="supplier != null and supplier != ''">
+              SUPPLIER = #{supplier},
+          </if>
+          <if test="serviceProvider != null and serviceProvider != ''">
+              SERVICE_PROVIDER = #{serviceProvider},
+          </if>
+          <if test="whetherDot != null and whetherDot != ''">
+              WHETHER_DOT = #{whetherDot},
+          </if>
+          <if test="assetId != null and assetId != ''">
+              ASSET_ID = #{assetId},
+          </if>
+          <if test="groundingTime != null and groundingTime != ''">
+              GROUNDING_TIME = #{groundingTime},
+          </if>
+          <if test="computerRoom != null and computerRoom != ''">
+              COMPUTER_ROOM = #{computerRoom},
+          </if>
+          <if test="computerCounter != null and computerCounter != ''">
+              COMPUTER_COUNTER = #{computerCounter},
+          </if>
+          <if test="maintenanceStartTime != null and maintenanceStartTime != ''">
+              MAINTENANCE_START_TIME = #{maintenanceStartTime},
+          </if>
+          <if test="maintenanceEndTime != null and maintenanceEndTime != ''">
+              MAINTENANCE_END_TIME = #{maintenanceEndTime},
+          </if>
+          <if test="importantPort != null and importantPort != ''">
+              IMPORTANT_PORT = #{importantPort},
+          </if>
+          <if test="portStat != null and portStat != ''">
+              PORT_STAT = #{portStat},
+          </if>
+          <if test="portName != null and portName != ''">
+              PORT_NAME = #{portName},
+          </if>
+          <if test="portOtherName != null and portOtherName != ''">
+              PORT_OTHER_NAME = #{portOtherName},
+          </if>
+          <if test="portIp != null and portIp != ''">
+              PORT_IP = #{portIp},
+          </if>
+          <if test="bandwidth != null and bandwidth != ''">
+              BANDWIDTH = #{bandwidth},
+          </if>
+          <if test="userId != null and userId != ''">
+              USER_ID = #{userId},
+          </if>
+          <if test="groupId != null and groupId != ''">
+              GROUP_ID = #{groupId},
+          </if>
+        </set>
+        where ID = #{id}
+    </update>
+    <sql id="condition">
+        <where>
+          <if test="id != null and id != ''">
+              and ID = #{id}
+          </if>
+          <if test="manageIp != null and manageIp != ''">
+              and MANAGE_IP = #{manageIp}
+          </if>
+          <if test="deviceName != null and deviceName != ''">
+              and DEVICE_NAME = #{deviceName}
+          </if>
+          <if test="deviceOtherName != null and deviceOtherName != ''">
+              and DEVICE_OTHER_NAME = #{deviceOtherName}
+          </if>
+          <if test="deviceType != null and deviceType != ''">
+              and DEVICE_TYPE = #{deviceType}
+          </if>
+          <if test="deviceVersion != null and deviceVersion != ''">
+              and DEVICE_VERSION = #{deviceVersion}
+          </if>
+          <if test="deviceLevel != null and deviceLevel != ''">
+              and DEVICE_LEVEL = #{deviceLevel}
+          </if>
+          <if test="snmpVersion != null and snmpVersion != ''">
+              and SNMP_VERSION = #{snmpVersion}
+          </if>
+          <if test="snmpPort != null and snmpPort != ''">
+              and SNMP_PORT = #{snmpPort}
+          </if>
+          <if test="communityStringRo != null and communityStringRo != ''">
+              and Community_String_RO = #{communityStringRo}
+          </if>
+          <if test="communityStringRw != null and communityStringRw != ''">
+              and Community_String_RW = #{communityStringRw}
+          </if>
+          <if test="department != null and department != ''">
+              and DEPARTMENT = #{department}
+          </if>
+          <if test="attributeOrganization != null and attributeOrganization != ''">
+              and ATTRIBUTE_ORGANIZATION = #{attributeOrganization}
+          </if>
+          <if test="networkZone != null and networkZone != ''">
+              and NETWORK_ZONE = #{networkZone}
+          </if>
+          <if test="stat != null and stat != ''">
+              and STAT = #{stat}
+          </if>
+          <if test="monitorTactics != null and monitorTactics != ''">
+              and MONITOR_TACTICS = #{monitorTactics}
+          </if>
+          <if test="timeTactics != null and timeTactics != ''">
+              and TIME_TACTICS = #{timeTactics}
+          </if>
+          <if test="remarks != null and remarks != ''">
+              and REMARKS = #{remarks}
+          </if>
+          <if test="firm != null and firm != ''">
+              and FIRM = #{firm}
+          </if>
+          <if test="objectId != null and objectId != ''">
+              and Object_ID = #{objectId}
+          </if>
+          <if test="softwareVersion != null and softwareVersion != ''">
+              and SOFTWARE_VERSION = #{softwareVersion}
+          </if>
+          <if test="supplier != null and supplier != ''">
+              and SUPPLIER = #{supplier}
+          </if>
+          <if test="serviceProvider != null and serviceProvider != ''">
+              and SERVICE_PROVIDER = #{serviceProvider}
+          </if>
+          <if test="whetherDot != null and whetherDot != ''">
+              and WHETHER_DOT = #{whetherDot}
+          </if>
+          <if test="assetId != null and assetId != ''">
+              and ASSET_ID = #{assetId}
+          </if>
+          <if test="groundingTime != null and groundingTime != ''">
+              and GROUNDING_TIME = #{groundingTime}
+          </if>
+          <if test="computerRoom != null and computerRoom != ''">
+              and COMPUTER_ROOM = #{computerRoom}
+          </if>
+          <if test="computerCounter != null and computerCounter != ''">
+              and COMPUTER_COUNTER = #{computerCounter}
+          </if>
+          <if test="maintenanceStartTime != null and maintenanceStartTime != ''">
+              and MAINTENANCE_START_TIME = #{maintenanceStartTime}
+          </if>
+          <if test="maintenanceEndTime != null and maintenanceEndTime != ''">
+              and MAINTENANCE_END_TIME = #{maintenanceEndTime}
+          </if>
+          <if test="importantPort != null and importantPort != ''">
+              and IMPORTANT_PORT = #{importantPort}
+          </if>
+          <if test="portStat != null and portStat != ''">
+              and PORT_STAT = #{portStat}
+          </if>
+          <if test="portName != null and portName != ''">
+              and PORT_NAME = #{portName}
+          </if>
+          <if test="portOtherName != null and portOtherName != ''">
+              and PORT_OTHER_NAME = #{portOtherName}
+          </if>
+          <if test="portIp != null and portIp != ''">
+              and PORT_IP = #{portIp}
+          </if>
+          <if test="bandwidth != null and bandwidth != ''">
+              and BANDWIDTH = #{bandwidth}
+          </if>
+          <if test="userId != null and userId != ''">
+              and USER_ID = #{userId}
+          </if>
+          <if test="groupId != null and groupId != ''">
+              and GROUP_ID = #{groupId}
+          </if>
+        </where>
+    </sql>
+    <select id="getDeviceByGroupId" parameterType="DeviceInfo" resultType="DeviceInfo">
+        SELECT *
+        FROM NETWORK_DEVICE_INFO
+        WHERE GROUP_ID IN
+        <foreach item="item" index="index" collection="groupIds" open="("
+                 separator="," close=")">
+            ${item}
+        </foreach>
+    </select>
+</mapper>

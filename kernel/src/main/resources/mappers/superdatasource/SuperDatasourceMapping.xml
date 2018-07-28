@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="model.superdatasource.SuperDatasource">
+    <insert id="insert" parameterType="SuperDatasource">
+        INSERT INTO super_config_datasource (DATASOURCE_TYPE,DB_TYPE,SERVER_IP,DATABASE_NAME,PORT_NUM,USER_NAME,PASSWORD)
+        VALUES (#{datasourceType},#{dbType},#{serverIp},#{databaseName},#{portNum},#{userName},#{password})
+    </insert>
+    <select id="selectList" parameterType="SuperDatasource" resultType="SuperDatasource">
+        SELECT *
+        FROM super_config_datasource
+        <include refid="condition"/>
+    </select>
+    <select id="selectOne" parameterType="SuperDatasource" resultType="SuperDatasource">
+        SELECT *
+        FROM super_config_datasource
+        <include refid="condition"/>
+    </select>
+    <delete id="delete" parameterType="SuperDatasource">
+        DELETE FROM super_config_datasource
+        <choose>
+            <when test="false  or (id != null and id != '') or (datasourceType != null and datasourceType != '') or (dbType != null and dbType != '') or (serverIp != null and serverIp != '') or (databaseName != null and databaseName != '') or (portNum != null and portNum != '') or (userName != null and userName != '') or (password != null and password != '')">
+                <include refid="condition"/>
+            </when>
+            <otherwise>
+                where 1 = 2
+            </otherwise>
+        </choose>
+    </delete>
+    <update id="update" parameterType="SuperDatasource">
+        UPDATE super_config_datasource
+        <set>
+            <if test="id != null and id != ''">
+                ID = #{id},
+            </if>
+            <if test="datasourceType != null and datasourceType != ''">
+                DATASOURCE_TYPE = #{datasourceType},
+            </if>
+            <if test="dbType != null and dbType != ''">
+                DB_TYPE = #{dbType},
+            </if>
+            <if test="serverIp != null and serverIp != ''">
+                SERVER_IP = #{serverIp},
+            </if>
+            <if test="databaseName != null and databaseName != ''">
+                DATABASE_NAME = #{databaseName},
+            </if>
+            <if test="portNum != null and portNum != ''">
+                PORT_NUM = #{portNum},
+            </if>
+            <if test="userName != null and userName != ''">
+                USER_NAME = #{userName},
+            </if>
+            <if test="password != null and password != ''">
+                PASSWORD = #{password},
+            </if>
+        </set>
+        where ID = #{id}
+    </update>
+    <sql id="condition">
+        <where>
+            <if test="id != null and id != ''">
+                and ID = #{id}
+            </if>
+            <if test="datasourceType != null and datasourceType != ''">
+                and DATASOURCE_TYPE = #{datasourceType}
+            </if>
+            <if test="dbType != null and dbType != ''">
+                and DB_TYPE = #{dbType}
+            </if>
+            <if test="serverIp != null and serverIp != ''">
+                and SERVER_IP = #{serverIp}
+            </if>
+            <if test="databaseName != null and databaseName != ''">
+                and DATABASE_NAME = #{databaseName}
+            </if>
+            <if test="portNum != null and portNum != ''">
+                and PORT_NUM = #{portNum}
+            </if>
+            <if test="userName != null and userName != ''">
+                and USER_NAME = #{userName}
+            </if>
+            <if test="password != null and password != ''">
+                and PASSWORD = #{password}
+            </if>
+        </where>
+    </sql>
+</mapper>

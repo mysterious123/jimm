@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="model.venderdetailinfo.VenderDetailInfo">
+    <insert id="insert" parameterType="VenderDetailInfo">
+        INSERT INTO S_DEVICE_INFO (DEVICE_TYPE,DEVICE_VERSION,OBJECT_ID,VENDER_ID)
+        VALUES (#{deviceType},#{deviceVersion},#{objectId},#{venderId})
+    </insert>
+    <select id="selectList" parameterType="VenderDetailInfo" resultType="VenderDetailInfo">
+        SELECT *
+        FROM S_DEVICE_INFO
+        <include refid="condition"/>
+    </select>
+    <select id="selectOne" parameterType="VenderDetailInfo" resultType="VenderDetailInfo">
+        SELECT *
+        FROM S_DEVICE_INFO
+        <include refid="condition"/>
+    </select>
+    <delete id="delete" parameterType="VenderDetailInfo">
+        DELETE FROM S_DEVICE_INFO
+        <choose>
+            <when test="false  or (id != null and id != '') or (deviceType != null and deviceType != '') or (deviceVersion != null and deviceVersion != '') or (objectId != null and objectId != '') or (venderId != null and venderId != '')">
+                <include refid="condition"/>
+            </when>
+            <otherwise>
+              where 1 = 2
+            </otherwise>
+        </choose>
+    </delete>
+    <update id="update" parameterType="VenderDetailInfo">
+        UPDATE S_DEVICE_INFO
+        <set>
+          <if test="id != null and id != ''">
+              ID = #{id},
+          </if>
+          <if test="deviceType != null and deviceType != ''">
+              DEVICE_TYPE = #{deviceType},
+          </if>
+          <if test="deviceVersion != null and deviceVersion != ''">
+              DEVICE_VERSION = #{deviceVersion},
+          </if>
+          <if test="objectId != null and objectId != ''">
+              OBJECT_ID = #{objectId},
+          </if>
+          <if test="venderId != null and venderId != ''">
+              VENDER_ID = #{venderId},
+          </if>
+        </set>
+        where ID = #{id}
+    </update>
+    <sql id="condition">
+        <where>
+          <if test="id != null and id != ''">
+              and ID = #{id}
+          </if>
+          <if test="deviceType != null and deviceType != ''">
+              and DEVICE_TYPE = #{deviceType}
+          </if>
+          <if test="deviceVersion != null and deviceVersion != ''">
+              and DEVICE_VERSION = #{deviceVersion}
+          </if>
+          <if test="objectId != null and objectId != ''">
+              and OBJECT_ID = #{objectId}
+          </if>
+          <if test="venderId != null and venderId != ''">
+              and VENDER_ID = #{venderId}
+          </if>
+        </where>
+    </sql>
+</mapper>

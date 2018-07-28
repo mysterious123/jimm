@@ -1,0 +1,65 @@
+{%- set lowcase = lowcase(className) -%}
+{%- set updateModel = "update"+ className -%}
+<template>
+  <v-card>
+    <v-toolbar class="cyan" dark dense>
+      <v-btn icon @click="pagerouter({name:'{{lowcase}}'})" dark>
+        <v-icon>arrow_back</v-icon>
+      </v-btn>
+      <v-toolbar-title class="white--text">{{moduleName}}Edit</v-toolbar-title>
+    </v-toolbar>
+    <v-card-text>
+    {% for meta in metaInfo -%}
+    {%- if meta.Key != 'PRI' -%}
+      <v-text-field
+       label="{{meta.Comment}}"
+       v-model="{{updateModel}}.{{convertToCamel(meta.Field)}}"
+       v-validate="'required'"
+       :error-messages="vee_errors.collect('{{meta.Comment}}','{{moduleName}}_update')[0]||[]"
+       data-vv-name="{{meta.Comment}}"
+       data-vv-scope="{{moduleName}}_update"
+     ></v-text-field>
+    {%- endif -%}
+    {% endfor %}
+    </v-card-text>
+    <v-card-actions>
+      <v-spacer></v-spacer>
+      <v-btn color="success" dark @click.stop="{{moduleName}}_update()">
+        <v-icon>check</v-icon>
+        更新
+      </v-btn>
+    </v-card-actions>
+  </v-card>
+</template>
+<script>
+  import {axios} from '@/assets/js/Utils';
+  import {mapGetters, mapState, mapMutations} from 'vuex';
+  import store from '@/store';
+
+  export default {
+    beforeRouteEnter (to, from, next) {
+      if(!store.state.{{moduleName}}.{{updateModel}}) {
+        next({name :'{{lowcase}}'})
+      }else{
+        next();
+      }
+    },
+    computed: {
+      ...mapState('{{moduleName}}', ['{{updateModel}}']),
+    },
+    methods:{
+      {{moduleName}}_update(){
+        this.$validator.validateAll("{{moduleName}}_update").then((result) => {
+          if (result) {
+            axios().put("/{{lowcase}}",this.{{updateModel}}).then(()=>{
+              this.simpleInfo("操作成功")
+              this.pagerouter({name:'{{lowcase}}'})
+            }).catch((error)=>{
+              this.simpleError("后台异常,操作失败")
+            })
+          }
+        });
+      }
+    }
+  }
+</script>

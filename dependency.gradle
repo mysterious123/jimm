@@ -1,0 +1,164 @@
+ext.versions = [
+        "spring"    : "4.3.8.RELEASE",
+        "jackson"   : "2.8.8",
+        "gson"      : "2.8.1",
+        "logback"   : "1.2.3",
+        "slf4j"     : "1.7.25",
+        "druid"     : "1.1.2",
+        "els"       : "5.5.0",
+        "jsonpath"  : "2.2.0"
+]
+
+ext.libraries = [
+        // Servlet
+        //
+        "servlet-api" : "javax.servlet:javax.servlet-api:3.0.1",
+        "jsp-api"     : "javax.servlet:jsp-api:2.0",
+        "jstl"        : "javax.servlet:jstl:1.2",
+        "standard"    : "taglibs:standard:1.1.2",
+        "javaee-api"  : "javax:javaee-api:7.0",
+        "jstl-api"    : "javax.servlet.jsp.jstl:javax.servlet.jsp.jstl-api:1.2.1",
+
+        // ORM
+        //
+        "persistence-api"     : "javax.persistence:persistence-api:1.0",
+        "validation-api"      : "javax.validation:validation-api:1.0.0.GA",
+        "jta"                 : "javax.transaction:jta:1.1",
+        "hibernate-validator" : "org.hibernate:hibernate-validator:5.0.2.Final",
+
+        // RMDB 相关驱动
+        //
+        "mysql" : "mysql:mysql-connector-java:5.1.27",
+        "h2"    : "com.h2database:h2:1.3.176",
+        "oracle": "com.oracle:ojdbc6:11.2.0.3",
+        "sqlserver": "com.microsoft.sqlserver:sqljdbc4:4.0.0",
+
+        // Spring 4.x
+        //
+        "spring-core"            : "org.springframework:spring-core:${versions.spring}",
+        "spring-beans"           : "org.springframework:spring-beans:${versions.spring}",
+        "spring-jdbc"            : "org.springframework:spring-jdbc:${versions.spring}",
+        "spring-tx"              : "org.springframework:spring-tx:${versions.spring}",
+        "spring-context"         : "org.springframework:spring-context:${versions.spring}",
+        "spring-context-support" : "org.springframework:spring-context-support:${versions.spring}",
+        "spring-orm"             : "org.springframework:spring-orm:${versions.spring}",
+        "spring-oxm"             : "org.springframework:spring-oxm:${versions.spring}",
+        "spring-webmvc"          : "org.springframework:spring-webmvc:${versions.spring}",
+        "spring-jms"             : "org.springframework:spring-jms:${versions.spring}",
+        "spring-aspects"         : "org.springframework:spring-aspects:${versions.spring}",
+        "spring-websocket"       : "org.springframework:spring-websocket:${versions.spring}",
+        "spring-messaging"       : "org.springframework:spring-messaging:${versions.spring}",
+        "spring-test"            : "org.springframework:spring-test:${versions.spring}",
+        "spring-web"             : "org.springframework:spring-web:${versions.spring}",
+        "spring-aop"             : "org.springframework:spring-aop:${versions.spring}",
+
+        // 忽略common log，使用slf4j代替
+        //
+        "logback-classic"    : "ch.qos.logback:logback-classic:${versions.logback}",
+        "logback-core"       : "ch.qos.logback:logback-core:${versions.logback}",
+        "jcl-over-slf4j"     : "org.slf4j:jcl-over-slf4j:${versions.slf4j}",
+        "log4j-over-slf4j"   : "org.slf4j:log4j-over-slf4j:${versions.slf4j}",
+        "log4j-to-slf4j"     : "org.apache.logging.log4j:log4j-to-slf4j:2.8.2",
+        "slf4j-api"          : "org.slf4j:slf4j-api:${versions.slf4j}",
+        "jul-to-slf4j"       : "org.slf4j:jul-to-slf4j:1.7.5",
+        "logback-ext-spring" : "org.logback-extensions:logback-ext-spring:0.1.4",
+
+        // JSON
+        //
+        "jackson-core"        : "com.fasterxml.jackson.core:jackson-core:${versions.jackson}",
+        "jackson-annotations" : "com.fasterxml.jackson.core:jackson-annotations:${versions.jackson}",
+        "jackson-databind"    : "com.fasterxml.jackson.core:jackson-databind:${versions.jackson}",
+        "gson"                : "com.google.code.gson:gson:${versions.gson}",
+        "json-path"           : "com.jayway.jsonpath:json-path:${versions.jsonpath}",
+
+        // Apache
+        //
+        "commons-lang3"        : "org.apache.commons:commons-lang3:3.6",
+        "commons-exec"         : "org.apache.commons:commons-exec:1.3",
+        "commons-fileupload"   : "commons-fileupload:commons-fileupload:1.3.2",
+        "commons-collections4" : "org.apache.commons:commons-collections4:4.1",
+        "commons-io"           : "commons-io:commons-io:2.4",
+
+        // Test
+        //
+        "junit"                  : "junit:junit:4.12",
+        "assertj"                : "org.assertj:assertj-core:1.6.0",
+        "mockito-core"           : "org.mockito:mockito-core:1.10.19",
+        "jetty-server"           : "org.eclipse.jetty:jetty-server:9.2.22.v20170606",
+        "jetty-servlet"          : "org.eclipse.jetty:jetty-servlet:9.2.22.v20170606",
+        "jetty-runner"           : "org.eclipse.jetty:jetty-runner:9.2.22.v20170606",
+        "jetty-websocket-server" : "org.eclipse.jetty.websocket:javax-websocket-server-impl:9.2.22.v20170606",
+
+
+        // MyBatis
+        //
+        "mybatis"        : "org.mybatis:mybatis:3.4.4",
+        "mybatis-spring" : "org.mybatis:mybatis-spring:1.3.0",
+
+        //Druid
+        //
+        "druid" : "com.alibaba:druid:${versions.druid}",
+
+        //quartz
+        //
+        "quartz"      : "org.quartz-scheduler:quartz:2.2.3",
+        "quartz-jobs" : "org.quartz-scheduler:quartz-jobs:2.2.3",
+
+        //freemarker
+        //
+        "freemarker" : "org.freemarker:freemarker:2.3.23",
+
+        //echarts
+        //
+        "echarts" : "com.github.abel533:ECharts:3.0.0.1",
+
+        //javacsv
+        //
+        "javacsv" : "net.sourceforge.javacsv:javacsv:2.0",
+
+        //spark
+        //
+        "spark-sql"           : "org.apache.spark:spark-sql_2.10:2.2.0",
+        "spark-core"          : "org.apache.spark:spark-core_2.10:2.2.0",
+        "elasticsearch-spark" : "org.elasticsearch:elasticsearch-spark-20_2.10:5.5.1",
+
+        //jersey
+        //
+        "jersey-core"   : "com.sun.jersey:jersey-core:1.19.4",
+        "jersey-server" : "com.sun.jersey:jersey-server:1.19.4",
+
+        //shiro
+        "shiro-core":"org.apache.shiro:shiro-core:1.3.2",
+        "shiro-web":"org.apache.shiro:shiro-web:1.3.2",
+        "shiro-spring":"org.apache.shiro:shiro-spring:1.3.2",
+        "shiro-ehcache":"org.apache.shiro:shiro-ehcache:1.3.2",
+
+        //phantomjs-wrapper
+        "phantomjs-wrapper"                : "com.moodysalem:phantomjs-wrapper:3.0.0",
+        "phantomjs-wrapper-windows-binary" : "com.moodysalem:phantomjs-wrapper-windows-binary:3.0.0",
+        "phantomjs-wrapper-linux-binary"   : "com.moodysalem:phantomjs-wrapper-linux-binary:3.0.0",
+        "phantomjs-wrapper-macosx-binary"  : "com.moodysalem:phantomjs-wrapper-macosx-binary:3.0.0",
+
+        //els client
+        "elasticsearch-client-transport" : "org.elasticsearch.client:transport:${versions.els}",
+
+        //other
+
+        "javax.inject"         : "javax.inject:javax.inject:1",
+        "javax.annotation-api" : "javax.annotation:javax.annotation-api:1.2",
+        "cglib"                : "cglib:cglib:2.2.2",
+        "joda-time"            : "joda-time:joda-time:2.9",
+        "ehcache-core"         : "net.sf.ehcache:ehcache-core:2.5.0",
+        "pinyin4j"             : "com.belerweb:pinyin4j:2.5.0",
+        "commons-codec"        : "commons-codec:commons-codec:1.10",
+        "javassist"            : "org.javassist:javassist:3.20.0-GA",
+        "commons-beanutils"    : "commons-beanutils:commons-beanutils:1.8.3",
+        "zookeeper"            : "org.apache.zookeeper:zookeeper:3.4.10",
+        "redisson"             : "org.redisson:redisson:3.5.3",
+        "snmp4j"               : "org.snmp4j:snmp4j:2.5.8",
+
+        //kafka
+        "kafka_2.12": "org.apache.kafka:kafka_2.12:1.0.1"
+
+
+]

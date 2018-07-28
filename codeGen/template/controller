@@ -1,0 +1,39 @@
+package web.{{moduleName}};
+
+import model.{{moduleName}}.{{className}};
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.*;
+import service.{{moduleName}}.{{className}}Service;
+import javax.annotation.Resource;
+
+@Controller
+@RequestMapping("/{{lowcase(className)}}")
+public class {{className}}Controller {
+    @Resource
+    {{className}}Service {{lowcase(className)}}Service;
+
+    @PostMapping
+    @ResponseBody
+    public Object insert(@RequestBody {{className}} {{lowcase(className)}}) {
+        return {{lowcase(className)}}Service.insert({{lowcase(className)}});
+    }
+
+    @PutMapping
+    @ResponseBody
+    public Object update(@RequestBody {{className}} {{lowcase(className)}}) {
+        return {{lowcase(className)}}Service.update({{lowcase(className)}});
+    }
+
+    @DeleteMapping
+    @ResponseBody
+    public Object delete({{className}} {{lowcase(className)}}) {
+        return {{lowcase(className)}}Service.delete({{lowcase(className)}});
+    }
+
+    @GetMapping
+    @ResponseBody
+    public Object selectList({{className}} {{lowcase(className)}}) {
+        {{lowcase(className)}}.setPaging(false);
+        return {{lowcase(className)}}Service.selectList({{lowcase(className)}});
+    }
+}

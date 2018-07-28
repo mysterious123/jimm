@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="model.operationpolicyparam.OperationPolicyParam">
+    <insert id="insert" parameterType="OperationPolicyParam">
+        INSERT INTO operation_policy_param (INDEX_TYPE,INDEX_NAME,THRESHOLD_A,THRESHOLD_B,LEVEL_A,LEVEL_B,COLLECT_SPACE,OVER_TIME,RETRY_SPACE,RETRY_NUM,POLICY_ID)
+        VALUES (#{indexType},#{indexName},#{thresholdA},#{thresholdB},#{levelA},#{levelB},#{collectSpace},#{overTime},#{retrySpace},#{retryNum},#{policyId})
+    </insert>
+    <select id="selectList" parameterType="OperationPolicyParam" resultType="OperationPolicyParam">
+        SELECT *
+        FROM operation_policy_param
+        <include refid="condition"/>
+    </select>
+    <select id="selectOne" parameterType="OperationPolicyParam" resultType="OperationPolicyParam">
+        SELECT *
+        FROM operation_policy_param
+        <include refid="condition"/>
+    </select>
+    <delete id="delete" parameterType="OperationPolicyParam">
+        DELETE FROM operation_policy_param
+        <choose>
+            <when test="false  or (id != null and id != '') or (indexType != null and indexType != '') or (indexName != null and indexName != '') or (thresholdA != null and thresholdA != '') or (thresholdB != null and thresholdB != '') or (levelA != null and levelA != '') or (levelB != null and levelB != '') or (collectSpace != null and collectSpace != '') or (overTime != null and overTime != '') or (retrySpace != null and retrySpace != '') or (retryNum != null and retryNum != '') or (policyId != null and policyId != '')">
+                <include refid="condition"/>
+            </when>
+            <otherwise>
+              where 1 = 2
+            </otherwise>
+        </choose>
+    </delete>
+    <update id="update" parameterType="OperationPolicyParam">
+        UPDATE operation_policy_param
+        <set>
+          <if test="id != null and id != ''">
+              ID = #{id},
+          </if>
+          <if test="indexType != null and indexType != ''">
+              INDEX_TYPE = #{indexType},
+          </if>
+          <if test="indexName != null and indexName != ''">
+              INDEX_NAME = #{indexName},
+          </if>
+          <if test="thresholdA != null and thresholdA != ''">
+              THRESHOLD_A = #{thresholdA},
+          </if>
+          <if test="thresholdB != null and thresholdB != ''">
+              THRESHOLD_B = #{thresholdB},
+          </if>
+          <if test="levelA != null and levelA != ''">
+              LEVEL_A = #{levelA},
+          </if>
+          <if test="levelB != null and levelB != ''">
+              LEVEL_B = #{levelB},
+          </if>
+          <if test="collectSpace != null and collectSpace != ''">
+              COLLECT_SPACE = #{collectSpace},
+          </if>
+          <if test="overTime != null and overTime != ''">
+              OVER_TIME = #{overTime},
+          </if>
+          <if test="retrySpace != null and retrySpace != ''">
+              RETRY_SPACE = #{retrySpace},
+          </if>
+          <if test="retryNum != null and retryNum != ''">
+              RETRY_NUM = #{retryNum},
+          </if>
+          <if test="policyId != null and policyId != ''">
+              POLICY_ID = #{policyId},
+          </if>
+        </set>
+        where ID = #{id}
+    </update>
+    <sql id="condition">
+        <where>
+          <if test="id != null and id != ''">
+              and ID = #{id}
+          </if>
+          <if test="indexType != null and indexType != ''">
+              and INDEX_TYPE = #{indexType}
+          </if>
+          <if test="indexName != null and indexName != ''">
+              and INDEX_NAME = #{indexName}
+          </if>
+          <if test="thresholdA != null and thresholdA != ''">
+              and THRESHOLD_A = #{thresholdA}
+          </if>
+          <if test="thresholdB != null and thresholdB != ''">
+              and THRESHOLD_B = #{thresholdB}
+          </if>
+          <if test="levelA != null and levelA != ''">
+              and LEVEL_A = #{levelA}
+          </if>
+          <if test="levelB != null and levelB != ''">
+              and LEVEL_B = #{levelB}
+          </if>
+          <if test="collectSpace != null and collectSpace != ''">
+              and COLLECT_SPACE = #{collectSpace}
+          </if>
+          <if test="overTime != null and overTime != ''">
+              and OVER_TIME = #{overTime}
+          </if>
+          <if test="retrySpace != null and retrySpace != ''">
+              and RETRY_SPACE = #{retrySpace}
+          </if>
+          <if test="retryNum != null and retryNum != ''">
+              and RETRY_NUM = #{retryNum}
+          </if>
+          <if test="policyId != null and policyId != ''">
+              and POLICY_ID = #{policyId}
+          </if>
+        </where>
+    </sql>
+</mapper>

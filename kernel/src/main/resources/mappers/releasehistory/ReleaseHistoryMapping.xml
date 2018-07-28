@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="model.releasehistory.ReleaseHistory">
+    <insert id="insert" parameterType="ReleaseHistory">
+        INSERT INTO F_RELEASE_HISTORY (RELEASE_PERSON,RELEASE_TIME,RELEASE_RESAULT)
+        VALUES (#{releasePerson},#{releaseTime},#{releaseResault})
+    </insert>
+    <select id="selectList" parameterType="ReleaseHistory" resultType="ReleaseHistory">
+        SELECT *
+        FROM F_RELEASE_HISTORY
+        <include refid="condition"/>
+    </select>
+    <select id="selectOne" parameterType="ReleaseHistory" resultType="ReleaseHistory">
+        SELECT *
+        FROM F_RELEASE_HISTORY
+        <include refid="condition"/>
+    </select>
+    <delete id="delete" parameterType="ReleaseHistory">
+        DELETE FROM F_RELEASE_HISTORY
+        <choose>
+            <when test="false  or (id != null and id != '') or (releasePerson != null and releasePerson != '') or (releaseTime != null and releaseTime != '') or (releaseResault != null and releaseResault != '')">
+                <include refid="condition"/>
+            </when>
+            <otherwise>
+              where 1 = 2
+            </otherwise>
+        </choose>
+    </delete>
+    <update id="update" parameterType="ReleaseHistory">
+        UPDATE F_RELEASE_HISTORY
+        <set>
+          <if test="id != null and id != ''">
+              ID = #{id},
+          </if>
+          <if test="releasePerson != null and releasePerson != ''">
+              RELEASE_PERSON = #{releasePerson},
+          </if>
+          <if test="releaseTime != null and releaseTime != ''">
+              RELEASE_TIME = #{releaseTime},
+          </if>
+          <if test="releaseResault != null and releaseResault != ''">
+              RELEASE_RESAULT = #{releaseResault},
+          </if>
+        </set>
+        where ID = #{id}
+    </update>
+    <sql id="condition">
+        <where>
+          <if test="id != null and id != ''">
+              and ID = #{id}
+          </if>
+          <if test="releasePerson != null and releasePerson != ''">
+              and RELEASE_PERSON = #{releasePerson}
+          </if>
+          <if test="releaseTime != null and releaseTime != ''">
+              and RELEASE_TIME = #{releaseTime}
+          </if>
+          <if test="releaseResault != null and releaseResault != ''">
+              and RELEASE_RESAULT = #{releaseResault}
+          </if>
+        </where>
+    </sql>
+</mapper>

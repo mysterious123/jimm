@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="model.portinfo.PortInfo">
+    <insert id="insert" parameterType="PortInfo">
+        INSERT INTO PORT_INFO (IMPORTANT_STAT,DEVICE_MANAGE_IP,PORT_NAME,PORT_IP,BANDWIDTH,END_DEVICE_MANAGE_IP,END_DEVICE_NAME,END_PORT_NAME,SERVER_GROUP_ID,END_PORT_VLAN,END_DEPARTMENT,MONITOR_POLICY,TIME_POLICY,STAT,IMPORTANT_PORT_USE,REMARKS,USER_ID,GROUP_ID,DEVICE_ID,DEVICE_NAME,PORT_VLAN,DEPARTMENT)
+        VALUES (#{importantStat},#{deviceManageIp},#{portName},#{portIp},#{bandwidth},#{endDeviceManageIp},#{endDeviceName},#{endPortName},#{serverGroupId},#{endPortVlan},#{endDepartment},#{monitorPolicy},#{timePolicy},#{stat},#{importantPortUse},#{remarks},#{userId},#{groupId},#{deviceId},#{deviceName},#{portVlan},#{department})
+    </insert>
+    <select id="selectList" parameterType="PortInfo" resultType="PortInfo">
+        SELECT *
+        FROM PORT_INFO
+        <include refid="condition"/>
+    </select>
+    <select id="selectOne" parameterType="PortInfo" resultType="PortInfo">
+        SELECT *
+        FROM PORT_INFO
+        <include refid="condition"/>
+    </select>
+    <delete id="delete" parameterType="PortInfo">
+        DELETE FROM PORT_INFO
+        <choose>
+            <when test="false  or (id != null and id != '') or (importantStat != null and importantStat != '') or (deviceManageIp != null and deviceManageIp != '') or (portName != null and portName != '') or (portIp != null and portIp != '') or (bandwidth != null and bandwidth != '') or (endDeviceManageIp != null and endDeviceManageIp != '') or (endDeviceName != null and endDeviceName != '') or (endPortName != null and endPortName != '') or (serverGroupId != null and serverGroupId != '') or (endPortVlan != null and endPortVlan != '') or (endDepartment != null and endDepartment != '') or (monitorPolicy != null and monitorPolicy != '') or (timePolicy != null and timePolicy != '') or (stat != null and stat != '') or (importantPortUse != null and importantPortUse != '') or (remarks != null and remarks != '') or (userId != null and userId != '') or (groupId != null and groupId != '') or (deviceId != null and deviceId != '') or (deviceName != null and deviceName != '') or (portVlan != null and portVlan != '') or (department != null and department != '')">
+                <include refid="condition"/>
+            </when>
+            <otherwise>
+              where 1 = 2
+            </otherwise>
+        </choose>
+    </delete>
+    <update id="update" parameterType="PortInfo">
+        UPDATE PORT_INFO
+        <set>
+          <if test="id != null and id != ''">
+              ID = #{id},
+          </if>
+          <if test="importantStat != null and importantStat != ''">
+              IMPORTANT_STAT = #{importantStat},
+          </if>
+          <if test="deviceManageIp != null and deviceManageIp != ''">
+              DEVICE_MANAGE_IP = #{deviceManageIp},
+          </if>
+          <if test="portName != null and portName != ''">
+              PORT_NAME = #{portName},
+          </if>
+          <if test="portIp != null and portIp != ''">
+              PORT_IP = #{portIp},
+          </if>
+          <if test="bandwidth != null and bandwidth != ''">
+              BANDWIDTH = #{bandwidth},
+          </if>
+          <if test="endDeviceManageIp != null and endDeviceManageIp != ''">
+              END_DEVICE_MANAGE_IP = #{endDeviceManageIp},
+          </if>
+          <if test="endDeviceName != null and endDeviceName != ''">
+              END_DEVICE_NAME = #{endDeviceName},
+          </if>
+          <if test="endPortName != null and endPortName != ''">
+              END_PORT_NAME = #{endPortName},
+          </if>
+          <if test="serverGroupId != null and serverGroupId != ''">
+              SERVER_GROUP_ID = #{serverGroupId},
+          </if>
+          <if test="endPortVlan != null and endPortVlan != ''">
+              END_PORT_VLAN = #{endPortVlan},
+          </if>
+          <if test="endDepartment != null and endDepartment != ''">
+              END_DEPARTMENT = #{endDepartment},
+          </if>
+          <if test="monitorPolicy != null and monitorPolicy != ''">
+              MONITOR_POLICY = #{monitorPolicy},
+          </if>
+          <if test="timePolicy != null and timePolicy != ''">
+              TIME_POLICY = #{timePolicy},
+          </if>
+          <if test="stat != null and stat != ''">
+              STAT = #{stat},
+          </if>
+          <if test="importantPortUse != null and importantPortUse != ''">
+              IMPORTANT_PORT_USE = #{importantPortUse},
+          </if>
+          <if test="remarks != null and remarks != ''">
+              REMARKS = #{remarks},
+          </if>
+          <if test="userId != null and userId != ''">
+              USER_ID = #{userId},
+          </if>
+          <if test="groupId != null and groupId != ''">
+              GROUP_ID = #{groupId},
+          </if>
+          <if test="deviceId != null and deviceId != ''">
+              DEVICE_ID = #{deviceId},
+          </if>
+          <if test="deviceName != null and deviceName != ''">
+              DEVICE_NAME = #{deviceName},
+          </if>
+          <if test="portVlan != null and portVlan != ''">
+              PORT_VLAN = #{portVlan},
+          </if>
+          <if test="department != null and department != ''">
+              DEPARTMENT = #{department},
+          </if>
+        </set>
+        where ID = #{id}
+    </update>
+    <sql id="condition">
+        <where>
+          <if test="id != null and id != ''">
+              and ID = #{id}
+          </if>
+          <if test="importantStat != null and importantStat != ''">
+              and IMPORTANT_STAT = #{importantStat}
+          </if>
+          <if test="deviceManageIp != null and deviceManageIp != ''">
+              and DEVICE_MANAGE_IP = #{deviceManageIp}
+          </if>
+          <if test="portName != null and portName != ''">
+              and PORT_NAME = #{portName}
+          </if>
+          <if test="portIp != null and portIp != ''">
+              and PORT_IP = #{portIp}
+          </if>
+          <if test="bandwidth != null and bandwidth != ''">
+              and BANDWIDTH = #{bandwidth}
+          </if>
+          <if test="endDeviceManageIp != null and endDeviceManageIp != ''">
+              and END_DEVICE_MANAGE_IP = #{endDeviceManageIp}
+          </if>
+          <if test="endDeviceName != null and endDeviceName != ''">
+              and END_DEVICE_NAME = #{endDeviceName}
+          </if>
+          <if test="endPortName != null and endPortName != ''">
+              and END_PORT_NAME = #{endPortName}
+          </if>
+          <if test="serverGroupId != null and serverGroupId != ''">
+              and SERVER_GROUP_ID = #{serverGroupId}
+          </if>
+          <if test="endPortVlan != null and endPortVlan != ''">
+              and END_PORT_VLAN = #{endPortVlan}
+          </if>
+          <if test="endDepartment != null and endDepartment != ''">
+              and END_DEPARTMENT = #{endDepartment}
+          </if>
+          <if test="monitorPolicy != null and monitorPolicy != ''">
+              and MONITOR_POLICY = #{monitorPolicy}
+          </if>
+          <if test="timePolicy != null and timePolicy != ''">
+              and TIME_POLICY = #{timePolicy}
+          </if>
+          <if test="stat != null and stat != ''">
+              and STAT = #{stat}
+          </if>
+          <if test="importantPortUse != null and importantPortUse != ''">
+              and IMPORTANT_PORT_USE = #{importantPortUse}
+          </if>
+          <if test="remarks != null and remarks != ''">
+              and REMARKS = #{remarks}
+          </if>
+          <if test="userId != null and userId != ''">
+              and USER_ID = #{userId}
+          </if>
+          <if test="groupId != null and groupId != ''">
+              and GROUP_ID = #{groupId}
+          </if>
+          <if test="deviceId != null and deviceId != ''">
+              and DEVICE_ID = #{deviceId}
+          </if>
+          <if test="deviceName != null and deviceName != ''">
+              and DEVICE_NAME = #{deviceName}
+          </if>
+          <if test="portVlan != null and portVlan != ''">
+              and PORT_VLAN = #{portVlan}
+          </if>
+          <if test="department != null and department != ''">
+              and DEPARTMENT = #{department}
+          </if>
+        </where>
+    </sql>
+    <select id="checkPortIpExist" parameterType="PortInfo" resultType="PortInfo">
+        SELECT *
+        FROM PORT_INFO
+        <include refid="condition"/>
+    </select>
+    <select id="getPortByGroupId" parameterType="PortInfo" resultType="PortInfo">
+        SELECT *
+        FROM PORT_INFO
+        WHERE GROUP_ID IN
+        <foreach item="item" index="index" collection="groupIds" open="("
+                 separator="," close=")">
+            ${item}
+        </foreach>
+    </select>
+</mapper>

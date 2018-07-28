@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="model.zagentinfo.ZAgentInfo">
+    <insert id="insert" parameterType="ZAgentInfo">
+        INSERT INTO z_agent_info (INDEX_NAME,INDEX_SHORTHAND,MONITOR_AGENT,UNIT,KEY_WORD,Calculation_formula,CONTENT_DESCRIBE)
+        VALUES (#{indexName},#{indexShorthand},#{monitorAgent},#{unit},#{keyWord},#{calculationFormula},#{contentDescribe})
+    </insert>
+    <select id="queryCount" parameterType="ZAgentInfo" resultType="int">
+        SELECT count(*)
+        FROM z_agent_info
+        <include refid="condition"/>
+    </select>
+    <select id="selectList" parameterType="ZAgentInfo" resultType="ZAgentInfo">
+        SELECT *
+        FROM z_agent_info
+        <include refid="condition"/>
+    </select>
+    <select id="selectOne" parameterType="ZAgentInfo" resultType="ZAgentInfo">
+        SELECT *
+        FROM z_agent_info
+        <include refid="condition"/>
+    </select>
+    <delete id="delete" parameterType="ZAgentInfo">
+        DELETE FROM z_agent_info
+        <choose>
+            <when test="false  or (id != null and id != '') or (indexName != null and indexName != '') or (indexShorthand != null and indexShorthand != '') or (monitorAgent != null and monitorAgent != '') or (unit != null and unit != '') or (keyWord != null and keyWord != '') or (calculationFormula != null and calculationFormula != '') or (contentDescribe != null and contentDescribe != '')">
+                <include refid="condition"/>
+            </when>
+            <otherwise>
+              where 1 = 2
+            </otherwise>
+        </choose>
+    </delete>
+    <update id="update" parameterType="ZAgentInfo">
+        UPDATE z_agent_info
+        <set>
+          <if test="id != null and id != ''">
+              ID = #{id},
+          </if>
+          <if test="indexName != null and indexName != ''">
+              INDEX_NAME = #{indexName},
+          </if>
+          <if test="indexShorthand != null and indexShorthand != ''">
+              INDEX_SHORTHAND = #{indexShorthand},
+          </if>
+          <if test="monitorAgent != null and monitorAgent != ''">
+              MONITOR_AGENT = #{monitorAgent},
+          </if>
+          <if test="unit != null and unit != ''">
+              UNIT = #{unit},
+          </if>
+          <if test="keyWord != null and keyWord != ''">
+              KEY_WORD = #{keyWord},
+          </if>
+          <if test="calculationFormula != null and calculationFormula != ''">
+              Calculation_formula = #{calculationFormula},
+          </if>
+          <if test="contentDescribe != null and contentDescribe != ''">
+              CONTENT_DESCRIBE = #{contentDescribe},
+          </if>
+        </set>
+        where ID = #{id}
+    </update>
+    <sql id="condition">
+        <where>
+          <if test="id != null and id != ''">
+              and ID = #{id}
+          </if>
+          <if test="indexName != null and indexName != ''">
+              and INDEX_NAME = #{indexName}
+          </if>
+          <if test="indexShorthand != null and indexShorthand != ''">
+              and INDEX_SHORTHAND = #{indexShorthand}
+          </if>
+          <if test="monitorAgent != null and monitorAgent != ''">
+              and MONITOR_AGENT = #{monitorAgent}
+          </if>
+          <if test="unit != null and unit != ''">
+              and UNIT = #{unit}
+          </if>
+          <if test="keyWord != null and keyWord != ''">
+              and KEY_WORD = #{keyWord}
+          </if>
+          <if test="calculationFormula != null and calculationFormula != ''">
+              and Calculation_formula = #{calculationFormula}
+          </if>
+          <if test="contentDescribe != null and contentDescribe != ''">
+              and CONTENT_DESCRIBE = #{contentDescribe}
+          </if>
+        </where>
+    </sql>
+
+    <update id="createTable" parameterType="ZAgentInfo">
+        create table server_${indexShorthand}_details
+            <foreach collection="columnInfoList" open="(" close=")" index="index" item="item"  separator="," >
+                 ${item.columnName}  ${item.columnType}
+            </foreach>
+
+    </update>
+</mapper>

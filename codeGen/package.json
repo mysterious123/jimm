@@ -1,0 +1,19 @@
+{
+  "name": "codeGen",
+  "version": "1.0.0",
+  "main": "index.js",
+  "description": "a code generator",
+  "author": "yx <yingxiang@jiudao.com>",
+  "scripts": {
+    "gen": "node index.js"
+  },
+  "keywords": [],
+  "license": "ISC",
+  "dependencies": {
+    "del": "^3.0.0",
+    "fs-extra": "^4.0.2",
+    "lodash": "^4.17.4",
+    "mysql": "^2.15.0",
+    "swig": "^1.4.2"
+  }
+}

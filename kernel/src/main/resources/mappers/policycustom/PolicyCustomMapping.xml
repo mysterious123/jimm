@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="model.policycustom.PolicyCustom">
+    <insert id="insert" parameterType="PolicyCustom">
+        INSERT INTO operation_policy_custom (OBJECT_TYPE,KEY_NAME,INDEX_NAME,INDEX_TYPE,NATURE,CREATE_PERSON,THRESHOLD_A,THRESHOLD_B,LEVEL_A,LEVEL_B)
+        VALUES (#{objectType},#{keyName},#{indexName},#{indexType},#{nature},#{createPerson},#{thresholdA},#{thresholdB},#{levelA},#{levelB})
+    </insert>
+    <select id="selectList" parameterType="PolicyCustom" resultType="PolicyCustom">
+        SELECT *
+        FROM operation_policy_custom
+        <include refid="condition"/>
+    </select>
+    <select id="selectOne" parameterType="PolicyCustom" resultType="PolicyCustom">
+        SELECT *
+        FROM operation_policy_custom
+        <include refid="condition"/>
+    </select>
+    <delete id="delete" parameterType="PolicyCustom">
+        DELETE FROM operation_policy_custom
+        <choose>
+            <when test="false  or (id != null and id != '') or (objectType != null and objectType != '') or (keyName != null and keyName != '') or (indexName != null and indexName != '') or (indexType != null and indexType != '') or (nature != null and nature != '') or (createPerson != null and createPerson != '') or (thresholdA != null and thresholdA != '') or (thresholdB != null and thresholdB != '') or (levelA != null and levelA != '') or (levelB != null and levelB != '')">
+                <include refid="condition"/>
+            </when>
+            <otherwise>
+              where 1 = 2
+            </otherwise>
+        </choose>
+    </delete>
+    <update id="update" parameterType="PolicyCustom">
+        UPDATE operation_policy_custom
+        <set>
+          <if test="id != null and id != ''">
+              ID = #{id},
+          </if>
+          <if test="objectType != null and objectType != ''">
+              OBJECT_TYPE = #{objectType},
+          </if>
+          <if test="keyName != null and keyName != ''">
+              KEY_NAME = #{keyName},
+          </if>
+          <if test="indexName != null and indexName != ''">
+              INDEX_NAME = #{indexName},
+          </if>
+          <if test="indexType != null and indexType != ''">
+              INDEX_TYPE = #{indexType},
+          </if>
+          <if test="nature != null and nature != ''">
+              NATURE = #{nature},
+          </if>
+          <if test="createPerson != null and createPerson != ''">
+              CREATE_PERSON = #{createPerson},
+          </if>
+          <if test="thresholdA != null and thresholdA != ''">
+              THRESHOLD_A = #{thresholdA},
+          </if>
+          <if test="thresholdB != null and thresholdB != ''">
+              THRESHOLD_B = #{thresholdB},
+          </if>
+          <if test="levelA != null and levelA != ''">
+              LEVEL_A = #{levelA},
+          </if>
+          <if test="levelB != null and levelB != ''">
+              LEVEL_B = #{levelB},
+          </if>
+        </set>
+        where ID = #{id}
+    </update>
+    <sql id="condition">
+        <where>
+          <if test="id != null and id != ''">
+              and ID = #{id}
+          </if>
+          <if test="objectType != null and objectType != ''">
+              and OBJECT_TYPE = #{objectType}
+          </if>
+          <if test="keyName != null and keyName != ''">
+              and KEY_NAME = #{keyName}
+          </if>
+          <if test="indexName != null and indexName != ''">
+              and INDEX_NAME = #{indexName}
+          </if>
+          <if test="indexType != null and indexType != ''">
+              and INDEX_TYPE = #{indexType}
+          </if>
+          <if test="nature != null and nature != ''">
+              and NATURE = #{nature}
+          </if>
+          <if test="createPerson != null and createPerson != ''">
+              and CREATE_PERSON = #{createPerson}
+          </if>
+          <if test="thresholdA != null and thresholdA != ''">
+              and THRESHOLD_A = #{thresholdA}
+          </if>
+          <if test="thresholdB != null and thresholdB != ''">
+              and THRESHOLD_B = #{thresholdB}
+          </if>
+          <if test="levelA != null and levelA != ''">
+              and LEVEL_A = #{levelA}
+          </if>
+          <if test="levelB != null and levelB != ''">
+              and LEVEL_B = #{levelB}
+          </if>
+        </where>
+    </sql>
+</mapper>

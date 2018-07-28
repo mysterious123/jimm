@@ -1,0 +1,29 @@
+package model.{{moduleName}};
+
+import org.apache.ibatis.type.Alias;
+import model.BaseModel;
+
+@Alias("{{className}}")
+public class {{ className }} extends BaseModel {
+  {% for meta in metaInfo -%}
+    {%- if meta.Key != 'PRI' %}
+    /**
+     *{{meta.Comment}}
+     */
+     {%- elseif meta.Key == 'PRI' %}
+    /**
+     *主键
+     */
+     {%- endif -%}
+    private String {{convertToCamel(meta.Field)}};
+  {%- endfor %}
+  {% for meta in metaInfo %}
+    public void {{genSetter(meta.Field)}}(String {{convertToCamel(meta.Field)}}){
+      this.{{convertToCamel(meta.Field)}} = {{convertToCamel(meta.Field)}};
+    }{% endfor %}
+  {% for meta in metaInfo %}
+    public String {{genGetter(meta.Field)}}(){
+      return this.{{convertToCamel(meta.Field)}};
+    }
+  {% endfor %}
+}
