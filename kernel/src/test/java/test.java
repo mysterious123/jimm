@@ -23,7 +23,6 @@ import java.util.List;
 public class test {
        @Resource
         private BaseMapper<ServerInfo> serverInfo;
-
         @Test
         public void testSelect() {
             System.out.println("nihao");
@@ -34,19 +33,6 @@ public class test {
                 System.out.println("liwangzhou"+f.getApplicationSystem());
             }
             }
-//    @RunWith(SpringJUnit4ClassRunner.class)
-//    @ContextConfiguration({"classpath:applicationContext.xml"})
-//    public class ReadDaoImplTest {
-//        @Resource ReadDao readDao;
-//
-//        @Test
-//        public void getListTest(){
-//            List<Client> clientList = readDao.getList("client.test", null);
-//
-//            for(Client c:clientList){
-//                System.out.println(c.getVersionNum());
-//            }
-//        }
 
 
     }

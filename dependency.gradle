@@ -35,13 +35,13 @@ ext.libraries = [
 
         // Spring 4.x
         //
-        "spring-core"            : "org.springframework:spring-core:${versions.spring}",
-        "spring-beans"           : "org.springframework:spring-beans:${versions.spring}",
-        "spring-jdbc"            : "org.springframework:spring-jdbc:${versions.spring}",
+        "spring-core"           : "org.springframework:spring-core:${versions.spring}",
+        "spring-beans"          : "org.springframework:spring-beans:${versions.spring}",
+        "spring-jdbc"           : "org.springframework:spring-jdbc:${versions.spring}",
         "spring-tx"              : "org.springframework:spring-tx:${versions.spring}",
         "spring-context"         : "org.springframework:spring-context:${versions.spring}",
         "spring-context-support" : "org.springframework:spring-context-support:${versions.spring}",
-        "spring-orm"             : "org.springframework:spring-orm:${versions.spring}",
+        "spring-orm"            : "org.springframework:spring-orm:${versions.spring}",
         "spring-oxm"             : "org.springframework:spring-oxm:${versions.spring}",
         "spring-webmvc"          : "org.springframework:spring-webmvc:${versions.spring}",
         "spring-jms"             : "org.springframework:spring-jms:${versions.spring}",
@@ -109,7 +109,6 @@ ext.libraries = [
         "freemarker" : "org.freemarker:freemarker:2.3.23",
 
         //echarts
-        //
         "echarts" : "com.github.abel533:ECharts:3.0.0.1",
 
         //javacsv

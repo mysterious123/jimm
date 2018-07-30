@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import service.deviceinfo.DeviceInfoService;
 import service.policymaintenance.PolicyMaintenanceService;
+import service.policyperiod.PolicyPeriodService;
 import service.repagentorgdetails.RepAgentOrgDetailsService;
 import service.serverinfo.ServerInfoService;
 import service.superseverity.SuperSeverityService;
@@ -54,7 +55,9 @@ public class KafkaConsumerScheduleJob implements Job {
     @Autowired
     SuperSeverityService superSeverityService;
     @Autowired
-   PolicyMaintenanceService policyMaintenanceService;
+    PolicyMaintenanceService policyMaintenanceService;
+    @Autowired
+    PolicyPeriodService policyPeriodService;
     @Autowired
     DeviceInfoService deviceInfoService;
     @Autowired
@@ -77,8 +80,9 @@ public class KafkaConsumerScheduleJob implements Job {
             consumerRecords = consumer.poll(1000);
             L.info("consumer接收record数：" + consumerRecords.count());
             consumerRecords.forEach(record ->
-                        executor.submit(new KafkaConsumerThread(record, serverInfoService, zAgentInfoService, superSeverityService,repAgentOrgDetailsService))
-
+                    {
+                        executor.submit(new KafkaConsumerThread(record, zAgentInfoService, superSeverityService, policyPeriodService, policyMaintenanceService, serverInfoService, repAgentOrgDetailsService));
+                    }
             );
         }
         }
