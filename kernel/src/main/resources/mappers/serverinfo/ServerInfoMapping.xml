@@ -23,228 +23,228 @@
                 <include refid="condition"/>
             </when>
             <otherwise>
-              where 1 = 2
+                where 1 = 2
             </otherwise>
         </choose>
     </delete>
     <update id="update" parameterType="ServerInfo">
         UPDATE system_server_info
         <set>
-          <if test="serverId != null and serverId != ''">
-              SERVER_ID = #{serverId},
-          </if>
-          <if test="serverIp != null and serverIp != ''">
-              SERVER_IP = #{serverIp},
-          </if>
-          <if test="serverName != null and serverName != ''">
-              SERVER_NAME = #{serverName},
-          </if>
-          <if test="applicationSystem != null and applicationSystem != ''">
-              APPLICATION_SYSTEM = #{applicationSystem},
-          </if>
-          <if test="serverUse != null and serverUse != ''">
-              SERVER_USE = #{serverUse},
-          </if>
-          <if test="stateNature != null and stateNature != ''">
-              STATE_NATURE = #{stateNature},
-          </if>
-          <if test="attributeOrganization != null and attributeOrganization != ''">
-              ATTRIBUTE_ORGANIZATION = #{attributeOrganization},
-          </if>
-          <if test="department != null and department != ''">
-              DEPARTMENT = #{department},
-          </if>
-          <if test="firm != null and firm != ''">
-              FIRM = #{firm},
-          </if>
-          <if test="version != null and version != ''">
-              VERSION = #{version},
-          </if>
-          <if test="networkZone != null and networkZone != ''">
-              NETWORK_ZONE = #{networkZone},
-          </if>
-          <if test="computerRoom != null and computerRoom != ''">
-              COMPUTER_ROOM = #{computerRoom},
-          </if>
-          <if test="computerCounter != null and computerCounter != ''">
-              COMPUTER_COUNTER = #{computerCounter},
-          </if>
-          <if test="assetId != null and assetId != ''">
-              ASSET_ID = #{assetId},
-          </if>
-          <if test="maintainer != null and maintainer != ''">
-              MAINTAINER = #{maintainer},
-          </if>
-          <if test="maintainTime != null and maintainTime != ''">
-              MAINTAIN_TIME = #{maintainTime},
-          </if>
-          <if test="serverTactics != null and serverTactics != ''">
-              SERVER_TACTICS = #{serverTactics},
-          </if>
-          <if test="timeTactics != null and timeTactics != ''">
-              TIME_TACTICS = #{timeTactics},
-          </if>
-          <if test="remarks != null and remarks != ''">
-              REMARKS = #{remarks},
-          </if>
-          <if test="osType != null and osType != ''">
-              OS_TYPE = #{osType},
-          </if>
-          <if test="osDetailVersion != null and osDetailVersion != ''">
-              OS_DETAIL_VERSION = #{osDetailVersion},
-          </if>
-          <if test="osBit != null and osBit != ''">
-              OS_BIT = #{osBit},
-          </if>
-          <if test="osPatchVersion != null and osPatchVersion != ''">
-              OS_PATCH_VERSION = #{osPatchVersion},
-          </if>
-          <if test="osCpu != null and osCpu != ''">
-              OS_CPU = #{osCpu},
-          </if>
-          <if test="osManageGroup != null and osManageGroup != ''">
-              OS_MANAGE_GROUP = #{osManageGroup},
-          </if>
-          <if test="osMemory != null and osMemory != ''">
-              OS_MEMORY = #{osMemory},
-          </if>
-          <if test="dbType != null and dbType != ''">
-              DB_TYPE = #{dbType},
-          </if>
-          <if test="dbBit != null and dbBit != ''">
-              DB_BIT = #{dbBit},
-          </if>
-          <if test="dbManageGroup != null and dbManageGroup != ''">
-              DB_MANAGE_GROUP = #{dbManageGroup},
-          </if>
-          <if test="mwType != null and mwType != ''">
-              MW_TYPE = #{mwType},
-          </if>
-          <if test="mwVersion != null and mwVersion != ''">
-              MW_VERSION = #{mwVersion},
-          </if>
-          <if test="mwBit != null and mwBit != ''">
-              MW_BIT = #{mwBit},
-          </if>
-          <if test="mwManageGroup != null and mwManageGroup != ''">
-              MW_MANAGE_GROUP = #{mwManageGroup},
-          </if>
-          <if test="userId != null and userId != ''">
-              USER_ID = #{userId},
-          </if>
-          <if test="groupId != null and groupId != ''">
-              GROUP_ID = #{groupId},
-          </if>
+            <if test="serverId != null and serverId != ''">
+                SERVER_ID = #{serverId},
+            </if>
+            <if test="serverIp != null and serverIp != ''">
+                SERVER_IP = #{serverIp},
+            </if>
+            <if test="serverName != null and serverName != ''">
+                SERVER_NAME = #{serverName},
+            </if>
+            <if test="applicationSystem != null and applicationSystem != ''">
+                APPLICATION_SYSTEM = #{applicationSystem},
+            </if>
+            <if test="serverUse != null and serverUse != ''">
+                SERVER_USE = #{serverUse},
+            </if>
+            <if test="stateNature != null and stateNature != ''">
+                STATE_NATURE = #{stateNature},
+            </if>
+            <if test="attributeOrganization != null and attributeOrganization != ''">
+                ATTRIBUTE_ORGANIZATION = #{attributeOrganization},
+            </if>
+            <if test="department != null and department != ''">
+                DEPARTMENT = #{department},
+            </if>
+            <if test="firm != null and firm != ''">
+                FIRM = #{firm},
+            </if>
+            <if test="version != null and version != ''">
+                VERSION = #{version},
+            </if>
+            <if test="networkZone != null and networkZone != ''">
+                NETWORK_ZONE = #{networkZone},
+            </if>
+            <if test="computerRoom != null and computerRoom != ''">
+                COMPUTER_ROOM = #{computerRoom},
+            </if>
+            <if test="computerCounter != null and computerCounter != ''">
+                COMPUTER_COUNTER = #{computerCounter},
+            </if>
+            <if test="assetId != null and assetId != ''">
+                ASSET_ID = #{assetId},
+            </if>
+            <if test="maintainer != null and maintainer != ''">
+                MAINTAINER = #{maintainer},
+            </if>
+            <if test="maintainTime != null and maintainTime != ''">
+                MAINTAIN_TIME = #{maintainTime},
+            </if>
+            <if test="serverTactics != null and serverTactics != ''">
+                SERVER_TACTICS = #{serverTactics},
+            </if>
+            <if test="timeTactics != null and timeTactics != ''">
+                TIME_TACTICS = #{timeTactics},
+            </if>
+            <if test="remarks != null and remarks != ''">
+                REMARKS = #{remarks},
+            </if>
+            <if test="osType != null and osType != ''">
+                OS_TYPE = #{osType},
+            </if>
+            <if test="osDetailVersion != null and osDetailVersion != ''">
+                OS_DETAIL_VERSION = #{osDetailVersion},
+            </if>
+            <if test="osBit != null and osBit != ''">
+                OS_BIT = #{osBit},
+            </if>
+            <if test="osPatchVersion != null and osPatchVersion != ''">
+                OS_PATCH_VERSION = #{osPatchVersion},
+            </if>
+            <if test="osCpu != null and osCpu != ''">
+                OS_CPU = #{osCpu},
+            </if>
+            <if test="osManageGroup != null and osManageGroup != ''">
+                OS_MANAGE_GROUP = #{osManageGroup},
+            </if>
+            <if test="osMemory != null and osMemory != ''">
+                OS_MEMORY = #{osMemory},
+            </if>
+            <if test="dbType != null and dbType != ''">
+                DB_TYPE = #{dbType},
+            </if>
+            <if test="dbBit != null and dbBit != ''">
+                DB_BIT = #{dbBit},
+            </if>
+            <if test="dbManageGroup != null and dbManageGroup != ''">
+                DB_MANAGE_GROUP = #{dbManageGroup},
+            </if>
+            <if test="mwType != null and mwType != ''">
+                MW_TYPE = #{mwType},
+            </if>
+            <if test="mwVersion != null and mwVersion != ''">
+                MW_VERSION = #{mwVersion},
+            </if>
+            <if test="mwBit != null and mwBit != ''">
+                MW_BIT = #{mwBit},
+            </if>
+            <if test="mwManageGroup != null and mwManageGroup != ''">
+                MW_MANAGE_GROUP = #{mwManageGroup},
+            </if>
+            <if test="userId != null and userId != ''">
+                USER_ID = #{userId},
+            </if>
+            <if test="groupId != null and groupId != ''">
+                GROUP_ID = #{groupId},
+            </if>
         </set>
         where SERVER_ID = #{serverId}
     </update>
     <sql id="condition">
         <where>
-          <if test="serverId != null and serverId != ''">
-              and SERVER_ID = #{serverId}
-          </if>
-          <if test="serverIp != null and serverIp != ''">
-              and SERVER_IP = #{serverIp}
-          </if>
-          <if test="serverName != null and serverName != ''">
-              and SERVER_NAME = #{serverName}
-          </if>
-          <if test="applicationSystem != null and applicationSystem != ''">
-              and APPLICATION_SYSTEM = #{applicationSystem}
-          </if>
-          <if test="serverUse != null and serverUse != ''">
-              and SERVER_USE = #{serverUse}
-          </if>
-          <if test="stateNature != null and stateNature != ''">
-              and STATE_NATURE = #{stateNature}
-          </if>
-          <if test="attributeOrganization != null and attributeOrganization != ''">
-              and ATTRIBUTE_ORGANIZATION = #{attributeOrganization}
-          </if>
-          <if test="department != null and department != ''">
-              and DEPARTMENT = #{department}
-          </if>
-          <if test="firm != null and firm != ''">
-              and FIRM = #{firm}
-          </if>
-          <if test="version != null and version != ''">
-              and VERSION = #{version}
-          </if>
-          <if test="networkZone != null and networkZone != ''">
-              and NETWORK_ZONE = #{networkZone}
-          </if>
-          <if test="computerRoom != null and computerRoom != ''">
-              and COMPUTER_ROOM = #{computerRoom}
-          </if>
-          <if test="computerCounter != null and computerCounter != ''">
-              and COMPUTER_COUNTER = #{computerCounter}
-          </if>
-          <if test="assetId != null and assetId != ''">
-              and ASSET_ID = #{assetId}
-          </if>
-          <if test="maintainer != null and maintainer != ''">
-              and MAINTAINER = #{maintainer}
-          </if>
-          <if test="maintainTime != null and maintainTime != ''">
-              and MAINTAIN_TIME = #{maintainTime}
-          </if>
-          <if test="serverTactics != null and serverTactics != ''">
-              and SERVER_TACTICS = #{serverTactics}
-          </if>
-          <if test="timeTactics != null and timeTactics != ''">
-              and TIME_TACTICS = #{timeTactics}
-          </if>
-          <if test="remarks != null and remarks != ''">
-              and REMARKS = #{remarks}
-          </if>
-          <if test="osType != null and osType != ''">
-              and OS_TYPE = #{osType}
-          </if>
-          <if test="osDetailVersion != null and osDetailVersion != ''">
-              and OS_DETAIL_VERSION = #{osDetailVersion}
-          </if>
-          <if test="osBit != null and osBit != ''">
-              and OS_BIT = #{osBit}
-          </if>
-          <if test="osPatchVersion != null and osPatchVersion != ''">
-              and OS_PATCH_VERSION = #{osPatchVersion}
-          </if>
-          <if test="osCpu != null and osCpu != ''">
-              and OS_CPU = #{osCpu}
-          </if>
-          <if test="osManageGroup != null and osManageGroup != ''">
-              and OS_MANAGE_GROUP = #{osManageGroup}
-          </if>
-          <if test="osMemory != null and osMemory != ''">
-              and OS_MEMORY = #{osMemory}
-          </if>
-          <if test="dbType != null and dbType != ''">
-              and DB_TYPE = #{dbType}
-          </if>
-          <if test="dbBit != null and dbBit != ''">
-              and DB_BIT = #{dbBit}
-          </if>
-          <if test="dbManageGroup != null and dbManageGroup != ''">
-              and DB_MANAGE_GROUP = #{dbManageGroup}
-          </if>
-          <if test="mwType != null and mwType != ''">
-              and MW_TYPE = #{mwType}
-          </if>
-          <if test="mwVersion != null and mwVersion != ''">
-              and MW_VERSION = #{mwVersion}
-          </if>
-          <if test="mwBit != null and mwBit != ''">
-              and MW_BIT = #{mwBit}
-          </if>
-          <if test="mwManageGroup != null and mwManageGroup != ''">
-              and MW_MANAGE_GROUP = #{mwManageGroup}
-          </if>
-          <if test="userId != null and userId != ''">
-              and USER_ID = #{userId}
-          </if>
-          <if test="groupId != null and groupId != ''">
-              and GROUP_ID = #{groupId}
-          </if>
+            <if test="serverId != null and serverId != ''">
+                and SERVER_ID = #{serverId}
+            </if>
+            <if test="serverIp != null and serverIp != ''">
+                and SERVER_IP = #{serverIp}
+            </if>
+            <if test="serverName != null and serverName != ''">
+                and SERVER_NAME = #{serverName}
+            </if>
+            <if test="applicationSystem != null and applicationSystem != ''">
+                and APPLICATION_SYSTEM = #{applicationSystem}
+            </if>
+            <if test="serverUse != null and serverUse != ''">
+                and SERVER_USE = #{serverUse}
+            </if>
+            <if test="stateNature != null and stateNature != ''">
+                and STATE_NATURE = #{stateNature}
+            </if>
+            <if test="attributeOrganization != null and attributeOrganization != ''">
+                and ATTRIBUTE_ORGANIZATION = #{attributeOrganization}
+            </if>
+            <if test="department != null and department != ''">
+                and DEPARTMENT = #{department}
+            </if>
+            <if test="firm != null and firm != ''">
+                and FIRM = #{firm}
+            </if>
+            <if test="version != null and version != ''">
+                and VERSION = #{version}
+            </if>
+            <if test="networkZone != null and networkZone != ''">
+                and NETWORK_ZONE = #{networkZone}
+            </if>
+            <if test="computerRoom != null and computerRoom != ''">
+                and COMPUTER_ROOM = #{computerRoom}
+            </if>
+            <if test="computerCounter != null and computerCounter != ''">
+                and COMPUTER_COUNTER = #{computerCounter}
+            </if>
+            <if test="assetId != null and assetId != ''">
+                and ASSET_ID = #{assetId}
+            </if>
+            <if test="maintainer != null and maintainer != ''">
+                and MAINTAINER = #{maintainer}
+            </if>
+            <if test="maintainTime != null and maintainTime != ''">
+                and MAINTAIN_TIME = #{maintainTime}
+            </if>
+            <if test="serverTactics != null and serverTactics != ''">
+                and SERVER_TACTICS = #{serverTactics}
+            </if>
+            <if test="timeTactics != null and timeTactics != ''">
+                and TIME_TACTICS = #{timeTactics}
+            </if>
+            <if test="remarks != null and remarks != ''">
+                and REMARKS = #{remarks}
+            </if>
+            <if test="osType != null and osType != ''">
+                and OS_TYPE = #{osType}
+            </if>
+            <if test="osDetailVersion != null and osDetailVersion != ''">
+                and OS_DETAIL_VERSION = #{osDetailVersion}
+            </if>
+            <if test="osBit != null and osBit != ''">
+                and OS_BIT = #{osBit}
+            </if>
+            <if test="osPatchVersion != null and osPatchVersion != ''">
+                and OS_PATCH_VERSION = #{osPatchVersion}
+            </if>
+            <if test="osCpu != null and osCpu != ''">
+                and OS_CPU = #{osCpu}
+            </if>
+            <if test="osManageGroup != null and osManageGroup != ''">
+                and OS_MANAGE_GROUP = #{osManageGroup}
+            </if>
+            <if test="osMemory != null and osMemory != ''">
+                and OS_MEMORY = #{osMemory}
+            </if>
+            <if test="dbType != null and dbType != ''">
+                and DB_TYPE = #{dbType}
+            </if>
+            <if test="dbBit != null and dbBit != ''">
+                and DB_BIT = #{dbBit}
+            </if>
+            <if test="dbManageGroup != null and dbManageGroup != ''">
+                and DB_MANAGE_GROUP = #{dbManageGroup}
+            </if>
+            <if test="mwType != null and mwType != ''">
+                and MW_TYPE = #{mwType}
+            </if>
+            <if test="mwVersion != null and mwVersion != ''">
+                and MW_VERSION = #{mwVersion}
+            </if>
+            <if test="mwBit != null and mwBit != ''">
+                and MW_BIT = #{mwBit}
+            </if>
+            <if test="mwManageGroup != null and mwManageGroup != ''">
+                and MW_MANAGE_GROUP = #{mwManageGroup}
+            </if>
+            <if test="userId != null and userId != ''">
+                and USER_ID = #{userId}
+            </if>
+            <if test="groupId != null and groupId != ''">
+                and GROUP_ID = #{groupId}
+            </if>
         </where>
     </sql>
     <select id="checkIpExist" parameterType="ServerInfo" resultType="ServerInfo">
@@ -262,7 +262,6 @@
     <resultMap id="policyMap" type="ServerInfo">
         <id property="id" column="SERVER_ID"/>
         <result property="serverIp" column="SERVER_IP"></result>
-
         <collection property="PolicyParams" ofType="OperationPolicyParam">
             <id property="id" column="POLICY_ID" ></id>
             <result property="indexType" column="INDEX_TYPE"></result>
@@ -274,7 +273,6 @@
             <result property="overTime" column="OVER_TIME" ></result>
             <result property="retrySpace" column="RETRY_SPACE" ></result>
             <result property="retryNum" column="RETRY_NUM" ></result>
-            <!--<result property="policyId" column="POLICY_ID" ></result>-->
         </collection>
         <collection property="ZAgentInfos" ofType="ZAgentInfo">
             <id property="id" column="ID"></id>
@@ -285,11 +283,10 @@
             <result property="keyWord" column="KEY_WORD" ></result>
             <result property="calculationFormula" column="CALCULATION_FORMULA" ></result>
             <result property="contentDescribe" column="CONTENT_DESCRIBE" ></result>
-
         </collection>
     </resultMap>
     <select id="getPolicyInfo" parameterType="ServerInfo" resultMap="policyMap">
-        SELECT T3.SERVER_IP, T4.*, t5.*
+        SELECT T3.SERVER_IP,T3.TIME_TACTICS,T4.*, t5.*
         FROM operation_policy_info t1
 	      INNER JOIN operation_policy_deployment t2 ON t1.ID = t2.POLICY_ID
 	      INNER JOIN system_server_info t3 ON t3.SERVER_ID = t2.SERVER_ID

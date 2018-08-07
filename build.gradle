@@ -16,7 +16,6 @@ buildscript {
 
 apply from: "dependency.gradle"
 apply plugin: "org.akhikhl.gretty"
-
 allprojects {
     version = APP_VERSION
 

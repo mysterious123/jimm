@@ -75,7 +75,6 @@
               <td>{{props.item.indexShorthand}}</td>
               <td>{{props.item.monitorAgent}}</td>
               <td>{{props.item.unit}}</td>
-
             </tr>
           </template>
         </v-data-table>

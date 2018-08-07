@@ -15,7 +15,7 @@ configurations {
 }
 
 dependencies {
-    //compile project(":webui")
+    compile project(":webui")
     compile project(":plugin")
     compile project(":util")
 

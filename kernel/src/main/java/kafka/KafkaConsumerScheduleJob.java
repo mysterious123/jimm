@@ -12,12 +12,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import service.deviceinfo.DeviceInfoService;
 import service.policymaintenance.PolicyMaintenanceService;
 import service.policyperiod.PolicyPeriodService;
 import service.repagentorgdetails.RepAgentOrgDetailsService;
 import service.serverinfo.ServerInfoService;
 import service.superseverity.SuperSeverityService;
+import service.zagentcolumninfo.ZAgentColumnInfoService;
 import service.zagentinfo.ZAgentInfoService;
 
 import java.util.Properties;
@@ -33,6 +33,8 @@ public class KafkaConsumerScheduleJob implements Job {
 
     static final int threadNums = 6;
 
+
+
     @Value("${kafka.bootstrap_servers_config}")
     String bootstrap_servers_config;
     @Value("${kafka.group_id_config}")
@@ -47,6 +49,9 @@ public class KafkaConsumerScheduleJob implements Job {
     String topicWindows;
     @Value("${kafka.topic.heartbeat}")
     String topicHeartBeat;
+    @Value("${kafka.topic.netdata}")
+    String  netdata;
+
 
     @Autowired
     ZAgentInfoService zAgentInfoService;
@@ -55,11 +60,11 @@ public class KafkaConsumerScheduleJob implements Job {
     @Autowired
     SuperSeverityService superSeverityService;
     @Autowired
-    PolicyMaintenanceService policyMaintenanceService;
-    @Autowired
     PolicyPeriodService policyPeriodService;
     @Autowired
-    DeviceInfoService deviceInfoService;
+    ZAgentColumnInfoService zAgentColumnInfoService;
+    @Autowired
+    PolicyMaintenanceService policyMaintenanceService;
     @Autowired
     RepAgentOrgDetailsService repAgentOrgDetailsService;
 
@@ -77,14 +82,14 @@ public class KafkaConsumerScheduleJob implements Job {
             ConsumerRecords<Long, String> consumerRecords;
             ExecutorService executor = Executors.newFixedThreadPool(threadNums);
             while (true) {
-            consumerRecords = consumer.poll(1000);
-            L.info("consumer接收record数：" + consumerRecords.count());
-            consumerRecords.forEach(record ->
-                    {
-                        executor.submit(new KafkaConsumerThread(record, zAgentInfoService, superSeverityService, policyPeriodService, policyMaintenanceService, serverInfoService, repAgentOrgDetailsService));
-                    }
-            );
-        }
+                consumerRecords = consumer.poll(2000);
+                L.info("consumer接收record数：" + consumerRecords.count());
+                consumerRecords.forEach(record ->
+                        executor.submit(new KafkaConsumerThread(record, serverInfoService, zAgentInfoService, superSeverityService,zAgentColumnInfoService,policyPeriodService,policyMaintenanceService,repAgentOrgDetailsService))
+
+                );
+
+            }
         }
     }
 }
